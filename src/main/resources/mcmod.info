@@ -1,0 +1,16 @@
+[
+{
+  "modid": "elemancy",
+  "name": "Elemancy",
+  "description": "Let's try to actually get this working now",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Nerosro"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
