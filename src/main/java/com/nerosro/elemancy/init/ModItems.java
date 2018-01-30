@@ -1,8 +1,10 @@
 package com.nerosro.elemancy.init;
 
+import com.nerosro.elemancy.blocks.BlockInfWool;
 import com.nerosro.elemancy.items.ItemInfIngot;
 import com.nerosro.elemancy.items.ItemInfMetal;
 import com.nerosro.elemancy.items.ItemWand;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;

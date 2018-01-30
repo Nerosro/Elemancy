@@ -13,7 +13,7 @@ public class Reference {
     public static final String CLIENT_PROXY_CLASS = "com.nerosro.elemancy.proxy.ClientProxy";
     public static final String SERVER_PROXY_CLASS = "com.nerosro.elemancy.proxy.ServerProxy";
 
-    public static enum ElemItems {
+    public enum ElemItems {
         //variable name(lower case language thing, class name)
         WAND("wand", "ItemWand"),
         INFINGOT("inf_ingot","ItemInfIngot"),
@@ -34,6 +34,27 @@ public class Reference {
         public String getUnlocName() {
             return unlocName;
         }
+    }
+
+    public enum ElemBlocks{
+        INFWOOL("inf_wool","BlockInfWool"),;
+
+        private String unlocName;
+        private String regName;
+
+        ElemBlocks(String unlocName, String regName){
+            this.unlocName = unlocName;
+            this.regName = regName;
+        }
+
+        public String getRegName() {
+            return regName;
+        }
+
+        public String getUnlocName() {
+            return unlocName;
+        }
+
     }
 
 

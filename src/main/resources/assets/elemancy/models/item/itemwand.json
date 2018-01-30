@@ -1,7 +1,7 @@
 {
   "parent": "item/handheld",
   "textures": {
-    "layer0": "elemancy:items/energizedwand"
+    "layer0": "elemancy:items/energized_wand"
   }
 }
 

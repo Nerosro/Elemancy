@@ -1,8 +1,10 @@
 package com.nerosro.elemancy.handlers;
 
+import com.nerosro.elemancy.init.ModBlocks;
 import com.nerosro.elemancy.init.ModItems;
 import com.nerosro.elemancy.items.ItemWand;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -39,14 +41,19 @@ public class EnergizeHandler {
                     e.getEntityLiving().replaceItemInInventory(99,new ItemStack(ModItems.wand));
                 }
             }
+
+            //TODO remove lower recipes, these are just for testing and debug code to rapidly convert back
             if(heldItem.isItemEqual(new ItemStack(ModItems.infMetal))){
                 e.getEntityLiving().replaceItemInInventory(99,new ItemStack(Items.IRON_INGOT,size));
+            }
+            if(heldItem.isItemEqual(new ItemStack(ModItems.infIngot))){
+                e.getEntityLiving().replaceItemInInventory(99,new ItemStack(Items.GOLD_INGOT,size));
             }
         }
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
-    public void Elementize(PlayerInteractEvent e){
+    public  void Infuse(PlayerInteractEvent e){
 
         EntityPlayer player= e.getEntityPlayer();
 
@@ -58,6 +65,9 @@ public class EnergizeHandler {
         if(hand != null){
 
             ItemWand.craft(player, hand, new ItemStack(Items.IRON_INGOT), new ItemStack(ModItems.infMetal));
+            ItemWand.craft(player, hand, new ItemStack(Items.GOLD_INGOT), new ItemStack(ModItems.infIngot));
+            ItemWand.craft(player, hand, new ItemStack(Blocks.WOOL), new ItemStack(ModBlocks.infWool));
+
         }
     }
 }

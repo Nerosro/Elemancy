@@ -1,5 +1,6 @@
 package com.nerosro.elemancy;
 
+import com.nerosro.elemancy.init.ModBlocks;
 import com.nerosro.elemancy.init.ModItems;
 import com.nerosro.elemancy.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
@@ -8,8 +9,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import org.apache.logging.log4j.Logger;
-import org.lwjgl.Sys;
 
 /**
  * Created by Nerosro on 23/01/2018.
@@ -22,14 +21,14 @@ public class Elemancy {
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
     public static CommonProxy proxy;
     public static final CreativeTabs CREATIVE_TAB = new ElemancyTab();
-    private static Logger log;
 
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e){
-        //log.info(e.getModLog());
         ModItems.init();
         ModItems.register();
+        ModBlocks.init();
+        ModBlocks.register();
     }
 
     @Mod.EventHandler
