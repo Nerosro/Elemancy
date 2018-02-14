@@ -2,7 +2,6 @@ package com.nerosro.elemancy.items;
 
 import com.nerosro.elemancy.Elemancy;
 import com.nerosro.elemancy.Reference;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -15,7 +14,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 
-import java.awt.*;
 import java.util.List;
 
 /**
@@ -65,8 +63,7 @@ public class ItemWand extends Item {
             }
         }
         else{
-            TextComponentString text = new TextComponentString(TextFormatting.DARK_BLUE + "You doubt your wand holds enough energy to convert this many stacks at once");
-            //TODO MAKE MESSAGE SEND ONCE!
+            TextComponentString text = new TextComponentString(TextFormatting.DARK_BLUE + Reference.WAND_EMPTY);
             player.sendStatusMessage(text,true);
         }
 

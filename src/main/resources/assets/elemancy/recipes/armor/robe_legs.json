@@ -1,0 +1,16 @@
+{
+  "type": "forge:ore_shaped",
+  "result": {
+    "item": "elemancy:robe_legs"
+  },
+  "pattern": [
+    "AAA",
+    "A A",
+    "A A"
+  ],
+  "key": {
+    "A": {
+      "item": "elemancy:blockinfwool"
+    }
+  }
+}

@@ -1,7 +1,15 @@
 item.inf_ingot.name=Infused Ingot
 item.inf_metal.name=Infused Metal
-item.itemwand.name=Energized Stick
+item.wand.name=Energized Stick
+
+item.robe_hood.name=Infused Hood
+item.robe_chest.name=Infused Robe
+item.robe_legs.name=Infused Leggings
+item.robe_shoes.name=Infused Shoes
+
 
 tile.inf_wool.name=Infused wool
+
+
 
 itemGroup.tabElemancy=Elemancy

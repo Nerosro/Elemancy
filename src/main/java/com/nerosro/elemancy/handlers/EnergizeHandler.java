@@ -53,15 +53,15 @@ public class EnergizeHandler {
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
-    public  void Infuse(PlayerInteractEvent e){
+    public void Infuse(PlayerInteractEvent e){
 
         EntityPlayer player= e.getEntityPlayer();
 
         EnumHand hand = null;
         if(player.getHeldItemOffhand().getItem().equals(ModItems.wand)){hand=OFF_HAND;}
         if(player.getHeldItemMainhand().getItem().equals(ModItems.wand)){hand=MAIN_HAND;}
-
         //Basically, somewhat less dirty way to check if you have ModItems.wand in either your offhand or main hand
+
         if(hand != null){
 
             ItemWand.craft(player, hand, new ItemStack(Items.IRON_INGOT), new ItemStack(ModItems.infMetal));

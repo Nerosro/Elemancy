@@ -14,5 +14,4 @@ public class ItemInfMetal extends Item {
         setRegistryName(Reference.ElemItems.INFMETAL.getRegName());
         setCreativeTab(Elemancy.CREATIVE_TAB);
     }
-
 }

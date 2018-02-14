@@ -1,6 +1,7 @@
 package com.nerosro.elemancy.proxy;
 
 import com.nerosro.elemancy.handlers.EnergizeHandler;
+import com.nerosro.elemancy.init.ModArmour;
 import com.nerosro.elemancy.init.ModBlocks;
 import com.nerosro.elemancy.init.ModItems;
 import net.minecraftforge.common.MinecraftForge;
@@ -14,6 +15,7 @@ public class ClientProxy implements CommonProxy{
     public void init() {
         ModItems.registerRenders();
         ModBlocks.registerRenders();
+        ModArmour.registerRenders();
 
         EnergizeHandler handler=new EnergizeHandler();
         MinecraftForge.EVENT_BUS.register(handler);

@@ -1,5 +1,6 @@
 package com.nerosro.elemancy;
 
+import com.nerosro.elemancy.init.ModArmour;
 import com.nerosro.elemancy.init.ModBlocks;
 import com.nerosro.elemancy.init.ModItems;
 import com.nerosro.elemancy.proxy.CommonProxy;
@@ -29,11 +30,13 @@ public class Elemancy {
         ModItems.register();
         ModBlocks.init();
         ModBlocks.register();
+        ModArmour.init();
+        ModArmour.register();
     }
 
     @Mod.EventHandler
     public void init (FMLInitializationEvent e){
-        System.out.println("I blame Mow for this!");
+        System.out.println("I still blame Mow for this!");
         proxy.init();
     }
 
