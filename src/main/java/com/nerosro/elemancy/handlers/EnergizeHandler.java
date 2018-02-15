@@ -9,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -28,16 +29,17 @@ public class EnergizeHandler {
      */
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
-    public void EnergizeWand(PlayerInteractEvent e)
+    public void energizeWand(PlayerInteractEvent.RightClickItem e)
     {
+        System.out.println(e.getWorld());
         if(e.getHand()==OFF_HAND) {
-
             ItemStack heldItem=e.getEntityPlayer().getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
             Integer size = heldItem.getCount();
             //System.out.println(heldItem);
 
             if(heldItem.isItemEqual(new ItemStack(Items.STICK))){
                 if(size==1){
+                    e.getEntityPlayer().setHeldItem(OFF_HAND, new ItemStack(ModItems.wand));
                     e.getEntityLiving().replaceItemInInventory(99,new ItemStack(ModItems.wand));
                 }
             }
@@ -53,16 +55,19 @@ public class EnergizeHandler {
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
-    public void Infuse(PlayerInteractEvent e){
-
-        EntityPlayer player= e.getEntityPlayer();
+    public void infuse(PlayerInteractEvent e){
+        EntityPlayer player = e.getEntityPlayer();
 
         EnumHand hand = null;
-        if(player.getHeldItemOffhand().getItem().equals(ModItems.wand)){hand=OFF_HAND;}
-        if(player.getHeldItemMainhand().getItem().equals(ModItems.wand)){hand=MAIN_HAND;}
+        if (player.getHeldItemOffhand().getItem().equals(ModItems.wand)) {
+            hand = OFF_HAND;
+        }
+        if (player.getHeldItemMainhand().getItem().equals(ModItems.wand)) {
+            hand = MAIN_HAND;
+        }
         //Basically, somewhat less dirty way to check if you have ModItems.wand in either your offhand or main hand
 
-        if(hand != null){
+        if (hand != null) {
 
             ItemWand.craft(player, hand, new ItemStack(Items.IRON_INGOT), new ItemStack(ModItems.infMetal));
             ItemWand.craft(player, hand, new ItemStack(Items.GOLD_INGOT), new ItemStack(ModItems.infIngot));

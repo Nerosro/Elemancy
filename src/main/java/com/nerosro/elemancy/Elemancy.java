@@ -3,6 +3,7 @@ package com.nerosro.elemancy;
 import com.nerosro.elemancy.init.ModArmour;
 import com.nerosro.elemancy.init.ModBlocks;
 import com.nerosro.elemancy.init.ModItems;
+import com.nerosro.elemancy.proxy.ClientProxy;
 import com.nerosro.elemancy.proxy.CommonProxy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
@@ -19,7 +20,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class Elemancy {
     public static Elemancy instance;
 
-    @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
+    @SidedProxy(clientSide = Reference.CLIENT_PROXY, serverSide = Reference.SERVER_PROXY)
     public static CommonProxy proxy;
     public static final CreativeTabs CREATIVE_TAB = new ElemancyTab();
 
@@ -32,6 +33,9 @@ public class Elemancy {
         ModBlocks.register();
         ModArmour.init();
         ModArmour.register();
+
+        
+        proxy.preInit();
     }
 
     @Mod.EventHandler

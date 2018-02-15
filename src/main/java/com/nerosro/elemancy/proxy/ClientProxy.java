@@ -1,23 +1,21 @@
 package com.nerosro.elemancy.proxy;
 
-import com.nerosro.elemancy.handlers.EnergizeHandler;
 import com.nerosro.elemancy.init.ModArmour;
 import com.nerosro.elemancy.init.ModBlocks;
 import com.nerosro.elemancy.init.ModItems;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Created by Nerosro on 23/01/2018.
  */
-public class ClientProxy implements CommonProxy{
+public class ClientProxy extends CommonProxy{
 
     @Override
-    public void init() {
+    @SideOnly(Side.CLIENT)
+    public void preInit(){
         ModItems.registerRenders();
         ModBlocks.registerRenders();
         ModArmour.registerRenders();
-
-        EnergizeHandler handler=new EnergizeHandler();
-        MinecraftForge.EVENT_BUS.register(handler);
     }
 }
