@@ -1,5 +1,6 @@
 package com.nerosro.elemancy.init;
 
+import com.nerosro.elemancy.Reference;
 import com.nerosro.elemancy.blocks.BlockInfWool;
 import com.nerosro.elemancy.items.ItemInfIngot;
 import com.nerosro.elemancy.items.ItemInfMetal;
@@ -8,6 +9,8 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 /**
@@ -36,6 +39,6 @@ public class ModItems {
         registerRender(infMetal);
     }
     public static void registerRender(Item item){
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item,0,new ModelResourceLocation(item.getRegistryName(), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
     }
 }

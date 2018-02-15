@@ -34,7 +34,6 @@ public class Elemancy {
         ModArmour.init();
         ModArmour.register();
 
-        
         proxy.preInit();
     }
 
