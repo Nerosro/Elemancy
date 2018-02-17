@@ -14,10 +14,12 @@ public class Reference {
     public static final String SERVER_PROXY = "com.nerosro.elemancy.proxy.CommonProxy";
 
     public static final String WAND_EMPTY ="You doubt your wand holds enough energy to convert this many stacks at once";
+    public static final String LEFTOVER_STACK ="The unleashed magic eats away at the leftover items and destroys them";
 
     public enum ElemItems {
         //variable name(lower case language thing, class name)
         WAND("wand", "ItemWand"),
+        TOME("tome", "ItemTome"),
         INFINGOT("inf_ingot","ItemInfIngot"),
         INFMETAL("inf_metal","ItemInfMetal"),;
 

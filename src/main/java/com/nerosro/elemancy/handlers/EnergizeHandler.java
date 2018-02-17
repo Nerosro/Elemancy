@@ -1,8 +1,11 @@
 package com.nerosro.elemancy.handlers;
 
+import com.google.common.collect.Lists;
 import com.nerosro.elemancy.init.ModBlocks;
 import com.nerosro.elemancy.init.ModItems;
 import com.nerosro.elemancy.items.ItemWand;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -11,8 +14,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.*;
 
 import static net.minecraft.util.EnumHand.MAIN_HAND;
 import static net.minecraft.util.EnumHand.OFF_HAND;
@@ -69,9 +75,13 @@ public class EnergizeHandler {
 
         if (hand != null) {
 
-            ItemWand.craft(player, hand, new ItemStack(Items.IRON_INGOT), new ItemStack(ModItems.infMetal));
-            ItemWand.craft(player, hand, new ItemStack(Items.GOLD_INGOT), new ItemStack(ModItems.infIngot));
-            ItemWand.craft(player, hand, new ItemStack(Blocks.WOOL), new ItemStack(ModBlocks.infWool));
+            //Items
+            ItemWand.craftOld(player, hand, new ItemStack(Items.IRON_INGOT), new ItemStack(ModItems.infMetal));
+            ItemWand.craftOld(player, hand, new ItemStack(Items.GOLD_INGOT), new ItemStack(ModItems.infIngot));
+            ItemWand.craftOld(player, hand, new ItemStack(Items.BOOK), new ItemStack(ModItems.tome));
+
+            //Blocks
+            ItemWand.craftOld(player, hand, new ItemStack(Blocks.WOOL), new ItemStack(ModBlocks.infWool));
 
         }
     }

@@ -4,6 +4,7 @@ import com.nerosro.elemancy.Reference;
 import com.nerosro.elemancy.blocks.BlockInfWool;
 import com.nerosro.elemancy.items.ItemInfIngot;
 import com.nerosro.elemancy.items.ItemInfMetal;
+import com.nerosro.elemancy.items.ItemTome;
 import com.nerosro.elemancy.items.ItemWand;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -20,21 +21,25 @@ public class ModItems {
     //Initialiting items, registering them with Forge, registering the render for inventory
 
     public static Item wand;
+    public static Item tome;
     public static Item infIngot;
     public static Item infMetal;
 
     public static void init(){
         wand=new ItemWand();
+        tome=new ItemTome();
         infIngot =new ItemInfIngot();
         infMetal=new ItemInfMetal();
     }
     public static void register(){
         ForgeRegistries.ITEMS.register(wand);
+        ForgeRegistries.ITEMS.register(tome);
         ForgeRegistries.ITEMS.register(infIngot);
         ForgeRegistries.ITEMS.register(infMetal);
     }
     public static void registerRenders(){
         registerRender(wand);
+        registerRender(tome);
         registerRender(infIngot);
         registerRender(infMetal);
     }
