@@ -2,7 +2,6 @@ package com.nerosro.elemancy.init;
 
 import com.nerosro.elemancy.Reference;
 import com.nerosro.elemancy.items.ItemRobes;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;

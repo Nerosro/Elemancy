@@ -4,10 +4,8 @@ import com.nerosro.elemancy.Elemancy;
 import com.nerosro.elemancy.Reference;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
@@ -16,7 +14,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,7 +71,7 @@ public class ItemWand extends Item {
             player.sendStatusMessage(text,true);
         }
 
-        if(did>0)
+        if((did>0)&&(!player.isCreative())) //No damage in creative
         {
             heldItem.setItemDamage(heldItem.getItemDamage() + did);
             if (heldItem.getItemDamage() >= heldItem.getMaxDamage()) {

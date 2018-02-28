@@ -1,16 +1,8 @@
 package com.nerosro.elemancy.init;
 
-import com.nerosro.elemancy.Reference;
-import com.nerosro.elemancy.blocks.BlockInfWool;
-import com.nerosro.elemancy.items.ItemInfIngot;
-import com.nerosro.elemancy.items.ItemInfMetal;
-import com.nerosro.elemancy.items.ItemTome;
-import com.nerosro.elemancy.items.ItemWand;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
+import com.nerosro.elemancy.items.*;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
@@ -24,24 +16,28 @@ public class ModItems {
     public static Item tome;
     public static Item infIngot;
     public static Item infMetal;
+    public static Item icecream;
 
     public static void init(){
         wand=new ItemWand();
         tome=new ItemTome();
         infIngot =new ItemInfIngot();
         infMetal=new ItemInfMetal();
+        icecream = new ItemIceCream(3, false).setAlwaysEdible();
     }
     public static void register(){
         ForgeRegistries.ITEMS.register(wand);
         ForgeRegistries.ITEMS.register(tome);
         ForgeRegistries.ITEMS.register(infIngot);
         ForgeRegistries.ITEMS.register(infMetal);
+        ForgeRegistries.ITEMS.register(icecream);
     }
     public static void registerRenders(){
         registerRender(wand);
         registerRender(tome);
         registerRender(infIngot);
         registerRender(infMetal);
+        registerRender(icecream);
     }
     public static void registerRender(Item item){
         ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));

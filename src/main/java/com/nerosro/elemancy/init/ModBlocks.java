@@ -1,13 +1,10 @@
 package com.nerosro.elemancy.init;
 
-import com.nerosro.elemancy.Reference;
 import com.nerosro.elemancy.blocks.BlockInfWool;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 

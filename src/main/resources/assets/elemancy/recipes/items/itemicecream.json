@@ -1,0 +1,23 @@
+{
+  "type": "forge:ore_shaped",
+  "result": {
+    "item": "elemancy:itemicecream"
+  },
+  "pattern": [
+    " A ",
+    "BBB",
+    " C "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:dye",
+      "data": 3
+    },
+    "B":{
+      "item": "minecraft:snowball"
+    },
+    "C":{
+      "item": "minecraft:bowl"
+    }
+  }
+}

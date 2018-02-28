@@ -1,24 +1,17 @@
 package com.nerosro.elemancy.handlers;
 
-import com.google.common.collect.Lists;
 import com.nerosro.elemancy.init.ModBlocks;
 import com.nerosro.elemancy.init.ModItems;
 import com.nerosro.elemancy.items.ItemWand;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
-import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.*;
 
 import static net.minecraft.util.EnumHand.MAIN_HAND;
 import static net.minecraft.util.EnumHand.OFF_HAND;
@@ -37,7 +30,6 @@ public class EnergizeHandler {
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void energizeWand(PlayerInteractEvent.RightClickItem e)
     {
-        System.out.println(e.getWorld());
         if(e.getHand()==OFF_HAND) {
             ItemStack heldItem=e.getEntityPlayer().getItemStackFromSlot(EntityEquipmentSlot.OFFHAND);
             Integer size = heldItem.getCount();
@@ -81,7 +73,9 @@ public class EnergizeHandler {
             ItemWand.craftOld(player, hand, new ItemStack(Items.BOOK), new ItemStack(ModItems.tome));
 
             //Blocks
-            ItemWand.craftOld(player, hand, new ItemStack(Blocks.WOOL), new ItemStack(ModBlocks.infWool));
+            for(int i=0; i<16;i++) { //Loop through all wool types
+                ItemWand.craftOld(player, hand, new ItemStack(Blocks.WOOL, 1, i), new ItemStack(ModBlocks.infWool));
+            }
 
         }
     }
