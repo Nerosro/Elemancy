@@ -1,0 +1,41 @@
+{
+  "creativetab.elemancy_tab": "Elemancy",
+
+  "curios.identifier.amulet": "Amulet",
+
+  "item.elemancy.robe_helmet": "Infused Hood",
+  "item.elemancy.robe_chestplate": "Infused Robe",
+  "item.elemancy.robe_leggings": "Infused Leggings",
+  "item.elemancy.robe_boots": "Infused Shoes",
+
+  "item.elemancy.infused_ingot": "Infused Ingot",
+  "item.elemancy.infused_metal": "Infused Metal",
+  "item.elemancy.energized_stick": "Energized Stick",
+  "item.elemancy.pine_cone": "Pine Cone",
+
+  "item.elemancy.icecream_cocoa": "Icecream",
+  "item.elemancy.strawberry": "Strawberry",
+  "item.elemancy.strawberry_seeds": "Strawberry Seeds",
+
+
+  "tooltip.elemancy.energized_stick_tooltip": "Elemancer's first tool, don't get too attached",
+  "tooltip.elemancy.icecream_tooltip": "Restores 30 mana",
+  "tooltip.elemancy.strawberry_tooltip": "Restores 5 mana",
+
+
+  "block.elemancy.infused_wool": "Infused Wool",
+  "block.elemancy.mana_flower":"Mana Flower",
+  "block.elemancy.ashen_log": "Ashen Log",
+  "block.elemancy.ashen_planks": "Ashen Planks",
+  "block.elemancy.ashen_stairs": "Ashen Stairs",
+  "block.elemancy.ashen_slab": "Ashen Slab",
+  "block.elemancy.ashen_button": "Ashen Button",
+  "block.elemancy.ashen_pressure_plate": "Ashen Pressure Plate",
+  "block.elemancy.ashen_fence": "Ashen Fence",
+  "block.elemancy.ashen_fence_gate": "Ashen Fence Gate",
+  "block.elemancy.ashen_door": "Ashen Door",
+  "block.elemancy.ashen_trapdoor": "Ashen Trapdoor",
+
+
+  "effect.elemancy.mana_regen": "Mana Regen"
+}
