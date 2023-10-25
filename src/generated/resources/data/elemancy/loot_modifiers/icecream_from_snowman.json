@@ -1,0 +1,10 @@
+{
+  "type": "elemancy:add_item",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:entities/snow_golem"
+    }
+  ],
+  "item": "elemancy:icecream_cocoa"
+}

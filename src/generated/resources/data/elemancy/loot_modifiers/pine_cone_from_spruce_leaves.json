@@ -1,0 +1,14 @@
+{
+  "type": "elemancy:add_item",
+  "conditions": [
+    {
+      "block": "minecraft:spruce_leaves",
+      "condition": "minecraft:block_state_property"
+    },
+    {
+      "chance": 0.35,
+      "condition": "minecraft:random_chance"
+    }
+  ],
+  "item": "elemancy:pine_cone"
+}
