@@ -1,0 +1,12 @@
+{
+  "type": "elemancy:infusion_crafting",
+  "ingredients":[
+    {
+      "item": "minecraft:copper_ingot"
+    }
+  ],
+  "mana":20,
+  "output":{
+    "item": "elemancy:infused_metal"
+  }
+}

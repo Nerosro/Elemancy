@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:cocoa_beans"
+    },
+    "B": {
+      "item": "minecraft:snowball"
+    },
+    "C": {
+      "item": "minecraft:bowl"
+    }
+  },
+  "pattern": [
+    " A ",
+    "BBB",
+    " C "
+  ],
+  "result": {
+    "item": "elemancy:icecream_cocoa"
+  },
+  "show_notification": true
+}

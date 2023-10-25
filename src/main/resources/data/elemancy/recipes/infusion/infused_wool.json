@@ -1,0 +1,12 @@
+{
+  "type": "elemancy:infusion_crafting",
+  "ingredients":[
+    {
+      "tag": "minecraft:wool"
+    }
+  ],
+  "mana":5,
+  "output":{
+    "item": "elemancy:infused_wool"
+  }
+}

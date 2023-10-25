@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_icecream_cocoa": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "elemancy:icecream_cocoa"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "elemancy:icecream_cocoa"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_icecream_cocoa",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "elemancy:icecream_cocoa"
+    ]
+  },
+  "sends_telemetry_event": false
+}
