@@ -1,24 +1,40 @@
 package io.github.nerosro.elemancy.event;
 
 import io.github.nerosro.elemancy.Elemancy;
-import io.github.nerosro.elemancy.client.ClientManaData;
+import io.github.nerosro.elemancy.block.ModBlocks;
+import io.github.nerosro.elemancy.item.ModItems;
 import io.github.nerosro.elemancy.mana.PlayerMana;
 import io.github.nerosro.elemancy.mana.PlayerManaProvider;
 import io.github.nerosro.elemancy.networking.ModMessages;
 import io.github.nerosro.elemancy.networking.packet.ManaDataSyncS2CPacket;
+import io.github.nerosro.elemancy.villager.ModVillagers;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.EnchantedBookItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.trading.MerchantOffer;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.List;
 
 /**
  * Created by Nerosro on 18/07/2023.
@@ -103,3 +119,20 @@ public class ModEvents {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

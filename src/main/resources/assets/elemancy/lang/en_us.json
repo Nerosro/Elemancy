@@ -37,5 +37,11 @@
   "block.elemancy.ashen_trapdoor": "Ashen Trapdoor",
 
 
+  "entity.minecraft.villager.elemancy.elemancer" : "Elemancer",
+
+
+  "sounds.elemancy.infused_wand_craft_success": "Elemancy crafting",
+
+
   "effect.elemancy.mana_regen": "Mana Regen"
 }
