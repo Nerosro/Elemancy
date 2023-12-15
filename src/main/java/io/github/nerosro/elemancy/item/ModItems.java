@@ -3,6 +3,7 @@ package io.github.nerosro.elemancy.item;
 
 import io.github.nerosro.elemancy.Elemancy;
 import io.github.nerosro.elemancy.block.ModBlocks;
+import io.github.nerosro.elemancy.entity.ModEntities;
 import io.github.nerosro.elemancy.item.custom.FuelItem;
 import io.github.nerosro.elemancy.item.custom.IceCreamItem;
 import io.github.nerosro.elemancy.item.custom.ModArmorItem;
@@ -10,6 +11,7 @@ import io.github.nerosro.elemancy.item.custom.WandItem;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemNameBlockItem;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -64,6 +66,11 @@ public class ModItems {
     public static final RegistryObject<Item> PINE_CONE =addToTab(
             ITEMS.register("pine_cone",
                     () -> new FuelItem(new Item.Properties(),400))
+    );
+
+    public static final RegistryObject<Item> ELEMENTAL_SHAPE_SPANW_EGG = addToTab(
+            ITEMS.register("elemental_shape_spawn_egg",
+                    () -> new ForgeSpawnEggItem(ModEntities.ELEMENTAL_SHAPE, 0x7e9680, 0xc5d1c5, new Item.Properties()))
     );
 
     public static final RegistryObject<ArmorItem> ROBE_HELMET = addToTab(

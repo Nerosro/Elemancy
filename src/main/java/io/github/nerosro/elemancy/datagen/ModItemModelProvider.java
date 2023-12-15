@@ -47,6 +47,8 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleArmorItem(ModItems.ROBE_CHESTPLATE);
         simpleArmorItem(ModItems.ROBE_LEGGINGS);
         simpleArmorItem(ModItems.ROBE_BOOTS);
+
+        withExistingParent(ModItems.ELEMENTAL_SHAPE_SPANW_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
     }
 
     private ItemModelBuilder simpleItem(RegistryObject<Item> item){
