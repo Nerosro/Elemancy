@@ -1,0 +1,8 @@
+{
+  "infused_wand_craft_success": {
+    "subtitles": "sounds.elemancy.infused_wand_craft_success",
+    "sounds": [
+      "elemancy:infused_wand_craft_success"
+    ]
+  }
+}

@@ -6,8 +6,10 @@ import io.github.nerosro.elemancy.mana.PlayerManaProvider;
 import io.github.nerosro.elemancy.networking.ModMessages;
 import io.github.nerosro.elemancy.networking.packet.ManaDataSyncS2CPacket;
 import io.github.nerosro.elemancy.recipe.ElemancyInfusingRecipe;
+import io.github.nerosro.elemancy.sound.ModSounds;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -130,6 +132,8 @@ public class WandItem extends Item { //TODO make abstract/interface for differen
                                         ), (ServerPlayer) player);
                                 return playerMana.useMana(manaUsage);
                             });
+                    level.playSeededSound(null, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ(),
+                            ModSounds.INFUSED_WAND_CRAFT_SUCCESS.get(), SoundSource.BLOCKS,1f,1f,0);
                 }
             }
             /* console logging
