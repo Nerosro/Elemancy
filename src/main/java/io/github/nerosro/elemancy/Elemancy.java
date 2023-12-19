@@ -7,7 +7,7 @@ import io.github.nerosro.elemancy.item.ModItems;
 import io.github.nerosro.elemancy.loot.MobLootModifiers;
 import io.github.nerosro.elemancy.networking.ModMessages;
 import io.github.nerosro.elemancy.recipe.ModRecipes;
-import io.github.nerosro.elemancy.sound.ModSounds;
+//import io.github.nerosro.elemancy.sound.ModSounds;
 import io.github.nerosro.elemancy.villager.ModVillagers;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
@@ -33,7 +33,7 @@ public class Elemancy {
         MobLootModifiers.register(modEventBus);
         ModEffects.register(modEventBus);
         ModVillagers.register(modEventBus);
-        ModSounds.register(modEventBus);
+        //ModSounds.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
     }

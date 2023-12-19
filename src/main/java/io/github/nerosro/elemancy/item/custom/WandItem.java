@@ -126,6 +126,7 @@ public class WandItem extends Item { //TODO make abstract/interface for differen
                                         new ManaDataSyncS2CPacket(
                                                 playerMana.getMaxMana(),
                                                 playerMana.getRegenAmount(),
+                                                playerMana.getElement(),
                                                 playerMana.getCurrentMana()
                                         ), (ServerPlayer) player);
                                 return playerMana.useMana(manaUsage);
