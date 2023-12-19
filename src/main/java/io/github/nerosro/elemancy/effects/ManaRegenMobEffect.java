@@ -27,6 +27,7 @@ public class ManaRegenMobEffect extends MobEffect {
                                     new ManaDataSyncS2CPacket(
                                             playerMana.getMaxMana(),
                                             playerMana.getRegenAmount(),
+                                            playerMana.getElement(),
                                             playerMana.getCurrentMana()
                                     ), (ServerPlayer) livingEntity);
                             //return playerMana.regenMana(2);

@@ -42,7 +42,6 @@ public class Elemancy {
         ModSounds.register(modEventBus);
         ModEntities.register(modEventBus);
 
-
         modEventBus.addListener(this::commonSetup);
     }
 

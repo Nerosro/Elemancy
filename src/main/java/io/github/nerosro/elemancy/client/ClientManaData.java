@@ -6,11 +6,13 @@ package io.github.nerosro.elemancy.client;
 public class ClientManaData {
     private static int playerMana;
     private static double playerRegen;
+    private static String playerElement;
     private static int currentMana;
 
-    public static void set(int mana, double regen){
+    public static void set(int mana, double regen, String element){
         playerMana = mana;
         playerRegen = regen;
+        playerElement = element;
     }
     public static void setCurrentMana(int mana){
         currentMana = mana;
@@ -25,5 +27,9 @@ public class ClientManaData {
     }
     public static int getCurrentMana(){
         return currentMana;
+    }
+
+    public static String getPlayerElement() {
+        return playerElement;
     }
 }

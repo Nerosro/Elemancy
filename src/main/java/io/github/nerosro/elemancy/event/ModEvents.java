@@ -93,6 +93,7 @@ public class ModEvents {
                             new ManaDataSyncS2CPacket(
                                     mana.getMaxMana(),
                                     mana.getRegenAmount(),
+                                    mana.getElement(),
                                     mana.getCurrentMana()
                             ), player);
                 });
@@ -112,6 +113,7 @@ public class ModEvents {
                             new ManaDataSyncS2CPacket(
                                     mana.getMaxMana(),
                                     mana.getRegenAmount(),
+                                    mana.getElement(),
                                     mana.getCurrentMana()
                             ), player);
                 });
