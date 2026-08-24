@@ -1,0 +1,47 @@
+{
+  "id": "arcane_vessel",
+  "title": "Arcane Vessel",
+  "requirements": {
+    "node": "elemancy:attunement_ritual"
+  },
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "After seeing the magical conductivity of amethyst on your Ashen wand, you tinkered around more with them.",
+            "You managed to make a container that could hold magical energy when channeled through the amethyst."
+          ]
+        },
+        {
+          "content": [
+            "Recipe:"
+          ],
+          "recipe": {
+            "type": "shaped_3x3",
+            "grid": [
+              "", "minecraft:amethyst_shard", "",
+              "minecraft:glass", "elemancy:propolis", "minecraft:glass",
+              "", "minecraft:glass", ""
+            ],
+            "result": "elemancy:arcane_vessel"
+          }
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "Since the Arcane Vessel reacts to magical energy, it should be able to turn into the perfect catalyst for the Attunement Ritual you've been working on."
+          ]
+        },
+        {
+          "content": [
+            "You're certain that you'll find more uses for this container."
+          ]
+        }
+      ]
+    }
+  ]
+}

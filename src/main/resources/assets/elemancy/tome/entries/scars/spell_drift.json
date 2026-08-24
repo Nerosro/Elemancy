@@ -1,0 +1,18 @@
+{
+  "id": "spell_drift",
+  "title": "Spell Drift",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "- Category: Physiological",
+            "- Stacks: no",
+            "- Persists: no",
+            "Your mana channels struggle to maintain spell integrity. All spells cast are weakened until your channels recover."
+          ]
+        }
+      ]
+    }
+  ]
+}

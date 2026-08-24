@@ -1,0 +1,18 @@
+{
+  "id": "mana_collapse",
+  "title": "Mana Collapse",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "- Category: Catastrophic",
+            "- Stacks: no",
+            "- Persists: yes",
+            "Total burnout of your mana channels. You cannot regenerate mana while collapsed, and any spell cast will immediately push you into overcasting."
+          ]
+        }
+      ]
+    }
+  ]
+}

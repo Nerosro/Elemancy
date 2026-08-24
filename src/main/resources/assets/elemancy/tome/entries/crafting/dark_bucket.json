@@ -1,0 +1,47 @@
+{
+  "id": "dark_bucket",
+  "title": "Dark Elemetal Bucket",
+  "requirements": {
+    "node": "elemancy:conversion_ritual"
+  },
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "While tinkering with the new dark elemetal ingots, you noticed the material warps space around it.",
+            "You quickly realized that making weapons or equipment out of this material won't bring out the full potential of this material.",
+            "Instead, tools that deal with storage seems to be a better fit for this material.",
+            "A simple bucket made out of Dark Elemetal turned out to be a significant improvement.",
+            "The space warping attributes of this metal allows the bucket to hold more than it should be able to."
+          ]
+        }
+      ]
+    },
+    {
+        "sections": [
+        {
+          "content": [
+            "The Dark Elemetal Bucket is able to store up to 4 of any liquid at once.",
+            "While holding the bucket in your main hand, using 'Sneak + Scroll', you can swap between the available slots.",
+            "Because the insides of the bucket are connected to a different space, you cannot use this bucket to relocate living creatures."
+          ]
+        },
+        {
+          "content": [
+            "Recipe:"
+          ],
+          "recipe": {
+            "type": "shaped_3x3",
+            "grid": [
+              "", "", "",
+              "elemancy:elemetal_ingot_dark", "", "elemancy:elemetal_ingot_dark",
+              "", "elemancy:elemetal_ingot_dark", ""
+            ],
+            "result": "elemancy:dark_bucket"
+          }
+        }
+      ]
+    }
+  ]
+}

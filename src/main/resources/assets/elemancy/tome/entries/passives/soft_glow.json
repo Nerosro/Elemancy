@@ -1,0 +1,16 @@
+{
+  "id": "soft_glow",
+  "title": "Soft Glow",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "A gentle radiance follows you, pushing back the darkness.",
+            "In near-total darkness (light level 4 or below), a soft light blooms beneath your feet, held there by instinct rather than will. It fades on its own when you move on — a fleeting warmth, not a torch."
+          ]
+        }
+      ]
+    }
+  ]
+}

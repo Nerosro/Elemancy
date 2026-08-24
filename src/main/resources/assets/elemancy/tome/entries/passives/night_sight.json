@@ -1,0 +1,16 @@
+{
+  "id": "night_sight",
+  "title": "Night Sight",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "Your eyes adapt to shadow, seeing clearly where others falter.",
+            "In near-darkness (light level 7 or below), your vision sharpens without warning — as though your eyes have always known this. Step into the light and it vanishes, sometimes with a flicker at the boundary where neither dark nor bright fully claims you."
+          ]
+        }
+      ]
+    }
+  ]
+}

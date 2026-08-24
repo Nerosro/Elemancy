@@ -1,0 +1,18 @@
+{
+  "id": "arcane_tremor",
+  "title": "Arcane Tremor",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "- Category: Physiological",
+            "- Stacks: no",
+            "- Persists: no",
+            "Your control over mana wavers. Spells become unpredictable, increasing the chance of misfires while overcasting."
+          ]
+        }
+      ]
+    }
+  ]
+}

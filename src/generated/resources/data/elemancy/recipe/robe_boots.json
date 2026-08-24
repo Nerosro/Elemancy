@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "W": "elemancy:infused_wool"
+  },
+  "pattern": [
+    "W W",
+    "W W"
+  ],
+  "result": {
+    "id": "elemancy:robe_boots"
+  }
+}

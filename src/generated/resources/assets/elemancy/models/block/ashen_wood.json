@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "elemancy:block/ashen_log",
+    "side": "elemancy:block/ashen_log"
+  }
+}

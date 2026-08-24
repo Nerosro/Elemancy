@@ -1,0 +1,11 @@
+{
+  "type": "elemancy:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/stronghold_corridor"
+    }
+  ],
+  "item": "elemancy:amulet_of_deep_focus",
+  "chance": 0.15
+}

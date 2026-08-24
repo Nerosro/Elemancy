@@ -1,0 +1,11 @@
+{
+  "type": "elemancy:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/jungle_temple"
+    }
+  ],
+  "item": "elemancy:charm_of_steady_flow",
+  "chance": 0.2
+}

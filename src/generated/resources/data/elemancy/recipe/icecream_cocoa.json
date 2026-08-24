@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:bowl",
+    "C": "minecraft:cocoa_beans",
+    "S": "minecraft:snowball"
+  },
+  "pattern": [
+    " C ",
+    " S ",
+    " B "
+  ],
+  "result": {
+    "id": "elemancy:icecream_cocoa"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "id": "mana_burn",
+  "title": "Mana Burn",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "- Category: Energetic",
+            "- Stacks: yes",
+            "- Persists: yes",
+            "Your mana vessels are severely injured, reducing your total mana capacity by 10% per burn scar."
+          ]
+        }
+      ]
+    }
+  ]
+}

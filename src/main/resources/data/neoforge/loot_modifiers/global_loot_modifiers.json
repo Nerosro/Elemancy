@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "entries": [
+    "elemancy:affinity_paper_mineshaft",
+    "elemancy:affinity_paper_shipwreck",
+    "elemancy:affinity_paper_igloo",
+    "elemancy:affinity_paper_village_temple",
+    "elemancy:affinity_paper_village_cartographer",
+    "elemancy:ashen_wand_pillager_outpost",
+    "elemancy:copper_fortune_copper_ore",
+    "elemancy:trinket_amulet_stronghold",
+    "elemancy:trinket_charm_jungle_temple",
+    "elemancy:trinket_bracelet_desert_temple",
+    "elemancy:trinket_belt_ocean_ruins",
+    "elemancy:trinket_necklace_buried_treasure",
+    "elemancy:trinket_gauntlet_trail_ruins"
+  ]
+}
+

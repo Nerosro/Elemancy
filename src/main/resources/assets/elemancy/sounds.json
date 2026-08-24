@@ -1,0 +1,10 @@
+{
+  "infuse": {
+    "sounds": [
+      {
+        "name": "elemancy:infused_wand_craft_success",
+        "type": "file"
+      }
+    ]
+  }
+}

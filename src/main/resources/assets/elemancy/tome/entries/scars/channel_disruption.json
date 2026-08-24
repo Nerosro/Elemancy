@@ -1,0 +1,18 @@
+{
+  "id": "channel_disruption",
+  "title": "Channel Disruption",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "- Category: Physiological",
+            "- Stacks: no",
+            "- Persists: yes",
+            "Your mana pathways are inflamed and resistant. All spells cost additional mana to cast until the inflammation subsides."
+          ]
+        }
+      ]
+    }
+  ]
+}

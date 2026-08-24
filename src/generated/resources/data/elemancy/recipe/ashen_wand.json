@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "H": "elemancy:propolis",
+    "S": "elemancy:ashen_stick"
+  },
+  "pattern": [
+    " HA",
+    " SH",
+    "S  "
+  ],
+  "result": {
+    "id": "elemancy:ashen_wand"
+  }
+}

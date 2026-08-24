@@ -1,0 +1,24 @@
+{
+  "type": "elemancy:copper_fortune",
+  "conditions": [
+    {
+      "condition": "minecraft:any_of",
+      "terms": [
+        {
+          "condition": "neoforge:loot_table_id",
+          "loot_table_id": "minecraft:blocks/copper_ore"
+        },
+        {
+          "condition": "neoforge:loot_table_id",
+          "loot_table_id": "minecraft:blocks/deepslate_copper_ore"
+        }
+      ]
+    },
+    {
+      "condition": "minecraft:match_tool",
+      "predicate": {
+        "items": "elemancy:infused_pickaxe"
+      }
+    }
+  ]
+}

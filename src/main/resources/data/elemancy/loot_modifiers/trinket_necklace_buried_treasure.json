@@ -1,0 +1,11 @@
+{
+  "type": "elemancy:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/buried_treasure"
+    }
+  ],
+  "item": "elemancy:necklace_of_sunken_reserves",
+  "chance": 0.2
+}

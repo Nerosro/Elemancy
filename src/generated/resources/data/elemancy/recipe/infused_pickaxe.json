@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "I": "elemancy:infused_ingot",
+    "S": "elemancy:ashen_stick"
+  },
+  "pattern": [
+    "III",
+    " S ",
+    " S "
+  ],
+  "result": {
+    "id": "elemancy:infused_pickaxe"
+  }
+}

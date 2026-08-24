@@ -1,0 +1,41 @@
+{
+  "id": "mana_depth",
+  "title": "Mana Depth",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "You can compare mana reserves with water wells, some are shallow, others are deep, some refill quickly while others stay dry for long stretches.",
+            "Mana is a resource, and like any resource, it can be exhausted. But unlike a well, spells can still be cast even when you are out of mana.",
+            "This does put a strain on your body. When your mana reserves are empty, you start to compensate the missing mana with your own life force.", 
+            "In Elemancy, this is called Depth: casting when the well has run dry."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "Depth manifests itself as scars on your body and soul. The more you keep casting when your mana is empty, the more scars will accumulate. Not every cast will result in scars, but the deeper you're pulling from, the more likely and severe the scars will be.",
+            "Scars are always temporary, and will fade with time. How long this takes depends on how deep you went past your reserves. Some scars stay around even after death."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "There are a couple of categories of scars you might come across",
+            "Physical scars last only a couple seconds and mainly cause discomfort with symptoms like blindness, nausea, poison or even withering",
+            "Physiological scars are the first scars that affect your mana, causing misfires or weakened spells,they also last longer than physical scars",
+            "Energetic scars start to show up after extended use of mana while your reserves are empty, you're straining your mana vessels and your damaging yourself severly, Scars from this category mainly reduce your mana stats, lower your total mana pool or your mana regeneration rate",
+            "There are even more scars out there that haven't even been documented yet. This however is not an invitation for you to find them."
+          ]
+        }
+      ]
+    }
+  ]
+}

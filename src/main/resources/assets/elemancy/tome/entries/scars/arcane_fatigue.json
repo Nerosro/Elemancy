@@ -1,0 +1,18 @@
+{
+  "id": "arcane_fatigue",
+  "title": "Arcane Fatigue",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "- Category: Energetic",
+            "- Stacks: yes",
+            "- Persists: yes",
+            "Deep exhaustion pervades your mana channels. Your natural mana regeneration is reduced by 15% per level of fatigue."
+          ]
+        }
+      ]
+    }
+  ]
+}

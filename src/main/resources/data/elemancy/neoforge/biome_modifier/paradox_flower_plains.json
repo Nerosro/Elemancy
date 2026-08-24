@@ -1,0 +1,7 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:plains",
+  "features": "elemancy:paradox_flower_plains",
+  "step": "vegetal_decoration"
+}
+

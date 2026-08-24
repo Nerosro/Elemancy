@@ -1,0 +1,53 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "elemancy:item/dark_bucket_empty"
+        },
+        "when": "empty"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "elemancy:item/dark_bucket_water"
+        },
+        "when": "water"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "elemancy:item/dark_bucket_lava"
+        },
+        "when": "lava"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "elemancy:item/dark_bucket_milk"
+        },
+        "when": "milk"
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "elemancy:item/dark_bucket_powder_snow"
+        },
+        "when": "powder_snow"
+      }
+    ],
+    "fallback": {
+      "type": "neoforge:fluid_container",
+      "cover_is_mask": false,
+      "fluid": "minecraft:empty",
+      "textures": {
+        "cover": "elemancy:item/dark_bucket_empty",
+        "fluid": "neoforge:item/mask/bucket_fluid",
+        "particle": "elemancy:item/dark_bucket_empty"
+      }
+    },
+    "property": "minecraft:custom_model_data"
+  }
+}

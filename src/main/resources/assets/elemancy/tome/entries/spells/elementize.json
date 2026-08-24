@@ -1,0 +1,35 @@
+{
+  "id": "elementize",
+  "title": "Elementize",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "Infuses mundane matter with raw mana, forcing a transformation. The spell doesn't add anything — it awakens what's already there."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "Recipes:",
+            "Copper Ingot → Infused Ingot (2 mana)",
+            "Any Wool → Infused Wool (2 mana)",
+            "Book → Tome (5 mana, 1 at a time)"
+          ]
+        },
+        {
+          "content": [
+            "Arcane Vessel → Soulvial (50 mana, 1 at a time)"
+          ],
+          "requirements": {
+            "node": "elemancy:attunement_ritual"
+          }
+        }
+      ]
+    }
+  ]
+}

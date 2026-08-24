@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "D": "elemancy:elemetal_ingot_dark"
+  },
+  "pattern": [
+    "D D",
+    " D "
+  ],
+  "result": {
+    "id": "elemancy:dark_bucket"
+  }
+}

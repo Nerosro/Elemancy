@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dark_elemetal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemancy:elemetal_ingot_dark"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "elemancy:dark_bucket"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dark_elemetal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "elemancy:dark_bucket"
+    ]
+  }
+}

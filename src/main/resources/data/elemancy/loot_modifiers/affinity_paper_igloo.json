@@ -1,0 +1,12 @@
+{
+  "type": "elemancy:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/igloo_chest"
+    }
+  ],
+  "item": "elemancy:affinity_paper",
+  "chance": 0.30
+}
+

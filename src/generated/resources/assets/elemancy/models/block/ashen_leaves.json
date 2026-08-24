@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "elemancy:block/ashen_leaves"
+  }
+}

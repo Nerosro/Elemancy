@@ -1,0 +1,90 @@
+{
+  "id": "paradox_flower",
+  "title": "Paradox Flower",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "A peculiar flower with vibrant cyan petals and a faint luminous glow.",
+            "Standing near this flower makes you feel slightly more alert, as if your mana reserves replenish faster.",
+            "Yet you can't detect any ambient mana in the air. A paradox indeed.",
+            " ",
+            "Immediate inspection of the flowers tell you that this flower should be treated with care, moving them is impossible and will cause the flower to wither and die.",
+            "It should also be said that destroying these flowers on purpose will cause you to incur the anger of nearby Elemancers who rely on them.",
+            " ",
+            "Perhaps examining it more closely with your Tome would reveal its secrets..."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "The Paradox Flower is unique among all known flora, it leaks mana into its surroundings.",
+            "This violates the fundamental principle that mana exists only within living beings, yet the effect is undeniable.",
+            "The flower seems to generate more mana than it can contain within itself, causing it to slowly release its own internal reserves.",
+            "This leaked mana doesn't completely dissipate, some nearby materials seem to be able to absorb this released mana, transforming them in unexpected ways.",
+            "Standing within range of a Paradox Flower also accelerates your natural mana regeneration, but the flower itself shows no signs of withering despite this constant leak.",
+            "The mechanism behind all of this still remains a mystery, but you're sure you're able to learn more when you come across one."
+          ],
+          "requirements": {
+            "node": "elemancy:discovery/paradox_flower"
+          }
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "Mana Regeneration",
+            "When you stand within 10 blocks of a Paradox Flower, your mana regeneration increases significantly.",
+            "The flower's leaked energy seems to resonate with your own internal reserves, accelerating their natural recovery.",
+            "This effect is passive and requires no focus, simply being in proximity seems to be enough.",
+            "Standing near multiple of these flowers doesn't seem to improve the effect, even if you're somehow lucky enough to find 2 flowers close to each other."
+          ],
+          "requirements": {
+            "node": "elemancy:discovery/paradox_flower"
+          }
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "Ashen Wood",
+            "Investigating this flower gave you a breakthrough in another field of your studies and you believe you found how the old Elemancers were able to create Ashen Trees.",
+            "While fully grown trees are not capable of absorbing the leaked mana from the Paradox Flower, young saplings are able to do so.",
+            "Acacia saplings planted within 5 blocks of a Paradox Flower undergo a gradual transformation. Over time, the leaked mana saturates the young wood, and the sapling's natural resilience allows it to adapt rather than combust.",
+            "The result is an Ashen Tree, wood with a distinctive gray-white bark that withstood direct mana infusion without burning.",
+            "An even better find is that the transformation seems to be permanent as well.",
+            "Fully grown Ashen trees will drop Ashen saplings when chopped down and can be replanted anywhere without requiring flower proximity."
+          ],
+          "requirements": {
+            "node": "elemancy:discovery/paradox_flower"
+          }
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "Effect on Bee Production",
+            "During your investigations of this flower you also noticed the interactions it had on the nearby wildlife.",
+            "While preventing the local sheep from eating these flowersyou observed that bees had a small change in it's prduction behaviour because of these flowers.",
+            "The bees themselves remain unchanged but their production shifts in response to the mana-saturated environment.",
+            "Honey produced by bees that pollinated on Paradox Flowers is stickier compared to regular honey. The exact nature of this material warrants further investigation.",
+            "Perhaps examining an active beehive near a Paradox Flower would reveal more..."
+          ],
+          "requirements": {
+            "node": "elemancy:discovery/paradox_flower"
+          }
+        }
+      ]
+    }
+  ]
+}

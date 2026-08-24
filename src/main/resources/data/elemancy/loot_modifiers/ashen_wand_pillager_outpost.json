@@ -1,0 +1,11 @@
+{
+  "type": "elemancy:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/pillager_outpost"
+    }
+  ],
+  "item": "elemancy:ashen_wand",
+  "chance": 0.1
+}

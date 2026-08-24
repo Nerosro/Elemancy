@@ -1,0 +1,43 @@
+{
+  "id": "ashen_wood",
+  "title": "Ashen Wood",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "Sometimes mana has curious effects on materials, wood is a good example here.",
+            "Certain materials can easily absorb mana (Like wool, copper and iron), others don't absorb it so quickly and sometimes it even just bounces off of them (emeralds).",
+            "But with wood a complete different reaction can be observed. For reasons yet unknown, wood breaks down from the infusion of mana.",
+            "The material combusts and gets completely destroyed, even the ashes that sometimes remain are quickly picked up by the wind and scatter."
+             ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "Yet you still heard rumors that the Elemancers of old were able to infuse a tree with mana.",
+            "Initial investigations point towards the Acacia tree.",
+            "The reason behind this is assumed because this tree has adapted to the warmer climate of the Savannah and is more durable to the change that occurs from the mana infusion.",
+            "The Elemancers that discovered this must have named it the Ashen Tree, after its ashen looks as well as the ash that remains from other wood after infusion."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "Addendum: Your initial tests have not yet been able to reproduce an Ashen Tree.",
+            "Did the Elemancers of old have different ways to create these trees?",
+            " ",
+            "Addendum 2: While yet another of your energized sticks crumble, you ponder if this is the reason why infused sticks are so fragile?",
+            "Maybe if you can recreate this Ashen Tree, you could use it's wood to create a better wand."
+          ]
+        }
+      ]
+    }
+  ]
+}

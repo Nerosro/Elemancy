@@ -1,0 +1,12 @@
+{
+  "type": "elemancy:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:archaeology/ocean_ruin_warm"
+    }
+  ],
+  "item": "elemancy:belt_of_rolling_tides",
+  "chance": 0.1,
+  "replace": true
+}

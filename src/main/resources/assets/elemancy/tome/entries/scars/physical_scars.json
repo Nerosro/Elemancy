@@ -1,0 +1,17 @@
+{
+  "id": "physical_scars",
+  "title": "Physical Scars",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "Common effects: Slowness, Blindness, Mining Fatigue, Nausea",
+            "Rarely appear: Poison, Wither",
+            "These scars introduce mild discomfort on the body and are an indication of worse to come, a precursor of sorts if you will."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "elemancy:elemetal_block_water"
+  ],
+  "result": {
+    "count": 9,
+    "id": "elemancy:elemetal_ingot_water"
+  }
+}

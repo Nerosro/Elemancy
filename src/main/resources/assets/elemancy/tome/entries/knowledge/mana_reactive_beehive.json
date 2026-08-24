@@ -1,0 +1,40 @@
+{
+  "id": "mana_reactive_beehive",
+  "title": "Mana-Reactive Beehive",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "When a beehive is placed within range of a Paradox Flower's leaked mana, the bees inside instinctively alter their production.",
+            "They produce Propolis instead of honey, a sticky, resinous substance naturally used by bees to seal gaps and reinforce hive structure.",
+            "The mana saturation enhances propolis's natural adhesive properties, making it ideal for binding magical components together.",
+            "It's strong enough to hold materials under magical stress, yet malleable enough to allow controlled mana flow.",
+            "Critically, the bees themselves are not transformed. They remain ordinary bees, simply responding to their environment.",
+            "Note: This effect requires the beehive to remain near the flower. Moving the hive away from the flower's range will cause bees to revert to normal honey production."
+          ],
+          "requirements": {
+            "node": "elemancy:discovery/infused_beehive"
+          }
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "Material Properties",
+            "Propolis is naturally adhesive and cohesive. When saturated with mana during production, it gains two critical properties:",
+            "Physical Bonding: Strong adhesive that holds magical components together under stress. Essential for wand construction. It prevents the core from separating from the handle.",
+            "Mana Insulation/Conduction: When applied as a thick seal, propolis prevents magical energy from leaking.",
+            "When used as a thin binding layer, it allows controlled mana flow while maintaining structural integrity.",
+            "This dual nature makes propolis irreplaceable in early magical crafting."
+          ],
+          "requirements": {
+            "node": "elemancy:discovery/infused_beehive"
+          }
+        }
+      ]
+    }
+  ]
+}

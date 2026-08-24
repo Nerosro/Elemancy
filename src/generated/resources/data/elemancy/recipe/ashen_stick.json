@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": "elemancy:ashen_planks"
+  },
+  "pattern": [
+    "P",
+    "P"
+  ],
+  "result": {
+    "count": 4,
+    "id": "elemancy:ashen_stick"
+  }
+}

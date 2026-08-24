@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "elemancy:infused_wool"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "elemancy:infused_wool"
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "elemancy:infused_metal_block"
+  ],
+  "result": {
+    "count": 9,
+    "id": "elemancy:infused_ingot"
+  }
+}

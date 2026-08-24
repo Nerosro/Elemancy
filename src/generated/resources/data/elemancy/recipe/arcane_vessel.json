@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "minecraft:amethyst_shard",
+    "G": "minecraft:glass",
+    "H": "elemancy:propolis"
+  },
+  "pattern": [
+    " A ",
+    "GHG",
+    " G "
+  ],
+  "result": {
+    "id": "elemancy:arcane_vessel"
+  }
+}

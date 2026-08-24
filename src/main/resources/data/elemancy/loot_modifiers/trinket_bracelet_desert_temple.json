@@ -1,0 +1,11 @@
+{
+  "type": "elemancy:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:chests/desert_pyramid"
+    }
+  ],
+  "item": "elemancy:bracelet_of_enduring_mana",
+  "chance": 0.2
+}

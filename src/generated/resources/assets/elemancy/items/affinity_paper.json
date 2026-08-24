@@ -1,0 +1,11 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "elemancy:item/affinity_paper",
+    "tints": [
+      {
+        "type": "elemancy:affinity_paper"
+      }
+    ]
+  }
+}

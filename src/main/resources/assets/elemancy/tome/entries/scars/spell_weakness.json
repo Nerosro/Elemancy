@@ -1,0 +1,18 @@
+{
+  "id": "spell_weakness",
+  "title": "Spell Weakness",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "- Category: Energetic",
+            "- Stacks: yes",
+            "- Persists: yes",
+            "Repeated strain has weakened your ability to channel power. All spell damage is reduced by 5% per weakness layer."
+          ]
+        }
+      ]
+    }
+  ]
+}

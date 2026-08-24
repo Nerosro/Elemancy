@@ -1,0 +1,7 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "minecraft:flower_forest",
+  "features": "elemancy:paradox_flower_flower_forest",
+  "step": "vegetal_decoration"
+}
+
