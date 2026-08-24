@@ -1,10 +1,9 @@
-package be.nerosro.elemancy.events;
+package be.nerosro.elemancy.mana;
 
 import java.util.WeakHashMap;
 
 import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.block.ParadoxFlowerBlock;
-import be.nerosro.elemancy.mana.ManaStatResolver;
 import be.nerosro.elemancy.mana.depth.DepthTier;
 import be.nerosro.elemancy.mana.depth.ManaDepthSystem;
 import be.nerosro.elemancy.network.ElemancyNetwork;
@@ -88,4 +87,3 @@ public class ManaEvents {
         }
     }
 }
-

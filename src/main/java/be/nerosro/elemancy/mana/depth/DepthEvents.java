@@ -1,7 +1,6 @@
-package be.nerosro.elemancy.events;
+package be.nerosro.elemancy.mana.depth;
 
 import be.nerosro.elemancy.Elemancy;
-import be.nerosro.elemancy.mana.depth.ManaDepthValues;
 import be.nerosro.soulmark.mana.ManaOverspendEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;

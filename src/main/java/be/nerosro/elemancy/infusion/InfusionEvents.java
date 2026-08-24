@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.events;
+package be.nerosro.elemancy.infusion;
 
 import java.util.Comparator;
 import java.util.List;
@@ -8,8 +8,6 @@ import org.jspecify.annotations.Nullable;
 import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.ElemancyTags;
 import be.nerosro.elemancy.effects.CastEffects;
-import be.nerosro.elemancy.infusion.InfusionRecipe;
-import be.nerosro.elemancy.infusion.InfusionRecipeRegistry;
 import be.nerosro.elemancy.items.ElemancyItems;
 import be.nerosro.elemancy.items.RobeSetBonus;
 import be.nerosro.elemancy.items.TomeItem;

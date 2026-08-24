@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.events;
+package be.nerosro.elemancy.block;
 
 import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.items.ElemancyItems;

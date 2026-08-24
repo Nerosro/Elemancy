@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.events;
+package be.nerosro.elemancy.tome;
 
 import java.util.List;
 import java.util.Map;
@@ -8,7 +8,6 @@ import java.util.WeakHashMap;
 import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.block.ParadoxFlowerBlock;
 import be.nerosro.elemancy.items.TomeItem;
-import be.nerosro.elemancy.tome.DiscoveryNodes;
 import be.nerosro.elemancy.util.BeehiveProximityHelper;
 import be.nerosro.soulmark.network.ClientSkillTreeData;
 import be.nerosro.soulmark.network.SoulmarkNetwork;
