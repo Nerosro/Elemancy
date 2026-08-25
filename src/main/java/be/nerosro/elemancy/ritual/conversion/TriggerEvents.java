@@ -6,8 +6,8 @@ import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.ElemancyTags;
 import be.nerosro.elemancy.block.ElemancyBlocks;
 import be.nerosro.elemancy.effects.CastEffects;
-import be.nerosro.elemancy.items.RobeSetBonus;
-import be.nerosro.elemancy.items.WandItem;
+import be.nerosro.elemancy.items.wands.WandCastFeedback;
+import be.nerosro.elemancy.items.wands.WandItem;
 import be.nerosro.elemancy.mana.depth.CastResolution;
 import be.nerosro.elemancy.mana.depth.ManaDepthSystem;
 import be.nerosro.elemancy.ritual.shared.RitualStructureDetector;
@@ -20,7 +20,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.EventPriority;
@@ -67,7 +66,7 @@ public final class TriggerEvents {
         CastResolution resolution = ManaDepthSystem.attemptCast(player, MANA_COST, SpellContext.INFUSION);
         if (!resolution.castConsumed()) return false;
 
-        applyCastFeedback(player, offhand);
+        WandCastFeedback.castWithWear(player, offhand);
         if (!resolution.spellResolved()) {
             CastEffects.fizzle(level, player);
             return true;
@@ -75,13 +74,5 @@ public final class TriggerEvents {
 
         CutsceneEngine.start(level, anchor, rotation.get(), source.get(), target.get());
         return true;
-    }
-
-    private static void applyCastFeedback(Player player, ItemStack offhand) {
-        player.swing(InteractionHand.OFF_HAND, true);
-        player.getCooldowns().addCooldown(offhand, WandItem.COOLDOWN_TICKS);
-        if (!RobeSetBonus.tryAbsorbWandDamage(player)) {
-            offhand.hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
-        }
     }
 }

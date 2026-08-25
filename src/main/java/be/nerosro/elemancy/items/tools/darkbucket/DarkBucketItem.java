@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.items;
+package be.nerosro.elemancy.items.tools.darkbucket;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;

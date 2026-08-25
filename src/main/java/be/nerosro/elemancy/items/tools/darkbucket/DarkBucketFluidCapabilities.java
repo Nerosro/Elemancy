@@ -1,5 +1,6 @@
-package be.nerosro.elemancy.items;
+package be.nerosro.elemancy.items.tools.darkbucket;
 
+import be.nerosro.elemancy.items.ElemancyItems;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;

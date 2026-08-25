@@ -7,7 +7,7 @@ import java.util.WeakHashMap;
 
 import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.block.ParadoxFlowerBlock;
-import be.nerosro.elemancy.items.TomeItem;
+import be.nerosro.elemancy.items.tome.TomeItem;
 import be.nerosro.elemancy.util.BeehiveProximityHelper;
 import be.nerosro.soulmark.network.ClientSkillTreeData;
 import be.nerosro.soulmark.network.SoulmarkNetwork;

@@ -9,9 +9,10 @@ import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.ElemancyTags;
 import be.nerosro.elemancy.effects.CastEffects;
 import be.nerosro.elemancy.items.ElemancyItems;
-import be.nerosro.elemancy.items.RobeSetBonus;
-import be.nerosro.elemancy.items.TomeItem;
-import be.nerosro.elemancy.items.WandItem;
+import be.nerosro.elemancy.items.robes.RobeSetBonus;
+import be.nerosro.elemancy.items.tome.TomeItem;
+import be.nerosro.elemancy.items.wands.WandCastFeedback;
+import be.nerosro.elemancy.items.wands.WandItem;
 import be.nerosro.elemancy.mana.depth.CastResolution;
 import be.nerosro.elemancy.mana.depth.ManaDepthSystem;
 import be.nerosro.elemancy.skilltree.EquippedSpellUtil;
@@ -25,7 +26,6 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -143,6 +143,7 @@ public class InfusionEvents {
         if (!resolution.castConsumed()) return false;
 
         // Visible cast animation and cooldown are applied to all successful cast attempts, including failures.
+        // Infused Robes only protect the early Elementize loop with the Energized Stick.        
         applyCastFeedback(player, offhand);
 
         if (!resolution.spellResolved()) {
@@ -163,12 +164,10 @@ public class InfusionEvents {
     }
 
     private static void applyCastFeedback(Player player, ItemStack offhand) {
-        player.swing(InteractionHand.OFF_HAND, true);
-        player.getCooldowns().addCooldown(offhand, WandItem.COOLDOWN_TICKS);
-
-        // Full Infused Robe set: 75% chance to absorb wand durability, redirecting wear to 2 random robe pieces
-        if (!RobeSetBonus.tryAbsorbWandDamage(player)) {
-            offhand.hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
+        if (RobeSetBonus.tryAbsorbElementizeWandDamage(player)) {
+            WandCastFeedback.cast(player, offhand);
+        } else {
+            WandCastFeedback.castWithWear(player, offhand);
         }
     }
 

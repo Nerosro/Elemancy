@@ -1,6 +1,7 @@
-package be.nerosro.elemancy.items;
+package be.nerosro.elemancy.items.wands;
 
 import be.nerosro.elemancy.Elemancy;
+import be.nerosro.elemancy.items.ElemancyItems;
 import be.nerosro.elemancy.jobpoint.MilestoneEvents;
 import be.nerosro.elemancy.mana.depth.CastResolution;
 import be.nerosro.elemancy.mana.depth.ManaDepthSystem;

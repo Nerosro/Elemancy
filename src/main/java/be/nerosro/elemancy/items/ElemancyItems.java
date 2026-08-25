@@ -6,7 +6,15 @@ import java.util.Map;
 
 import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.element.ElemancyElementKeys;
+import be.nerosro.elemancy.items.robes.ElemancyArmorMaterials;
+import be.nerosro.elemancy.items.tome.TomeItem;
+import be.nerosro.elemancy.items.tome.TomeTooltip;
+import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketContents;
+import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketItem;
+import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketTooltip;
 import be.nerosro.elemancy.items.trinket.ManaStatTrinketItem;
+import be.nerosro.elemancy.items.wands.WandAspect;
+import be.nerosro.elemancy.items.wands.WandItem;
 import be.nerosro.soulmark.element.Element;
 import be.nerosro.soulmark.element.ElementRegistry;
 import net.minecraft.core.HolderGetter;

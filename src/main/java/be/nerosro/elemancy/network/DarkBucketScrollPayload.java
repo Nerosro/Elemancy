@@ -1,8 +1,8 @@
 package be.nerosro.elemancy.network;
 
 import be.nerosro.elemancy.Elemancy;
-import be.nerosro.elemancy.items.DarkBucketContents;
 import be.nerosro.elemancy.items.ElemancyItems;
+import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketContents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;

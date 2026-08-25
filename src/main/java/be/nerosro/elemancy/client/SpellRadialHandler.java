@@ -5,8 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import be.nerosro.elemancy.ElemancyTags;
-import be.nerosro.elemancy.items.WandAspect;
-import be.nerosro.elemancy.items.WandItem;
+import be.nerosro.elemancy.items.wands.WandAspect;
+import be.nerosro.elemancy.items.wands.WandItem;
 import be.nerosro.elemancy.network.ClientEquippedSpellData;
 import be.nerosro.elemancy.network.SpellSelectPayload;
 import be.nerosro.elemancy.skilltree.SkillTreeEntries;

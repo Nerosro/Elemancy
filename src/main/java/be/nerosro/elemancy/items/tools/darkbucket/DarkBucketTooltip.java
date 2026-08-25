@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.items;
+package be.nerosro.elemancy.items.tools.darkbucket;
 
 import java.util.function.Consumer;
 

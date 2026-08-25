@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.items;
+package be.nerosro.elemancy.items.wands;
 
 import be.nerosro.elemancy.effects.CastEffects;
 import be.nerosro.elemancy.mana.depth.CastResolution;

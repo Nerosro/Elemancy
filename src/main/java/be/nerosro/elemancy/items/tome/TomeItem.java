@@ -1,8 +1,9 @@
-package be.nerosro.elemancy.items;
+package be.nerosro.elemancy.items.tome;
 
 import java.util.UUID;
 
 import be.nerosro.elemancy.client.tome.data.TomeClientHooks;
+import be.nerosro.elemancy.items.ItemDataUtil;
 import be.nerosro.elemancy.tome.TomeDiscoveryEvents;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponents;

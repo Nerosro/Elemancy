@@ -1,8 +1,9 @@
-package be.nerosro.elemancy.items;
+package be.nerosro.elemancy.items.tools.darkbucket;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import be.nerosro.elemancy.items.ItemDataUtil;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;

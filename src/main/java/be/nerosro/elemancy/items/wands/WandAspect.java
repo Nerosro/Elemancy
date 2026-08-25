@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.items;
+package be.nerosro.elemancy.items.wands;
 
 import be.nerosro.elemancy.spell.SpellElement;
 

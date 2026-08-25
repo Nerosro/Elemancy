@@ -4,13 +4,12 @@ import java.util.Optional;
 
 import be.nerosro.elemancy.ElemancyTags;
 import be.nerosro.elemancy.effects.CastEffects;
-import be.nerosro.elemancy.items.WandItem;
+import be.nerosro.elemancy.items.wands.WandCastFeedback;
+import be.nerosro.elemancy.items.wands.WandItem;
 import be.nerosro.elemancy.mana.depth.CastResolution;
 import be.nerosro.elemancy.mana.depth.ManaDepthSystem;
 import be.nerosro.elemancy.spell.SpellContext;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -40,9 +39,7 @@ public final class SpellCast {
         CastResolution resolution = ManaDepthSystem.attemptCast(player, baseCost, context);
         if (!resolution.castConsumed()) return Optional.empty();
 
-        player.swing(InteractionHand.OFF_HAND, true);
-        player.getCooldowns().addCooldown(offhand, WandItem.COOLDOWN_TICKS);
-        offhand.hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
+        WandCastFeedback.castWithWear(player, offhand);
 
         if (!resolution.spellResolved()) {
             if (player.level() instanceof ServerLevel serverLevel) {

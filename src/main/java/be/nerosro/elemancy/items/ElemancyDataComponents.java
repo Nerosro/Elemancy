@@ -1,6 +1,8 @@
 package be.nerosro.elemancy.items;
 
 import be.nerosro.elemancy.Elemancy;
+import be.nerosro.elemancy.items.tome.TomeTooltip;
+import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketTooltip;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;

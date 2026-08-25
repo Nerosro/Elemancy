@@ -1,10 +1,11 @@
-package be.nerosro.elemancy.items;
+package be.nerosro.elemancy.items.robes;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import be.nerosro.elemancy.ElemancyColors;
 import be.nerosro.elemancy.effects.CastEffects;
+import be.nerosro.elemancy.items.ElemancyItems;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
@@ -41,7 +42,7 @@ public final class RobeSetBonus {
      * Returns true if the wand durability was absorbed (skip wand damage).
      * Returns false if the bonus did not trigger (apply wand damage normally).
      */
-    public static boolean tryAbsorbWandDamage(Player player) {
+    public static boolean tryAbsorbElementizeWandDamage(Player player) {
         if (!isWearingFullSet(player)) return false;
         if (!isEnergizedStick(player.getOffhandItem())) return false;
         if (player.getRandom().nextFloat() >= PROTECTION_CHANCE) return false;

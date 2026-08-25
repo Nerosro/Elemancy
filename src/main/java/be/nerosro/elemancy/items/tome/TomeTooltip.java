@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.items;
+package be.nerosro.elemancy.items.tome;
 
 import java.util.function.Consumer;
 

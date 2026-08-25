@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.jspecify.annotations.Nullable;
 
-import be.nerosro.elemancy.items.TomeItem;
+import be.nerosro.elemancy.items.tome.TomeItem;
 import be.nerosro.elemancy.mana.depth.ManaDepthSystem;
 import be.nerosro.elemancy.mana.depth.ScarType;
 import be.nerosro.soulmark.network.SoulmarkNetwork;
