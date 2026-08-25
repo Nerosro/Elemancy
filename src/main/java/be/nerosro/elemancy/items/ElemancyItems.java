@@ -12,6 +12,7 @@ import be.nerosro.elemancy.items.tome.TomeTooltip;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketContents;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketItem;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketTooltip;
+import be.nerosro.elemancy.items.tools.lightshears.LightShearsItem;
 import be.nerosro.elemancy.items.trinket.ManaStatTrinketItem;
 import be.nerosro.elemancy.items.wands.WandAspect;
 import be.nerosro.elemancy.items.wands.WandItem;
@@ -184,6 +185,14 @@ public class ElemancyItems {
             .component(ElemancyDataComponents.DARK_BUCKET_TOOLTIP.get(), DarkBucketTooltip.INSTANCE)
             .component(DataComponents.TOOLTIP_DISPLAY,
                 TooltipDisplay.DEFAULT.withHidden(DataComponents.CONTAINER, true))
+    );
+
+    public static final DeferredItem<Item> LIGHT_SHEARS = ITEMS.registerItem(
+        "light_shears",
+        LightShearsItem::new,
+        props -> props.durability(ElemancyToolMaterials.LIGHT_ELEMETAL.durability())
+            .repairable(ElemancyToolMaterials.LIGHT_ELEMETAL.repairItems())
+            .component(DataComponents.TOOL, net.minecraft.world.item.ShearsItem.createToolProperties())
     );
 
     // ==================== CONSUMABLES ====================

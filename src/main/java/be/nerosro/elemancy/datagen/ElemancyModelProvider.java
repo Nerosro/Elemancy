@@ -140,6 +140,7 @@ public class ElemancyModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ElemancyItems.ROBE_LEGGINGS.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ElemancyItems.ROBE_BOOTS.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ElemancyItems.INFUSED_PICKAXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModels.generateFlatItem(ElemancyItems.LIGHT_SHEARS.get(), ModelTemplates.FLAT_ITEM);
 
         // Dark Bucket uses authored variants for familiar vanilla contents and NeoForge's
         // fluid-container renderer for compatible modded fluids.

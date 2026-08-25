@@ -1,0 +1,46 @@
+{
+  "id": "light_shears",
+  "title": "Light Elemetal Shears",
+  "requirements": {
+    "node": "elemancy:conversion_ritual"
+  },
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "How strange, your first interaction with Light Elemetal was not as you expected.",
+            "All those tales of Light winning over the Dark and here you are with an ingot that only seems to refracture light.",
+            "No way you're making a sword capable of smiting those zombie hordes with this.",
+            "It seems we're dealing with literal light here, maybe it can be used in a different way than you expected initially."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "You devised a pair of shears that can cut through the light",
+            "These shears are capable of changing the colour of the wool from sheared sheep, but only the white ones.",
+            "This first iteration isn't completely reliable, The wool will be of a random colour, but at least you'll save on some dye costs."
+          ]
+        },
+        {
+          "content": [
+            "Recipe:"
+          ],
+          "recipe": {
+            "type": "shaped_3x3",
+            "grid": [
+              "", "", "elemancy:elemetal_ingot_light",
+              "", "elemancy:elemetal_ingot_light", "",
+              "", "", ""
+            ],
+            "result": "elemancy:light_shears"
+          }
+        }
+      ]
+    }
+  ]
+}

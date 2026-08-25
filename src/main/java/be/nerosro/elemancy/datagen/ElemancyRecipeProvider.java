@@ -150,6 +150,14 @@ public class ElemancyRecipeProvider extends RecipeProvider {
             .unlockedBy("has_dark_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.DARK.get()).get()))
             .save(this.output);
 
+        // === Light Shears ===
+        shaped(RecipeCategory.TOOLS, ElemancyItems.LIGHT_SHEARS.get())
+            .pattern(" L")
+            .pattern("L ")
+            .define('L', ElemancyItems.getElemetalIngot(SoulmarkElements.LIGHT.get()).get())
+            .unlockedBy("has_light_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.LIGHT.get()).get()))
+            .save(this.output);
+
         // === Wood Derivatives ===
         Ingredient planks = Ingredient.of(ElemancyBlocks.ASHEN_PLANKS_ITEM.get());
 

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "L": "elemancy:elemetal_ingot_light"
+  },
+  "pattern": [
+    " L",
+    "L "
+  ],
+  "result": {
+    "id": "elemancy:light_shears"
+  }
+}
