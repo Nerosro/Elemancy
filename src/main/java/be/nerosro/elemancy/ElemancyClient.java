@@ -4,6 +4,7 @@ import java.util.List;
 
 import be.nerosro.elemancy.block.ElemancyBlocks;
 import be.nerosro.elemancy.client.AffinityPaperTintSource;
+import be.nerosro.elemancy.client.ElemancyTooltipEvents;
 import be.nerosro.elemancy.client.ManaBlastRenderer;
 import be.nerosro.elemancy.client.ManaHudOverlay;
 import be.nerosro.elemancy.client.RitualLightningRenderer;
@@ -46,6 +47,7 @@ public class ElemancyClient {
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(ElemancyClient::onPlayerLogout);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(ClientRitualCameraState::onClientTick);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(ElemancyClient::onMouseScroll);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(ElemancyTooltipEvents::onTooltip);
     }
 
     private static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
