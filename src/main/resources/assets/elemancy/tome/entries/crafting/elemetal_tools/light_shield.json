@@ -1,0 +1,28 @@
+{
+  "id": "light_shield",
+  "title": "Light Elemetal Shield",
+  "requirements": { "node": "elemancy:conversion_ritual" },
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "Not yet implemented"
+          ]
+        },
+        {
+          "content": [ "Recipe:" ],
+          "recipe": {
+            "type": "shaped_3x3",
+            "grid": [
+              "elemancy:ashen_planks", "elemancy:ashen_planks", "elemancy:ashen_planks",
+              "elemancy:ashen_planks", "elemancy:elemetal_ingot_light", "elemancy:ashen_planks",
+              "", "elemancy:ashen_planks", ""
+            ],
+            "result": "elemancy:light_shield"
+          }
+        }
+      ]
+    }
+  ]
+}

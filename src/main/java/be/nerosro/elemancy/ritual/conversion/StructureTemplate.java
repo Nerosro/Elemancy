@@ -26,6 +26,9 @@ import net.minecraft.world.level.block.state.properties.SlabType;
  * reusable target-element capstones.
  */
 public final class StructureTemplate {
+    private static final BlockState STONE_BRICK_SLAB = Blocks.STONE_BRICK_SLAB.defaultBlockState()
+        .setValue(SlabBlock.TYPE, SlabType.BOTTOM);
+
     private StructureTemplate() {
     }
 
@@ -97,17 +100,17 @@ public final class StructureTemplate {
     private static StructureRotationTemplate build() {
         List<StructureRotationTemplate.Entry> entries = new ArrayList<>();
 
-        entries.add(new StructureRotationTemplate.Entry(new BlockPos(-1, 0, -1), StructureTemplate::isBottomStoneBrickSlab));
-        entries.add(new StructureRotationTemplate.Entry(new BlockPos(0, 0, -1), StructureTemplate::isBottomStoneBrickSlab));
-        entries.add(new StructureRotationTemplate.Entry(new BlockPos(1, 0, -1), StructureTemplate::isBottomStoneBrickSlab));
-        entries.add(new StructureRotationTemplate.Entry(new BlockPos(-1, 0, 0), StructureTemplate::isBottomStoneBrickSlab));
-        entries.add(new StructureRotationTemplate.Entry(BlockPos.ZERO, StructureTemplate::isElemetalBlock));
-        entries.add(new StructureRotationTemplate.Entry(new BlockPos(1, 0, 0), StructureTemplate::isBottomStoneBrickSlab));
-        entries.add(new StructureRotationTemplate.Entry(new BlockPos(-1, 0, 1), StructureTemplate::isBottomStoneBrickSlab));
-        entries.add(new StructureRotationTemplate.Entry(new BlockPos(0, 0, 1), StructureTemplate::isBottomStoneBrickSlab));
-        entries.add(new StructureRotationTemplate.Entry(new BlockPos(1, 0, 1), StructureTemplate::isBottomStoneBrickSlab));
+        entries.add(fixedSlab(-1, -1));
+        entries.add(fixedSlab(0, -1));
+        entries.add(fixedSlab(1, -1));
+        entries.add(fixedSlab(-1, 0));
+        entries.add(new StructureRotationTemplate.Entry(BlockPos.ZERO, StructureTemplate::isElemetalBlock, null, true));
+        entries.add(fixedSlab(1, 0));
+        entries.add(fixedSlab(-1, 1));
+        entries.add(fixedSlab(0, 1));
+        entries.add(fixedSlab(1, 1));
 
-        entries.add(new StructureRotationTemplate.Entry(STANDING_TILE_OFFSET, StructureTemplate::isValidCapstone));
+        entries.add(new StructureRotationTemplate.Entry(STANDING_TILE_OFFSET, StructureTemplate::isValidCapstone, null, true));
         for (Pillar pillar : PILLARS) {
             addPillar(entries, pillar);
         }
@@ -115,12 +118,29 @@ public final class StructureTemplate {
         return new StructureRotationTemplate(entries);
     }
 
+    private static StructureRotationTemplate.Entry fixedSlab(int x, int z) {
+        return new StructureRotationTemplate.Entry(
+            new BlockPos(x, 0, z),
+            StructureTemplate::isBottomStoneBrickSlab,
+            STONE_BRICK_SLAB,
+            false
+        );
+    }
+
     private static void addPillar(List<StructureRotationTemplate.Entry> entries, Pillar pillar) {
         for (int dy = 0; dy < pillar.capstoneDy(); dy++) {
             entries.add(new StructureRotationTemplate.Entry(
-                new BlockPos(pillar.dx(), dy, pillar.dz()), StructureTemplate::isAshenLog));
+                new BlockPos(pillar.dx(), dy, pillar.dz()),
+                StructureTemplate::isAshenLog,
+                ElemancyBlocks.ASHEN_LOG.get().defaultBlockState(),
+                false
+            ));
         }
         entries.add(new StructureRotationTemplate.Entry(
-            new BlockPos(pillar.dx(), pillar.capstoneDy(), pillar.dz()), StructureTemplate::isValidCapstone));
+            new BlockPos(pillar.dx(), pillar.capstoneDy(), pillar.dz()),
+            StructureTemplate::isValidCapstone,
+            null,
+            true
+        ));
     }
 }

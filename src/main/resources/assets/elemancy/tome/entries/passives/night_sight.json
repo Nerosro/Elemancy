@@ -11,6 +11,19 @@
           ]
         }
       ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "After attuning to the Dark element, your eyes become even more attuned to the darkness.",
+            "The Night Vision effect is stabilized and no longer flickers in low light."
+          ],
+          "requirements": {
+            "attunement": "soulmark:dark"
+          }
+        }
+      ]
     }
   ]
 }

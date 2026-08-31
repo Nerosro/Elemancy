@@ -5,8 +5,6 @@ import java.util.List;
 import be.nerosro.elemancy.spell.SpellContext;
 import be.nerosro.elemancy.spell.SpellElement;
 import be.nerosro.soulmark.affinity.AffinityUtil;
-import be.nerosro.soulmark.element.Element;
-import be.nerosro.soulmark.element.SoulmarkElements;
 import be.nerosro.soulmark.traits.Trait;
 import be.nerosro.soulmark.traits.TraitUtil;
 import net.minecraft.world.entity.player.Player;
@@ -71,13 +69,14 @@ public final class TraitModifiers {
         multiplier *= (1f - getAmountByName(penalties, TraitNames.TIMID));
 
         // Resonant: attuned element spells are stronger
-        if (isSameAffinity(player, context.element())) {
+        if (context.element() != SpellElement.NONE
+            && AffinityUtil.hasAffinity(player, context.element().toElement())) {
             multiplier *= (1f + getAmountByName(boosts, TraitNames.RESONANT));
         }
 
         // Dissonant: opposing element spells are weaker
-        if (isOppositeAffinity
-            (player, context.element())) {
+        if (context.element() != SpellElement.NONE
+            && AffinityUtil.hasOppositeAffinity(player, context.element().toElement())) {
             multiplier *= (1f - getAmountByName(penalties, TraitNames.DISSONANT));
         }
 
@@ -125,20 +124,6 @@ public final class TraitModifiers {
         };
     }
 
-    private static boolean isSameAffinity(Player player, SpellElement element) {
-        if (element == SpellElement.NONE) return false;
-        Element affinity = AffinityUtil.getAffinity(player);
-        if (affinity == null) return false;
-        return affinity == element.toElement();
-    }
-
-    private static boolean isOppositeAffinity(Player player, SpellElement element) {
-        if (element == SpellElement.NONE) return false;
-        Element affinity = AffinityUtil.getAffinity(player);
-        if (affinity == null) return false;
-        Element opposite = SoulmarkElements.getOpposite(affinity);
-        return opposite != null && opposite == element.toElement();
-    }
 }
 
 

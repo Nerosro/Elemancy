@@ -3,6 +3,8 @@ package be.nerosro.elemancy.ritual.shared;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jspecify.annotations.Nullable;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,7 +42,12 @@ public final class StructureRotationTemplate {
         List<Entry> rotated = new ArrayList<>(source.size());
         for (Entry entry : source) {
             BlockPos offset = entry.offset();
-            rotated.add(new Entry(new BlockPos(-offset.getZ(), offset.getY(), offset.getX()), entry.predicate()));
+            rotated.add(new Entry(
+                new BlockPos(-offset.getZ(), offset.getY(), offset.getX()),
+                entry.predicate(),
+                entry.displayState(),
+                entry.variableSlot()
+            ));
         }
         return rotated;
     }
@@ -68,7 +75,7 @@ public final class StructureRotationTemplate {
      * A single structural requirement: a block must exist at the given offset from the
      * template's anchor point, satisfying the given predicate.
      */
-    public record Entry(BlockPos offset, BlockPredicate predicate) {
+    public record Entry(BlockPos offset, BlockPredicate predicate, @Nullable BlockState displayState, boolean variableSlot) {
     }
 
     /**

@@ -11,6 +11,18 @@
           ]
         }
       ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "After attuning to the Water element, your natural recovery has a chance to restore health without consuming hunger."
+          ],
+          "requirements": {
+            "attunement": "soulmark:water"
+          }
+        }
+      ]
     }
   ]
 }

@@ -2,6 +2,8 @@ package be.nerosro.elemancy;
 
 import java.util.List;
 
+import org.lwjgl.glfw.GLFW;
+
 import be.nerosro.elemancy.block.ElemancyBlocks;
 import be.nerosro.elemancy.client.AffinityPaperTintSource;
 import be.nerosro.elemancy.client.ElemancyTooltipEvents;
@@ -9,13 +11,16 @@ import be.nerosro.elemancy.client.ManaBlastRenderer;
 import be.nerosro.elemancy.client.ManaHudOverlay;
 import be.nerosro.elemancy.client.RitualLightningRenderer;
 import be.nerosro.elemancy.client.RitualSigilRenderer;
+import be.nerosro.elemancy.client.structureprojection.StructureProjectionPreview;
 import be.nerosro.elemancy.client.tome.TomeScreen;
 import be.nerosro.elemancy.entity.EntityTypes;
 import be.nerosro.elemancy.items.ElemancyItems;
 import be.nerosro.elemancy.network.ClientRitualCameraState;
 import be.nerosro.elemancy.network.DarkBucketScrollPayload;
+import be.nerosro.elemancy.network.FireSwordMissPayload;
 import be.nerosro.elemancy.network.RitualCameraLockState;
 import be.nerosro.elemancy.particle.ElemancyParticles;
+import be.nerosro.elemancy.particle.FireSpiralParticle;
 import be.nerosro.elemancy.particle.ManaSpiralParticle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockTintSources;
@@ -45,18 +50,26 @@ public class ElemancyClient {
         modEventBus.addListener(ElemancyClient::onRegisterParticleProviders);
 
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(ElemancyClient::onPlayerLogout);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(StructureProjectionPreview::onClientTick);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(StructureProjectionPreview::onExtractLevelRenderState);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(StructureProjectionPreview::onSubmitCustomGeometry);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(ClientRitualCameraState::onClientTick);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(ElemancyClient::onMouseScroll);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(ElemancyClient::onMouseButton);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(ElemancyTooltipEvents::onTooltip);
     }
 
     private static void onPlayerLogout(PlayerEvent.PlayerLoggedOutEvent event) {
         TomeScreen.clearSessionState();
+        StructureProjectionPreview.clear();
         RitualCameraLockState.setLocked(false);
         ClientRitualCameraState.restore();
     }
 
     private static void onMouseScroll(InputEvent.MouseScrollingEvent event) {
+        StructureProjectionPreview.onMouseScroll(event);
+        if (event.isCanceled()) return;
+
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.screen != null || minecraft.player == null || !minecraft.player.isShiftKeyDown()
             || !minecraft.player.getMainHandItem().is(ElemancyItems.DARK_BUCKET.get())
@@ -66,6 +79,18 @@ public class ElemancyClient {
 
         event.setCanceled(true);
         ClientPacketDistributor.sendToServer(new DarkBucketScrollPayload(event.getScrollDeltaY() < 0.0D));
+    }
+
+    private static void onMouseButton(InputEvent.MouseButton.Pre event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        if (event.getButton() == GLFW.GLFW_MOUSE_BUTTON_LEFT
+            && event.getAction() == GLFW.GLFW_PRESS
+            && minecraft.screen == null
+            && minecraft.player != null
+            && minecraft.player.getMainHandItem().is(ElemancyItems.FIRE_SWORD.get())
+            && (minecraft.hitResult == null || minecraft.hitResult.getType() == net.minecraft.world.phys.HitResult.Type.MISS)) {
+            ClientPacketDistributor.sendToServer(new FireSwordMissPayload());
+        }
     }
 
     private static void onRegisterItemTintSources(RegisterColorHandlersEvent.ItemTintSources event) {
@@ -100,5 +125,6 @@ public class ElemancyClient {
 
     private static void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ElemancyParticles.MANA_SPIRAL.get(), ManaSpiralParticle.Provider::new);
+        event.registerSpriteSet(ElemancyParticles.FIRE_SPIRAL.get(), FireSpiralParticle.Provider::new);
     }
 }

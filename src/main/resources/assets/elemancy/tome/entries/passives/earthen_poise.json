@@ -11,6 +11,19 @@
           ]
         }
       ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "After attuning to the Earth element, even your skin feels more sturdy.",
+            "You now have 1 permanent point of armour, even without anything equipped."
+          ],
+          "requirements": {
+            "attunement": "soulmark:earth"
+          }
+        }
+      ]
     }
   ]
 }

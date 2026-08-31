@@ -50,6 +50,12 @@ public final class ElemancyNetwork {
             DarkBucketScrollPayload.STREAM_CODEC,
             DarkBucketScrollPayload::handle
         );
+
+        registrar.playToServer(
+            FireSwordMissPayload.TYPE,
+            FireSwordMissPayload.STREAM_CODEC,
+            FireSwordMissPayload::handle
+        );
     }
 
     /**

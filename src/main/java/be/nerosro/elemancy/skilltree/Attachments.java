@@ -3,14 +3,16 @@ package be.nerosro.elemancy.skilltree;
 import java.util.function.Supplier;
 
 import be.nerosro.elemancy.Elemancy;
+import be.nerosro.elemancy.items.tools.firestriker.FireStrikerState;
 import be.nerosro.elemancy.jobpoint.JobPointData;
+import be.nerosro.elemancy.passives.VitalCurrentsState;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 /**
- * Registers Elemancy-owned data attachments for players.
+ * Registers Elemancy-owned data attachments.
  */
 public class Attachments {
 
@@ -34,6 +36,14 @@ public class Attachments {
             AttachmentType.serializable(JobPointData::new)
                 .copyOnDeath()
                 .build());
+
+    public static final Supplier<AttachmentType<FireStrikerState>> FIRE_STRIKER_STATE =
+        ATTACHMENTS.register("fire_striker_state", () ->
+            AttachmentType.serializable(FireStrikerState::new).build());
+
+    public static final Supplier<AttachmentType<VitalCurrentsState>> VITAL_CURRENTS_STATE =
+        ATTACHMENTS.register("vital_currents_state", () ->
+            AttachmentType.serializable(VitalCurrentsState::new).build());
 
     public static void register(IEventBus modEventBus) {
         ATTACHMENTS.register(modEventBus);

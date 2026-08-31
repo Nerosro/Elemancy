@@ -12,6 +12,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.material.Fluids;
 
@@ -24,6 +25,9 @@ import net.minecraft.world.level.material.Fluids;
  * All offsets are relative to the center (element) block at (0, 0, 0).
  */
 public final class StructureTemplate {
+    private static final BlockState STONE_BRICK_SLAB = Blocks.STONE_BRICK_SLAB.defaultBlockState()
+        .setValue(SlabBlock.TYPE, SlabType.BOTTOM);
+
 
     private StructureTemplate() {
     }
@@ -101,10 +105,18 @@ public final class StructureTemplate {
                     offset,
                     offset.equals(BlockPos.ZERO)
                         ? StructureTemplate::isValidCenterBlock
-                        : StructureTemplate::isBottomStoneBrickSlab));
+                        : StructureTemplate::isBottomStoneBrickSlab,
+                    offset.equals(BlockPos.ZERO) ? null : STONE_BRICK_SLAB,
+                    offset.equals(BlockPos.ZERO)
+                ));
             }
         }
-        entries.add(new StructureRotationTemplate.Entry(STANDING_TILE_OFFSET, StructureTemplate::isInfusedMetalBlock));
+        entries.add(new StructureRotationTemplate.Entry(
+            STANDING_TILE_OFFSET,
+            StructureTemplate::isInfusedMetalBlock,
+            ElemancyBlocks.INFUSED_METAL_BLOCK.get().defaultBlockState(),
+            false
+        ));
 
         for (Pillar pillar : PILLARS) {
             addPillar(entries, pillar);
@@ -116,9 +128,17 @@ public final class StructureTemplate {
     private static void addPillar(List<StructureRotationTemplate.Entry> entries, Pillar pillar) {
         for (int dy = 0; dy < pillar.capstoneDy(); dy++) {
             entries.add(new StructureRotationTemplate.Entry(
-                new BlockPos(pillar.dx(), dy, pillar.dz()), StructureTemplate::isAshenLog));
+                new BlockPos(pillar.dx(), dy, pillar.dz()),
+                StructureTemplate::isAshenLog,
+                ElemancyBlocks.ASHEN_LOG.get().defaultBlockState(),
+                false
+            ));
         }
         entries.add(new StructureRotationTemplate.Entry(
-            new BlockPos(pillar.dx(), pillar.capstoneDy(), pillar.dz()), StructureTemplate::isInfusedMetalBlock));
+            new BlockPos(pillar.dx(), pillar.capstoneDy(), pillar.dz()),
+            StructureTemplate::isInfusedMetalBlock,
+            ElemancyBlocks.INFUSED_METAL_BLOCK.get().defaultBlockState(),
+            false
+        ));
     }
 }

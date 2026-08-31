@@ -34,7 +34,7 @@ public final class SoftGlowPassive {
         BlockPos pos = player.blockPosition();
         ServerLevel level = (ServerLevel) player.level();
         int ambientLight = level.getMaxLocalRawBrightness(pos);
-        boolean isLightAttuned = AttunementUtil.getAttunement(player) == SoulmarkElements.LIGHT.get();
+        boolean isLightAttuned = AttunementUtil.isAttunedTo(player, SoulmarkElements.LIGHT.get());
         int activateThreshold = isLightAttuned ? ENHANCED_ACTIVATE_THRESHOLD : BASE_ACTIVATE_THRESHOLD;
 
         if (ambientLight <= activateThreshold && level.getBlockState(pos).isAir()) {

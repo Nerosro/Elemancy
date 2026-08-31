@@ -158,6 +158,31 @@ public class ElemancyRecipeProvider extends RecipeProvider {
             .unlockedBy("has_light_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.LIGHT.get()).get()))
             .save(this.output);
 
+        // === Fire Sword ===
+        shaped(RecipeCategory.COMBAT, ElemancyItems.FIRE_SWORD.get())
+            .pattern("F")
+            .pattern("F")
+            .pattern("S")
+            .define('F', ElemancyItems.getElemetalIngot(SoulmarkElements.FIRE.get()).get())
+            .define('S', ElemancyItems.ASHEN_STICK.get())
+            .unlockedBy("has_fire_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.FIRE.get()).get()))
+            .save(this.output);
+
+        // === Fire Striker ===
+        shapeless(RecipeCategory.TOOLS, ElemancyItems.FIRE_STRIKER.get())
+            .requires(ElemancyItems.getElemetalIngot(SoulmarkElements.FIRE.get()).get())
+            .requires(Items.FLINT)
+            .unlockedBy("has_fire_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.FIRE.get()).get()))
+            .save(this.output);
+
+        // Ashen Planks -> Crafting Table (vanilla crafting-table layout)
+        shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.CRAFTING_TABLE)
+            .pattern("PP")
+            .pattern("PP")
+            .define('P', ElemancyBlocks.ASHEN_PLANKS_ITEM.get())
+            .unlockedBy("has_ashen_planks", has(ElemancyBlocks.ASHEN_PLANKS_ITEM.get()))
+            .save(this.output, recipeKey("crafting_table_from_ashen_planks"));
+
         // === Wood Derivatives ===
         Ingredient planks = Ingredient.of(ElemancyBlocks.ASHEN_PLANKS_ITEM.get());
 

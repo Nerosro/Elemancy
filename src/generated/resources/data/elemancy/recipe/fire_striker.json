@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "elemancy:elemetal_ingot_fire",
+    "minecraft:flint"
+  ],
+  "result": {
+    "id": "elemancy:fire_striker"
+  }
+}

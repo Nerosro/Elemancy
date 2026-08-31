@@ -388,6 +388,10 @@ public class EntryReaderView {
         return pages.size();
     }
 
+    public @Nullable String getActiveStructure() {
+        return pages.isEmpty() ? null : pages.get(activePage).structure();
+    }
+
     public @Nullable String getHoveredRecipeItem(int mouseX, int mouseY) {
         for (ItemSlot slot : recipeSlots) {
             if (TomeLayout.isInside(mouseX, mouseY, slot.x, slot.y, slot.size, slot.size)) {

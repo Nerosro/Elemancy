@@ -1,0 +1,43 @@
+{
+  "id": "attunement_ritual",
+  "title": "Attunement Ritual",
+  "pages": [
+    {
+      "structure": "elemancy:attunement_ritual",
+      "sections": [
+        {
+          "content": [
+            "You've played around with the basics of Elemental magic long enough now. But continuing to play will not allow you to walk further anymore.",
+            "It's time to make an important choice, a permanent one.",
+            "Choose carefully. This is the moment where you decide what kind of Elemancer you will be. You can NOT change once you're past this point.",
+            "Use the button below to place a preview of the Attunement Ritual in your world."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "Build the structure shown in the preview, then choose the element you will follow by placing its corresponding block at the center of the slab ring.",
+            "Use Magma for Fire, a water source block for Water, any leaves for Air, Deepslate for Earth, or Glass for Light and Dark. Glass chooses Light by day and Dark by night.",
+            "Throw an unattuned Soulvial on top of this center block",
+            "Finally, Stand on the lowest Infused Metal block and cast Elementize on the Soulvial to begin the ritual."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "Once the ritual is complete, you will be attuned to your chosen element. This changes a couple things you were familiar with",
+            "First of, casting Elementize on the copper will now turn it into Elemetal of your element. Same for the Arcane Vessel. This also means you won't be able to craft infused ingots anymore",
+            "Additionally, your abilities and spells will now be influenced by your chosen element, making same element spells stronger and opposite element spells weaker.",
+            "Your matching passive is enhanced, and later progression opens an Element Identity page with abilities and spells unique to your chosen element."
+          ]
+        }
+      ]
+    }
+  ]
+}

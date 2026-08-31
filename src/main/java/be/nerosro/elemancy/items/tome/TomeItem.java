@@ -2,6 +2,7 @@ package be.nerosro.elemancy.items.tome;
 
 import java.util.UUID;
 
+import be.nerosro.elemancy.client.structureprojection.StructureProjectionPreview;
 import be.nerosro.elemancy.client.tome.data.TomeClientHooks;
 import be.nerosro.elemancy.items.ItemDataUtil;
 import be.nerosro.elemancy.tome.TomeDiscoveryEvents;
@@ -69,6 +70,12 @@ public class TomeItem extends Item {
         }
 
         if (level.isClientSide()) {
+            if (player.isShiftKeyDown() && StructureProjectionPreview.cancel()) {
+                return InteractionResult.SUCCESS;
+            }
+            if (StructureProjectionPreview.handleProjectionUse()) {
+                return InteractionResult.SUCCESS;
+            }
             // Don't open screen if discovery just happened - let player see the message
             if (!TomeDiscoveryEvents.hadRecentDiscovery(player)) {
                 TomeClientHooks.openTomeScreen(player, hand);

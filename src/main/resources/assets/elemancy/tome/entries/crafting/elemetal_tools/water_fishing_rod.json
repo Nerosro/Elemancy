@@ -1,0 +1,28 @@
+{
+  "id": "water_fishing_rod",
+  "title": "Water Elemetal Fishing Rod",
+  "requirements": { "node": "elemancy:conversion_ritual" },
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "Not yet implemented"
+          ]
+        },
+        {
+          "content": [ "Recipe:" ],
+          "recipe": {
+            "type": "shaped_3x3",
+            "grid": [
+              "", "", "elemancy:elemetal_ingot_water",
+              "", "elemancy:elemetal_ingot_water", "minecraft:string",
+              "elemancy:elemetal_ingot_water", "", "minecraft:string"
+            ],
+            "result": "elemancy:water_fishing_rod"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -11,6 +11,19 @@
           ]
         }
       ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "After attuning to the Fire element, the fire inside of you wants to come out.",
+            "Your direct attacks and beginner spells now have a small chance to ignite your opponents for a short time."
+          ],
+          "requirements": {
+            "attunement": "soulmark:fire"
+          }
+        }
+      ]
     }
   ]
 }

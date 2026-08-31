@@ -1,0 +1,28 @@
+{
+  "id": "air_spear",
+  "title": "Air Elemetal Spear",
+  "requirements": { "node": "elemancy:conversion_ritual" },
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "Not yet implemented"
+          ]
+        },
+        {
+          "content": [ "Recipe:" ],
+          "recipe": {
+            "type": "shaped_3x3",
+            "grid": [
+              "", "", "elemancy:elemetal_ingot_air",
+              "", "elemancy:ashen_stick", "",
+              "elemancy:ashen_stick", "", ""
+            ],
+            "result": "elemancy:air_spear"
+          }
+        }
+      ]
+    }
+  ]
+}

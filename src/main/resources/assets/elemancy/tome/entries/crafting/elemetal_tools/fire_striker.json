@@ -1,0 +1,54 @@
+{
+  "id": "fire_striker",
+  "title": "Fire Elemetal Striker",
+  "requirements": {
+    "node": "elemancy:conversion_ritual"
+  },
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "You wonder if the Fire Elemetal ingot has uses other than striking back. Considering it literally has the word Fire in its name, maybe it's time to improve the flint and steel?",
+            "The result is questionable at first. The Fire Striker is twice as fragile compared to the regular flint and steel and it doesn't even start actual fires.",
+            "It's only by pure accident that you discovered what it actually does after you forgot it on top of one of your furnaces."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "The Fire Elemetal Striker is a peculiar tool that doesn't start fires like you might expect, but instead controls the fire within furnaces and campfires.",
+            "For furnaces, smokers and blast furnaces, it boosts the heat of the current piece of fuel being used. This causes materials to process faster, effectively doubling the output.",
+            "After the fuel is consumed, the furnace returns to its normal behavior. The stoked state does not carry over to the next piece of fuel, even if there is more fuel available in the furnace."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "For campfires, it works similarly. The fire also remains stoked for as long as food is processing, but once all food has finished cooking, the campfire has an increasing chance of extinguishing."
+          ]
+        },
+        {
+          "content": [
+            "Recipe:"
+          ],
+          "recipe": {
+            "type": "shaped_3x3",
+            "grid": [
+              "elemancy:elemetal_ingot_fire", "minecraft:flint", "",
+              "", "", "",
+              "", "", ""
+            ],
+            "result": "elemancy:fire_striker"
+          }
+        }
+      ]
+    }
+  ]
+}

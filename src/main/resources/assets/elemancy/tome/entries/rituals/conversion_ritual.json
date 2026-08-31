@@ -1,0 +1,31 @@
+{
+  "id": "conversion_ritual",
+  "title": "Conversion Ritual",
+  "pages": [
+    {
+      "structure": "elemancy:conversion_ritual",
+      "sections": [
+        {
+          "content": [
+            "Your attunement might be permanent, but the Elemetal blocks that were formed certainly are a lot less clingy to their element.",
+            "They can actually be convinced to change element quite easily using the same ritual layout as the one that created them.",
+            "First up, remove the Elemetal capstones from the pillar and place a single one of them in the center of the slab ring.",
+            "Next, replace the capstones with blocks of the same element you wish to convert the Elemetal into."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "For Fire, Red Nether Bricks brought from the depths of the Nether, Water requires Ice blocks of any sort.",
+            "Capstones for Air will be blocks made out of the tallest pieces of Bamboo, swaying in the wind, while Earth uses the unmoveable Obsidian.",
+            "Glowstone for the Light that brightens the world, and Sculk for the Dark deep down below.",
+            "Once all 5 capstones have been replaced, simply cast Elementize on the Elemetal block and the conversion ritual will start."
+          ]
+        }
+      ]
+    }
+  ]
+}

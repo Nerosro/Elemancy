@@ -1,17 +1,17 @@
 {
   "entries": [
     "arcane_vessel",
-    "fire_sword",
-    "fire_striker",
-    "air_axe",
-    "air_spear",
-    "earth_pickaxe",
-    "earth_shovel",
-    "water_hoe",
-    "water_fishing_rod",
-    "light_shield",
-    "light_shears",
-    "dark_bucket",
-    "dark_brush"
+    { "id": "fire_sword",        "path": "elemetal_tools/fire_sword" },
+    { "id": "fire_striker",      "path": "elemetal_tools/fire_striker" },
+    { "id": "air_axe",           "path": "elemetal_tools/air_axe" },
+    { "id": "air_spear",         "path": "elemetal_tools/air_spear" },
+    { "id": "earth_pickaxe",     "path": "elemetal_tools/earth_pickaxe" },
+    { "id": "earth_shovel",      "path": "elemetal_tools/earth_shovel" },
+    { "id": "water_hoe",         "path": "elemetal_tools/water_hoe" },
+    { "id": "water_fishing_rod", "path": "elemetal_tools/water_fishing_rod" },
+    { "id": "light_shield",      "path": "elemetal_tools/light_shield" },
+    { "id": "light_shears",      "path": "elemetal_tools/light_shears" },
+    { "id": "dark_bucket",       "path": "elemetal_tools/dark_bucket" },
+    { "id": "dark_brush",        "path": "elemetal_tools/dark_brush" }
   ]
 }

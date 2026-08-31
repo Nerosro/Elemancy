@@ -1,6 +1,8 @@
 package be.nerosro.elemancy.passives;
 
 import be.nerosro.elemancy.skilltree.SkillTreeEntries;
+import be.nerosro.soulmark.attunement.AttunementUtil;
+import be.nerosro.soulmark.element.SoulmarkElements;
 import be.nerosro.soulmark.skilltree.SkillTreeUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -20,6 +22,8 @@ public final class TickPassives {
 
     private static final int NIGHT_SIGHT_DURATION_TICKS = 260;        // ~13 seconds
     private static final int NIGHT_SIGHT_REFRESH_THRESHOLD = 200;     // refresh at 10s remaining
+    private static final int NIGHT_SIGHT_ATTUNED_DURATION_TICKS = 320;
+    private static final int NIGHT_SIGHT_ATTUNED_REFRESH_THRESHOLD = 260;
     private static final int NIGHT_SIGHT_LIGHT_THRESHOLD = 7;         // only in low light
     private static final int NIGHT_SIGHT_CHECK_INTERVAL = 20;         // check every second
 
@@ -51,9 +55,14 @@ public final class TickPassives {
 
         if (lightLevel <= NIGHT_SIGHT_LIGHT_THRESHOLD) {
             MobEffectInstance current = player.getEffect(MobEffects.NIGHT_VISION);
-            if (current == null || current.getDuration() < NIGHT_SIGHT_REFRESH_THRESHOLD) {
+            boolean isDarkAttuned = AttunementUtil.isAttunedTo(player, SoulmarkElements.DARK.get());
+            int duration = isDarkAttuned ? NIGHT_SIGHT_ATTUNED_DURATION_TICKS : NIGHT_SIGHT_DURATION_TICKS;
+            int refreshThreshold = isDarkAttuned
+                ? NIGHT_SIGHT_ATTUNED_REFRESH_THRESHOLD
+                : NIGHT_SIGHT_REFRESH_THRESHOLD;
+            if (current == null || current.getDuration() < refreshThreshold) {
                 player.addEffect(new MobEffectInstance(
-                    MobEffects.NIGHT_VISION, NIGHT_SIGHT_DURATION_TICKS, 0, true, false, true));
+                    MobEffects.NIGHT_VISION, duration, 0, true, false, true));
             }
         } else {
             player.removeEffect(MobEffects.NIGHT_VISION);

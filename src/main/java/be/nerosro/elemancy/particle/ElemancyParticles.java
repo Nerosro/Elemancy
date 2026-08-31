@@ -23,6 +23,9 @@ public class ElemancyParticles {
     public static final Supplier<SimpleParticleType> MANA_SPIRAL =
         PARTICLES.register("mana_spiral", () -> new SimpleParticleType(false));
 
+    public static final Supplier<SimpleParticleType> FIRE_SPIRAL =
+        PARTICLES.register("fire_spiral", () -> new SimpleParticleType(false));
+
     public static void register(IEventBus modEventBus) {
         PARTICLES.register(modEventBus);
     }

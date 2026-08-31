@@ -1,0 +1,46 @@
+{
+  "id": "fire_sword",
+  "title": "Fire Elemetal Sword",
+  "requirements": {
+    "node": "elemancy:conversion_ritual"
+  },
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "Just looking at these Fire Elemetal ingots, you instincively feel like throwing them at someone would somehow deal more damage compared to any other elemetal ingots.",
+            "Weapon it is, and what better weapon to deal damage with than a good old sword.",
+            "While hammering the ingot into a sword, the energy from the strikes got absorbed into the blade until at one point the sword struck back.",
+            "I'm going to need to be careful with this material it looks like..."
+          ]
+        }
+      ]},
+      {
+      "sections": [
+        {
+          "content": [
+            "The Fire Elemetal Sword stores the impact of your strikes inside of the material, Each consecutive hit lights one of the gems set into the blade.",
+            "This energy is unstable and disappears quickly, do not expect it to stick around when you put the sword down.",
+            "Wildly swinging the sword is also not advised as you are just discarding the stored energy immediately.",
+            "Once all three gems are lit, the next strike releases this stored energy and deals twice as much damage. This attack cannot crit nor sweep."
+          ]
+        },
+        {
+          "content": [
+            "Recipe:"
+          ],
+          "recipe": {
+            "type": "shaped_3x3",
+            "grid": [
+                "","elemancy:elemetal_ingot_fire", "",
+                "","elemancy:elemetal_ingot_fire", "",
+                "","elemancy:ashen_stick", ""
+            ],
+            "result": "elemancy:fire_sword"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -16,9 +16,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import be.nerosro.elemancy.Elemancy;
+import be.nerosro.soulmark.element.Element;
+import be.nerosro.soulmark.element.ElementRegistry;
+import be.nerosro.soulmark.network.ClientAttunementData;
 import be.nerosro.soulmark.network.ClientSkillTreeData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.resources.Resource;
 
 /**
@@ -28,13 +32,29 @@ public final class TomeEntryLoader {
     private TomeEntryLoader() {
     }
 
-    public record PageRequirements(@Nullable String node) {
+    public record PageRequirements(@Nullable String node, @Nullable String attunement) {
         public boolean isSatisfied() {
+            return hasRequiredNode() && hasRequiredAttunement();
+        }
+
+        private boolean hasRequiredNode() {
             if (node == null) return true;
             try {
                 return ClientSkillTreeData.isUnlocked(Identifier.parse(node));
             } catch (Exception e) {
-                return false; // Invalid node ID → section stays locked
+                return false;
+            }
+        }
+
+        private boolean hasRequiredAttunement() {
+            if (attunement == null) return true;
+            try {
+                Identifier attunementId = Identifier.parse(attunement);
+                ResourceKey<Element> attunementKey = ResourceKey.create(ElementRegistry.ELEMENT_REGISTRY_KEY, attunementId);
+                Element requiredAttunement = ElementRegistry.ELEMENT_REGISTRY.getValue(attunementKey);
+                return requiredAttunement != null && requiredAttunement == ClientAttunementData.getAttunement();
+            } catch (Exception e) {
+                return false;
             }
         }
     }
@@ -48,7 +68,7 @@ public final class TomeEntryLoader {
         }
     }
 
-    public record Page(List<Section> sections) {
+    public record Page(List<Section> sections, @Nullable String structure) {
         public List<Section> getVisibleSections() {
             return sections.stream().filter(Section::isVisible).toList();
         }
@@ -85,6 +105,9 @@ public final class TomeEntryLoader {
         }
     }
 
+    private record CraftingEntryReference(String id, String path) {
+    }
+
     public static List<TomeEntry> loadKnowledgeEntries() {
         List<TomeEntry> result = new ArrayList<>();
 
@@ -106,16 +129,8 @@ public final class TomeEntryLoader {
     public static List<TomeEntry> loadCraftingEntries() {
         List<TomeEntry> result = new ArrayList<>();
 
-        Optional<JsonObject> indexOpt = readJson(id("tome/entries/crafting/index.json"));
-        if (indexOpt.isEmpty()) return result;
-
-        JsonArray entries = getArray(indexOpt.get(), "entries");
-        if (entries == null) return result;
-
-        for (JsonElement element : entries) {
-            if (!element.isJsonPrimitive()) continue;
-            String entryId = element.getAsString();
-            loadCraftingEntry(entryId).ifPresent(result::add);
+        for (CraftingEntryReference reference : loadCraftingEntryReferences()) {
+            loadEntryFromCategory("crafting", reference.path()).ifPresent(result::add);
         }
 
         return result;
@@ -126,7 +141,38 @@ public final class TomeEntryLoader {
     }
 
     public static Optional<TomeEntry> loadCraftingEntry(String entryId) {
+        for (CraftingEntryReference reference : loadCraftingEntryReferences()) {
+            if (reference.id().equals(entryId)) {
+                return loadEntryFromCategory("crafting", reference.path());
+            }
+        }
         return loadEntryFromCategory("crafting", entryId);
+    }
+
+    private static List<CraftingEntryReference> loadCraftingEntryReferences() {
+        Optional<JsonObject> index = readJson(id("tome/entries/crafting/index.json"));
+        if (index.isEmpty()) return List.of();
+
+        JsonArray entries = getArray(index.get(), "entries");
+        if (entries == null) return List.of();
+
+        List<CraftingEntryReference> references = new ArrayList<>();
+        for (JsonElement element : entries) {
+            if (element.isJsonPrimitive()) {
+                String entryId = element.getAsString();
+                references.add(new CraftingEntryReference(entryId, entryId));
+                continue;
+            }
+            if (!element.isJsonObject()) continue;
+
+            JsonObject entry = element.getAsJsonObject();
+            Optional<String> entryId = getString(entry, "id");
+            Optional<String> path = getString(entry, "path");
+            if (entryId.isPresent() && path.isPresent()) {
+                references.add(new CraftingEntryReference(entryId.get(), path.get()));
+            }
+        }
+        return references;
     }
 
     public static Optional<TomeEntry> loadSpellEntry(Identifier spellNodeId) {
@@ -135,6 +181,10 @@ public final class TomeEntryLoader {
 
     public static Optional<TomeEntry> loadPassiveEntry(Identifier nodeId) {
         return loadEntryFromCategory("passives", nodeId.getPath());
+    }
+
+    public static Optional<TomeEntry> loadRitualEntry(Identifier nodeId) {
+        return loadEntryFromCategory("rituals", nodeId.getPath());
     }
 
     public static Optional<TomeEntry> loadScarEntry(String scarId) {
@@ -158,7 +208,8 @@ public final class TomeEntryLoader {
         if (root.has("requirements") && root.get("requirements").isJsonObject()) {
             JsonObject reqObj = root.getAsJsonObject("requirements");
             String node = getString(reqObj, "node").orElse(null);
-            requirements = new PageRequirements(node);
+            String attunement = getString(reqObj, "attunement").orElse(null);
+            requirements = new PageRequirements(node, attunement);
         }
 
         List<Page> pages = new ArrayList<>();
@@ -173,7 +224,7 @@ public final class TomeEntryLoader {
         }
 
         if (pages.isEmpty()) {
-            pages.add(new Page(List.of(new Section("No page content found.", null, null))));
+            pages.add(new Page(List.of(new Section("No page content found.", null, null)), null));
         }
 
         return Optional.of(new TomeEntry(id, title, requirements, pages));
@@ -181,6 +232,7 @@ public final class TomeEntryLoader {
 
     private static Page parsePage(JsonObject pageObj) {
         List<Section> sections = new ArrayList<>();
+        String structure = getString(pageObj, "structure").orElse(null);
         JsonArray sectionsArray = getArray(pageObj, "sections");
 
         if (sectionsArray != null) {
@@ -195,7 +247,7 @@ public final class TomeEntryLoader {
             sections.add(new Section("Empty page.", null, null));
         }
 
-        return new Page(sections);
+        return new Page(sections, structure);
     }
 
     private static Section parseSection(JsonObject sectionObj) {
@@ -216,7 +268,8 @@ public final class TomeEntryLoader {
         if (sectionObj.has("requirements") && sectionObj.get("requirements").isJsonObject()) {
             JsonObject reqObj = sectionObj.getAsJsonObject("requirements");
             String node = getString(reqObj, "node").orElse(null);
-            requirements = new PageRequirements(node);
+            String attunement = getString(reqObj, "attunement").orElse(null);
+            requirements = new PageRequirements(node, attunement);
         }
 
         // Parse optional recipe display

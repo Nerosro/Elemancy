@@ -141,6 +141,17 @@ public class ElemancyModelProvider extends ModelProvider {
         itemModels.generateFlatItem(ElemancyItems.ROBE_BOOTS.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ElemancyItems.INFUSED_PICKAXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModels.generateFlatItem(ElemancyItems.LIGHT_SHEARS.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ElemancyItems.FIRE_STRIKER.get(), ModelTemplates.FLAT_ITEM);
+
+        Identifier fireSwordUnlit = fireSwordModel(itemModels, 0);
+        Identifier fireSwordOneHeat = fireSwordModel(itemModels, 1);
+        Identifier fireSwordTwoHeat = fireSwordModel(itemModels, 2);
+        Identifier fireSwordThreeHeat = fireSwordModel(itemModels, 3);
+        itemModels.itemModelOutput.accept(ElemancyItems.FIRE_SWORD.get(),
+            ItemModelUtils.select(new CustomModelDataProperty(0), ItemModelUtils.plainModel(fireSwordUnlit),
+                ItemModelUtils.when("1", ItemModelUtils.plainModel(fireSwordOneHeat)),
+                ItemModelUtils.when("2", ItemModelUtils.plainModel(fireSwordTwoHeat)),
+                ItemModelUtils.when("3", ItemModelUtils.plainModel(fireSwordThreeHeat))));
 
         // Dark Bucket uses authored variants for familiar vanilla contents and NeoForge's
         // fluid-container renderer for compatible modded fluids.
@@ -178,5 +189,10 @@ public class ElemancyModelProvider extends ModelProvider {
     private static Identifier darkBucketModel(ItemModelGenerators itemModels, String variant) {
         Identifier modelId = Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "item/dark_bucket_" + variant);
         return ModelTemplates.FLAT_ITEM.create(modelId, TextureMapping.layer0(new Material(modelId)), itemModels.modelOutput);
+    }
+
+    private static Identifier fireSwordModel(ItemModelGenerators itemModels, int heat) {
+        Identifier modelId = Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "item/fire_sword_" + heat);
+        return ModelTemplates.FLAT_HANDHELD_ITEM.create(modelId, TextureMapping.layer0(new Material(modelId)), itemModels.modelOutput);
     }
 }

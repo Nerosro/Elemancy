@@ -12,6 +12,9 @@ import be.nerosro.elemancy.items.tome.TomeTooltip;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketContents;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketItem;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketTooltip;
+import be.nerosro.elemancy.items.tools.firesword.FireSwordHeat;
+import be.nerosro.elemancy.items.tools.firesword.FireSwordItem;
+import be.nerosro.elemancy.items.tools.firestriker.FireStrikerItem;
 import be.nerosro.elemancy.items.tools.lightshears.LightShearsItem;
 import be.nerosro.elemancy.items.trinket.ManaStatTrinketItem;
 import be.nerosro.elemancy.items.wands.WandAspect;
@@ -193,6 +196,20 @@ public class ElemancyItems {
         props -> props.durability(ElemancyToolMaterials.LIGHT_ELEMETAL.durability())
             .repairable(ElemancyToolMaterials.LIGHT_ELEMETAL.repairItems())
             .component(DataComponents.TOOL, net.minecraft.world.item.ShearsItem.createToolProperties())
+    );
+
+    public static final DeferredItem<Item> FIRE_SWORD = ITEMS.registerItem(
+        "fire_sword",
+        FireSwordItem::new,
+        props -> props.sword(ElemancyToolMaterials.FIRE_ELEMETAL, 3.0F, -2.4F)
+            .repairable(ElemancyToolMaterials.FIRE_ELEMETAL.repairItems())
+            .component(DataComponents.CUSTOM_MODEL_DATA, FireSwordHeat.DEFAULT_MODEL_DATA)
+    );
+
+    public static final DeferredItem<Item> FIRE_STRIKER = ITEMS.registerItem(
+        "fire_striker",
+        FireStrikerItem::new,
+        props -> props.durability(32)
     );
 
     // ==================== CONSUMABLES ====================

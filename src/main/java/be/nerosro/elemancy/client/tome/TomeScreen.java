@@ -8,6 +8,8 @@ import java.util.function.Function;
 import org.jspecify.annotations.NonNull;
 
 import be.nerosro.elemancy.client.tome.data.TomeEntryLoader;
+import be.nerosro.elemancy.client.structureprojection.StructureProjectionPreview;
+import be.nerosro.elemancy.client.structureprojection.StructureProjectionRegistry;
 import be.nerosro.elemancy.client.tome.rendering.TextRenderer;
 import be.nerosro.elemancy.client.tome.rendering.TomeLayout;
 import be.nerosro.elemancy.client.tome.rendering.TomeWidgets;
@@ -240,6 +242,12 @@ public class TomeScreen extends Screen {
                 return true;
             }
 
+            if (TomeLayout.isInside(mouseX, mouseY, layout.backButtonX(), layout.footerY, 124, 20)
+                && StructureProjectionPreview.show(entryReaderView.getActiveStructure())) {
+                this.onClose();
+                return true;
+            }
+
             if (TomeLayout.isInside(mouseX, mouseY, layout.prevButtonX(), layout.footerY, 64, 20) && entryReaderView.canGoPrevious()) {
                 entryReaderView.previousPage();
                 startFlip();
@@ -324,6 +332,10 @@ public class TomeScreen extends Screen {
             TomeWidgets.drawButton(graphics, this.font, layout.nextButtonX(64), footerY, 64, 20, "Next", entryReaderView.canGoNext());
         }
         TomeWidgets.drawButton(graphics, this.font, layout.backButtonX(), layout.backButtonY(), 124, 20, "Back to Index", true);
+        String structureId = entryReaderView.getActiveStructure();
+        if (StructureProjectionRegistry.contains(structureId)) {
+            TomeWidgets.drawButton(graphics, this.font, layout.backButtonX(), footerY, 124, 20, "Show Structure", true);
+        }
     }
 
     private void drawSpellIcon(GuiGraphicsExtractor graphics, SkillNode node, int cx, int cy) {
@@ -395,10 +407,10 @@ public class TomeScreen extends Screen {
         if (node == null) return false;
 
         Optional<TomeEntryLoader.TomeEntry> loaded = TomeEntryLoader.loadSpellEntry(spellNodeId);
-        List<TomeEntryLoader.Page> pages = loaded.map(tomeEntry -> filterVisiblePages(tomeEntry.pages())).orElseGet(() -> defaultSpellPages(node));
-        String title = loaded.map(TomeEntryLoader.TomeEntry::title).orElse(node.name());
+        if (loaded.isEmpty()) return false;
 
-        setActiveEntry(spellNodeId.toString(), title, pages, EntryReaderView.EntryType.SPELL, node, SpellRegistry.get(spellNodeId), null, animate);
+        TomeEntryLoader.TomeEntry entry = loaded.get();
+        setActiveEntry(spellNodeId.toString(), entry.title(), filterVisiblePages(entry.pages()), EntryReaderView.EntryType.SPELL, node, SpellRegistry.get(spellNodeId), null, animate);
         return true;
     }
 
@@ -407,10 +419,10 @@ public class TomeScreen extends Screen {
         if (node == null) return false;
 
         Optional<TomeEntryLoader.TomeEntry> loaded = TomeEntryLoader.loadPassiveEntry(nodeId);
-        List<TomeEntryLoader.Page> pages = loaded.map(tomeEntry -> filterVisiblePages(tomeEntry.pages())).orElseGet(() -> List.of(new TomeEntryLoader.Page(List.of(new TomeEntryLoader.Section(node.description(), null, null)))));
-        String title = loaded.map(TomeEntryLoader.TomeEntry::title).orElse(node.name());
+        if (loaded.isEmpty()) return false;
 
-        setActiveEntry(nodeId.toString(), title, pages, EntryReaderView.EntryType.PASSIVE, node, null, null, animate);
+        TomeEntryLoader.TomeEntry entry = loaded.get();
+        setActiveEntry(nodeId.toString(), entry.title(), filterVisiblePages(entry.pages()), EntryReaderView.EntryType.PASSIVE, node, null, null, animate);
         return true;
     }
 
@@ -418,9 +430,11 @@ public class TomeScreen extends Screen {
         SkillNode node = SkillTreeRegistries.NODE_REGISTRY.getValue(nodeId);
         if (node == null) return false;
 
-        List<TomeEntryLoader.Page> pages = List.of(new TomeEntryLoader.Page(
-            List.of(new TomeEntryLoader.Section(node.description(), null, null))));
-        setActiveEntry(nodeId.toString(), node.name(), pages, EntryReaderView.EntryType.RITUAL, node, null, null, animate);
+        Optional<TomeEntryLoader.TomeEntry> loaded = TomeEntryLoader.loadRitualEntry(nodeId);
+        if (loaded.isEmpty()) return false;
+
+        TomeEntryLoader.TomeEntry entry = loaded.get();
+        setActiveEntry(nodeId.toString(), entry.title(), filterVisiblePages(entry.pages()), EntryReaderView.EntryType.RITUAL, node, null, null, animate);
         return true;
     }
 
@@ -462,7 +476,8 @@ public class TomeScreen extends Screen {
 
         if (visible.isEmpty()) {
             return List.of(new TomeEntryLoader.Page(
-                List.of(new TomeEntryLoader.Section("Additional content locked.\n\nProgress further to unlock.", null, null))
+                List.of(new TomeEntryLoader.Section("Additional content locked.\n\nProgress further to unlock.", null, null)),
+                null
             ));
         }
 
@@ -613,12 +628,6 @@ public class TomeScreen extends Screen {
         int page = readerMode == ReaderMode.ENTRY ? entryReaderView.getActivePage() : 0;
         EntryReaderView.EntryType type = readerMode == ReaderMode.ENTRY ? entryReaderView.getType() : EntryReaderView.EntryType.KNOWLEDGE;
         savedSession = new SessionState(tabId, readerMode, entryId, page, type);
-    }
-
-    private List<TomeEntryLoader.Page> defaultSpellPages(SkillNode node) {
-        return List.of(new TomeEntryLoader.Page(
-            List.of(new TomeEntryLoader.Section(node.description(), null, null))
-        ));
     }
 
     /**
