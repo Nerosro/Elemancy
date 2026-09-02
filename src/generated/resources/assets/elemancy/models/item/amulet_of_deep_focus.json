@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/amulet_of_deep_focus"
+    "layer0": "elemancy:item/trinkets/amulet_of_deep_focus"
   }
 }

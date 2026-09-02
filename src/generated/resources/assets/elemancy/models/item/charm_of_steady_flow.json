@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/charm_of_steady_flow"
+    "layer0": "elemancy:item/trinkets/charm_of_steady_flow"
   }
 }

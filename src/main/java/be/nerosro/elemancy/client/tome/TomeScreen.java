@@ -220,6 +220,11 @@ public class TomeScreen extends Screen {
 
     @Override
     public boolean mouseClicked(MouseButtonEvent event, boolean doubleClick) {
+        if (event.button() == 1 && readerMode == ReaderMode.ENTRY) {
+            readerMode = ReaderMode.INDEX;
+            startFlip();
+            return true;
+        }
         if (event.button() != 0) return super.mouseClicked(event, doubleClick);
 
         int mouseX = (int) event.x();

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "elemancy:item/fire_sword_3"
+    "layer0": "elemancy:item/tools/fire_sword_3"
   }
 }

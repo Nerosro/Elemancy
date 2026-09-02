@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/belt_of_rolling_tides"
+    "layer0": "elemancy:item/trinkets/belt_of_rolling_tides"
   }
 }

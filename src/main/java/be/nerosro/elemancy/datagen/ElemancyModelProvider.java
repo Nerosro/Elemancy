@@ -8,6 +8,7 @@ import be.nerosro.elemancy.client.AffinityPaperTintSource;
 import be.nerosro.elemancy.items.ElemancyItems;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketContents;
 import be.nerosro.soulmark.element.Element;
+import be.nerosro.soulmark.element.ElementRegistry;
 import be.nerosro.soulmark.element.SoulmarkElements;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
@@ -24,6 +25,7 @@ import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.Fluids;
@@ -103,22 +105,25 @@ public class ElemancyModelProvider extends ModelProvider {
         blockModels.createTrivialCube(ElemancyBlocks.SOFT_GLOW.get());
 
         // === Items ===
-        itemModels.generateFlatItem(ElemancyItems.ASHEN_STICK.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.ASHEN_WAND.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.ENERGIZED_STICK.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.INFUSED_INGOT.get(), ModelTemplates.FLAT_ITEM);
+        generateFlatItem(itemModels, ElemancyItems.ASHEN_STICK.get(), "wood/ashen_stick");
+        generateFlatItem(itemModels, ElemancyItems.ASHEN_WAND.get(), "wands/ashen_wand");
+        generateFlatItem(itemModels, ElemancyItems.ENERGIZED_STICK.get(), "wands/energized_stick");
+        generateFlatItem(itemModels, ElemancyItems.INFUSED_INGOT.get(), "materials/infused_ingot");
         // === Elemetal Ingots (placeholder self-named texture, one per base element) ===
         for (Element element : SoulmarkElements.baseElements()) {
-            itemModels.generateFlatItem(ElemancyItems.getElemetalIngot(element).get(), ModelTemplates.FLAT_ITEM);
+            Identifier elementId = ElementRegistry.ELEMENT_REGISTRY.getKey(element);
+            if (elementId != null) {
+                generateFlatItem(itemModels, ElemancyItems.getElemetalIngot(element).get(), "materials/elemetal_ingot_" + elementId.getPath());
+            }
         }
-        itemModels.generateFlatItem(ElemancyItems.PROPOLIS.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.ARCANE_VESSEL.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.TOME.get(), ModelTemplates.FLAT_ITEM);
+        generateFlatItem(itemModels, ElemancyItems.PROPOLIS.get(), "utility/propolis");
+        generateFlatItem(itemModels, ElemancyItems.ARCANE_VESSEL.get(), "utility/arcane_vessel");
+        generateFlatItem(itemModels, ElemancyItems.TOME.get(), "utility/tome");
 
         // Affinity Paper has a standard single-layer model, so datagen creates both its model and tint-aware item definition.
         Identifier affinityPaperModel = ModelTemplates.FLAT_ITEM.create(
             ElemancyItems.AFFINITY_PAPER.get(),
-            TextureMapping.layer0(ElemancyItems.AFFINITY_PAPER.get()),
+            TextureMapping.layer0(material("utility/affinity_paper")),
             itemModels.modelOutput);
         itemModels.itemModelOutput.accept(ElemancyItems.AFFINITY_PAPER.get(),
             ItemModelUtils.tintedModel(affinityPaperModel, new AffinityPaperTintSource()));
@@ -135,13 +140,16 @@ public class ElemancyModelProvider extends ModelProvider {
                     ItemModelUtils.constantTint(-1), ItemModelUtils.constantTint(element.argb())));
         }
 
-        itemModels.generateFlatItem(ElemancyItems.ROBE_HELMET.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.ROBE_CHESTPLATE.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.ROBE_LEGGINGS.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.ROBE_BOOTS.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.INFUSED_PICKAXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.LIGHT_SHEARS.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.FIRE_STRIKER.get(), ModelTemplates.FLAT_ITEM);
+        generateFlatItem(itemModels, ElemancyItems.ROBE_HELMET.get(), "apparel/robe_helmet");
+        generateFlatItem(itemModels, ElemancyItems.ROBE_CHESTPLATE.get(), "apparel/robe_chestplate");
+        generateFlatItem(itemModels, ElemancyItems.ROBE_LEGGINGS.get(), "apparel/robe_leggings");
+        generateFlatItem(itemModels, ElemancyItems.ROBE_BOOTS.get(), "apparel/robe_boots");
+        generateHandheldItem(itemModels, ElemancyItems.INFUSED_PICKAXE.get(), "tools/infused_pickaxe");
+        generateHandheldItem(itemModels, ElemancyItems.EARTH_PICKAXE.get(), "tools/earth_pickaxe");
+        generateHandheldItem(itemModels, ElemancyItems.EARTH_SHOVEL.get(), "tools/earth_shovel");
+        generateHandheldItem(itemModels, ElemancyItems.AIR_AXE.get(), "tools/air_axe");
+        generateFlatItem(itemModels, ElemancyItems.LIGHT_SHEARS.get(), "tools/light_shears");
+        generateFlatItem(itemModels, ElemancyItems.FIRE_STRIKER.get(), "tools/fire_striker");
 
         Identifier fireSwordUnlit = fireSwordModel(itemModels, 0);
         Identifier fireSwordOneHeat = fireSwordModel(itemModels, 1);
@@ -160,7 +168,7 @@ public class ElemancyModelProvider extends ModelProvider {
         Identifier darkBucketLava = darkBucketModel(itemModels, "lava");
         Identifier darkBucketMilk = darkBucketModel(itemModels, "milk");
         Identifier darkBucketPowderSnow = darkBucketModel(itemModels, "powder_snow");
-        Material darkBucketFrame = new Material(Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "item/dark_bucket_empty"));
+        Material darkBucketFrame = material("tools/dark_bucket_empty");
         Material fluidMask = new Material(Identifier.fromNamespaceAndPath("neoforge", "item/mask/bucket_fluid"));
         var dynamicFluidModel = new DynamicFluidContainerModel.Unbaked(
             new DynamicFluidContainerModel.Textures(
@@ -175,24 +183,38 @@ public class ElemancyModelProvider extends ModelProvider {
                 ItemModelUtils.when(DarkBucketContents.MODEL_POWDER_SNOW, ItemModelUtils.plainModel(darkBucketPowderSnow))));
 
         // === Consumables ===
-        itemModels.generateFlatItem(ElemancyItems.ICECREAM_COCOA.get(), ModelTemplates.FLAT_ITEM);
+        generateFlatItem(itemModels, ElemancyItems.ICECREAM_COCOA.get(), "utility/icecream_cocoa");
 
         // === Trinkets ===
-        itemModels.generateFlatItem(ElemancyItems.AMULET_OF_DEEP_FOCUS.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.CHARM_OF_STEADY_FLOW.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.BRACELET_OF_ENDURING_MANA.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.BELT_OF_ROLLING_TIDES.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.NECKLACE_OF_SUNKEN_RESERVES.get(), ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ElemancyItems.GAUNTLET_OF_SUBTLE_WEAVE.get(), ModelTemplates.FLAT_ITEM);
+        generateFlatItem(itemModels, ElemancyItems.AMULET_OF_DEEP_FOCUS.get(), "trinkets/amulet_of_deep_focus");
+        generateFlatItem(itemModels, ElemancyItems.CHARM_OF_STEADY_FLOW.get(), "trinkets/charm_of_steady_flow");
+        generateFlatItem(itemModels, ElemancyItems.BRACELET_OF_ENDURING_MANA.get(), "trinkets/bracelet_of_enduring_mana");
+        generateFlatItem(itemModels, ElemancyItems.BELT_OF_ROLLING_TIDES.get(), "trinkets/belt_of_rolling_tides");
+        generateFlatItem(itemModels, ElemancyItems.NECKLACE_OF_SUNKEN_RESERVES.get(), "trinkets/necklace_of_sunken_reserves");
+        generateFlatItem(itemModels, ElemancyItems.GAUNTLET_OF_SUBTLE_WEAVE.get(), "trinkets/gauntlet_of_subtle_weave");
+    }
+
+    private static void generateFlatItem(ItemModelGenerators itemModels, Item item, String texturePath) {
+        Identifier modelId = ModelTemplates.FLAT_ITEM.create(item, TextureMapping.layer0(material(texturePath)), itemModels.modelOutput);
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelId));
+    }
+
+    private static void generateHandheldItem(ItemModelGenerators itemModels, Item item, String texturePath) {
+        Identifier modelId = ModelTemplates.FLAT_HANDHELD_ITEM.create(item, TextureMapping.layer0(material(texturePath)), itemModels.modelOutput);
+        itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelId));
+    }
+
+    private static Material material(String path) {
+        return new Material(Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "item/" + path));
     }
 
     private static Identifier darkBucketModel(ItemModelGenerators itemModels, String variant) {
         Identifier modelId = Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "item/dark_bucket_" + variant);
-        return ModelTemplates.FLAT_ITEM.create(modelId, TextureMapping.layer0(new Material(modelId)), itemModels.modelOutput);
+        return ModelTemplates.FLAT_ITEM.create(modelId, TextureMapping.layer0(material("tools/dark_bucket_" + variant)), itemModels.modelOutput);
     }
 
     private static Identifier fireSwordModel(ItemModelGenerators itemModels, int heat) {
         Identifier modelId = Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "item/fire_sword_" + heat);
-        return ModelTemplates.FLAT_HANDHELD_ITEM.create(modelId, TextureMapping.layer0(new Material(modelId)), itemModels.modelOutput);
+        return ModelTemplates.FLAT_HANDHELD_ITEM.create(modelId, TextureMapping.layer0(material("tools/fire_sword_" + heat)), itemModels.modelOutput);
     }
 }

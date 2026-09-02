@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/bracelet_of_enduring_mana"
+    "layer0": "elemancy:item/trinkets/bracelet_of_enduring_mana"
   }
 }

@@ -44,7 +44,7 @@ public interface ElemancyToolMaterials {
 
     ToolMaterial EARTH_ELEMETAL = new ToolMaterial(
         BlockTags.INCORRECT_FOR_IRON_TOOL,
-        250,
+        500,
         6.0F,
         2.0F,
         14,
@@ -54,7 +54,7 @@ public interface ElemancyToolMaterials {
     ToolMaterial AIR_ELEMETAL = new ToolMaterial(
         BlockTags.INCORRECT_FOR_IRON_TOOL,
         250,
-        6.0F,
+        7.0F,
         2.0F,
         14,
         ElemancyTags.AIR_ELEMETAL_INGOTS

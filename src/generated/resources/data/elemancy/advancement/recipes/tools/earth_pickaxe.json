@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_earth_elemetal": {
+      "conditions": {
+        "items": [
+          {
+            "items": "elemancy:elemetal_ingot_earth"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "elemancy:earth_pickaxe"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_earth_elemetal"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "elemancy:earth_pickaxe"
+    ]
+  }
+}

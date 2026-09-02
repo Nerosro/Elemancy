@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/affinity_paper"
+    "layer0": "elemancy:item/utility/affinity_paper"
   }
 }

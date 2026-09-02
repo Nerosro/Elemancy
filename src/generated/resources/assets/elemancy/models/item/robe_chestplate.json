@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/robe_chestplate"
+    "layer0": "elemancy:item/apparel/robe_chestplate"
   }
 }

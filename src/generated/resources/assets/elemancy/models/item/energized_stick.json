@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/energized_stick"
+    "layer0": "elemancy:item/wands/energized_stick"
   }
 }

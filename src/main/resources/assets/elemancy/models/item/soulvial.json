@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/arcane_vessel",
-    "layer1": "elemancy:item/soulvial_contents"
+    "layer0": "elemancy:item/utility/arcane_vessel",
+    "layer1": "elemancy:item/utility/soulvial_contents"
   }
 }

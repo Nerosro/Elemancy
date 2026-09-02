@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/necklace_of_sunken_reserves"
+    "layer0": "elemancy:item/trinkets/necklace_of_sunken_reserves"
   }
 }

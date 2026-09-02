@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "E": "elemancy:elemetal_ingot_earth",
+    "S": "elemancy:ashen_stick"
+  },
+  "pattern": [
+    "EEE",
+    " S ",
+    " S "
+  ],
+  "result": {
+    "id": "elemancy:earth_pickaxe"
+  }
+}

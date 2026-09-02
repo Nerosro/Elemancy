@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/gauntlet_of_subtle_weave"
+    "layer0": "elemancy:item/trinkets/gauntlet_of_subtle_weave"
   }
 }

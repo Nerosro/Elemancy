@@ -56,6 +56,12 @@ public final class ElemancyNetwork {
             FireSwordMissPayload.STREAM_CODEC,
             FireSwordMissPayload::handle
         );
+
+        registrar.playToServer(
+            EarthExcavationTogglePayload.TYPE,
+            EarthExcavationTogglePayload.STREAM_CODEC,
+            EarthExcavationTogglePayload::handle
+        );
     }
 
     /**

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/light_shears"
+    "layer0": "elemancy:item/tools/light_shears"
   }
 }

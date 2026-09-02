@@ -5,6 +5,7 @@ import be.nerosro.elemancy.items.tome.TomeTooltip;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketTooltip;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -26,6 +27,11 @@ public final class ElemancyDataComponents {
         COMPONENTS.register("tome_tooltip", () -> DataComponentType.<TomeTooltip>builder()
             .persistent(TomeTooltip.CODEC)
             .networkSynchronized(TomeTooltip.STREAM_CODEC)
+            .build());
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> EARTH_EXCAVATION_ENABLED =
+        COMPONENTS.register("earth_excavation_enabled", () -> DataComponentType.<Boolean>builder()
+            .networkSynchronized(ByteBufCodecs.BOOL)
             .build());
 
     private ElemancyDataComponents() {

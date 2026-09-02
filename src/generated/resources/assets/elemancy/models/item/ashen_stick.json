@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/ashen_stick"
+    "layer0": "elemancy:item/wood/ashen_stick"
   }
 }

@@ -68,9 +68,17 @@ public class DevToolEvents {
                 SoulmarkNetwork.syncMana(sp, ManaDepthSystem.hasExperiencedManaCollapse(sp));
             }
             player.sendSystemMessage(Component.literal("[Dev] Affinity and traits discovery reset.").withStyle(ChatFormatting.YELLOW));
-        } else if (item.is(Items.NETHER_STAR) && player.isShiftKeyDown()) {
-            JobPointUtil.award(player, 7);
-            player.sendSystemMessage(Component.literal("+7 Elemancy Job Points").withStyle(ChatFormatting.GREEN));
+        } else if (item.is(Items.NETHER_STAR)) {
+            if (player.isShiftKeyDown()) {
+                int removed = Math.min(7, JobPointUtil.getAvailableBalance(player));
+                if (removed > 0) {
+                    JobPointUtil.trySpend(player, removed);
+                    player.sendSystemMessage(Component.literal("-" + removed + " Elemancy Job Points").withStyle(ChatFormatting.YELLOW));
+                }
+            } else {
+                JobPointUtil.award(player, 7);
+                player.sendSystemMessage(Component.literal("+7 Elemancy Job Points").withStyle(ChatFormatting.GREEN));
+            }
             if (player instanceof ServerPlayer serverPlayer) {
                 ElemancyNetwork.syncJobPoints(serverPlayer);
             }
@@ -167,9 +175,6 @@ public class DevToolEvents {
     }
 
     private static void resetSkillTree(Player player) {
-        // Preserve earned Job Points so the player can re-spec.
-        int earned = JobPointUtil.getTotalEarned(player);
-
         // Remove passive attribute modifiers before clearing the tree
         PassiveEffects.removeAllPassiveModifiers(player);
 
@@ -180,12 +185,7 @@ public class DevToolEvents {
         player.setData(SoulmarkAttachments.SKILL_TREE.get(), freshTree);
         player.setData(Attachments.JOB_POINTS.get(), new JobPointData());
 
-        // Refund earned Job Points.
-        if (earned > 0) {
-            JobPointUtil.award(player, earned);
-        }
-
-        player.sendSystemMessage(Component.literal("[Dev] Skill tree reset. Elementize kept, " + earned + " Job Point(s) refunded.").withStyle(ChatFormatting.GREEN));
+        player.sendSystemMessage(Component.literal("[Dev] Skill tree reset. Elementize kept.").withStyle(ChatFormatting.GREEN));
         if (player instanceof ServerPlayer serverPlayer) {
             SoulmarkNetwork.syncSkillTree(serverPlayer);
             ElemancyNetwork.syncJobPoints(serverPlayer);

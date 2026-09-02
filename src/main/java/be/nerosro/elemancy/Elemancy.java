@@ -14,6 +14,7 @@ import be.nerosro.elemancy.items.ElemancyCreativeTabs;
 import be.nerosro.elemancy.items.ElemancyDataComponents;
 import be.nerosro.elemancy.items.ElemancyItems;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketFluidCapabilities;
+import be.nerosro.elemancy.items.tools.earth.EarthExcavationKeyAction;
 import be.nerosro.elemancy.items.trinket.TrinketBonuses;
 import be.nerosro.elemancy.loot.ElemancyLootModifiers;
 import be.nerosro.elemancy.network.ElemancyNetwork;
@@ -76,6 +77,7 @@ public class Elemancy {
         event.enqueueWork(() -> {
             SkillTreeOpeners.register(ElemancyItems.TOME.get(), SkillTreeEntries.TREE_ID);
             SpellRadialHandler.registerOpeners();
+            EarthExcavationKeyAction.register();
         });
     }
 }

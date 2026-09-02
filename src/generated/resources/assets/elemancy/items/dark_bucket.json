@@ -43,9 +43,9 @@
       "cover_is_mask": false,
       "fluid": "minecraft:empty",
       "textures": {
-        "cover": "elemancy:item/dark_bucket_empty",
+        "cover": "elemancy:item/tools/dark_bucket_empty",
         "fluid": "neoforge:item/mask/bucket_fluid",
-        "particle": "elemancy:item/dark_bucket_empty"
+        "particle": "elemancy:item/tools/dark_bucket_empty"
       }
     },
     "property": "minecraft:custom_model_data"

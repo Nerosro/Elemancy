@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "elemancy:item/infused_pickaxe"
+    "layer0": "elemancy:item/tools/infused_pickaxe"
   }
 }

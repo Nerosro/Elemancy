@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/elemetal_ingot_earth"
+    "layer0": "elemancy:item/materials/elemetal_ingot_earth"
   }
 }

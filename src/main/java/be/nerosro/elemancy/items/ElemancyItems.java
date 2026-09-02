@@ -12,6 +12,7 @@ import be.nerosro.elemancy.items.tome.TomeTooltip;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketContents;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketItem;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketTooltip;
+import be.nerosro.elemancy.items.tools.earth.EarthToolItem;
 import be.nerosro.elemancy.items.tools.firesword.FireSwordHeat;
 import be.nerosro.elemancy.items.tools.firesword.FireSwordItem;
 import be.nerosro.elemancy.items.tools.firestriker.FireStrikerItem;
@@ -178,6 +179,24 @@ public class ElemancyItems {
 
     public static final DeferredItem<Item> INFUSED_PICKAXE = ITEMS.registerItem(
         "infused_pickaxe", props -> new NonEnchantableItem(infusedPickaxeProperties(props))
+    );
+
+    public static final DeferredItem<Item> EARTH_PICKAXE = ITEMS.registerItem(
+        "earth_pickaxe",
+        props -> new EarthToolItem(props.pickaxe(ElemancyToolMaterials.EARTH_ELEMETAL, 1.0F, -2.8F)
+            .repairable(ElemancyToolMaterials.EARTH_ELEMETAL.repairItems()))
+    );
+
+    public static final DeferredItem<Item> EARTH_SHOVEL = ITEMS.registerItem(
+        "earth_shovel",
+        props -> new EarthToolItem(props.shovel(ElemancyToolMaterials.EARTH_ELEMETAL, 1.5F, -3.0F)
+            .repairable(ElemancyToolMaterials.EARTH_ELEMETAL.repairItems()))
+    );
+
+    public static final DeferredItem<Item> AIR_AXE = ITEMS.registerItem(
+        "air_axe",
+        props -> new Item(props.axe(ElemancyToolMaterials.AIR_ELEMETAL, 6.0F, -2.7F)
+            .repairable(ElemancyToolMaterials.AIR_ELEMETAL.repairItems()))
     );
 
     public static final DeferredItem<Item> DARK_BUCKET = ITEMS.registerItem(

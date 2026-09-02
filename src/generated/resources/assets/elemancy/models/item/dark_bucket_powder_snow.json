@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/dark_bucket_powder_snow"
+    "layer0": "elemancy:item/tools/dark_bucket_powder_snow"
   }
 }
