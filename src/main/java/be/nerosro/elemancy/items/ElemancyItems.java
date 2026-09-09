@@ -9,13 +9,14 @@ import be.nerosro.elemancy.element.ElemancyElementKeys;
 import be.nerosro.elemancy.items.robes.ElemancyArmorMaterials;
 import be.nerosro.elemancy.items.tome.TomeItem;
 import be.nerosro.elemancy.items.tome.TomeTooltip;
+import be.nerosro.elemancy.items.tools.airspear.AirSpearItem;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketContents;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketItem;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketTooltip;
 import be.nerosro.elemancy.items.tools.earth.EarthToolItem;
+import be.nerosro.elemancy.items.tools.firestriker.FireStrikerItem;
 import be.nerosro.elemancy.items.tools.firesword.FireSwordHeat;
 import be.nerosro.elemancy.items.tools.firesword.FireSwordItem;
-import be.nerosro.elemancy.items.tools.firestriker.FireStrikerItem;
 import be.nerosro.elemancy.items.tools.lightshears.LightShearsItem;
 import be.nerosro.elemancy.items.trinket.ManaStatTrinketItem;
 import be.nerosro.elemancy.items.wands.WandAspect;
@@ -197,6 +198,13 @@ public class ElemancyItems {
         "air_axe",
         props -> new Item(props.axe(ElemancyToolMaterials.AIR_ELEMETAL, 6.0F, -2.7F)
             .repairable(ElemancyToolMaterials.AIR_ELEMETAL.repairItems()))
+    );
+
+    public static final DeferredItem<Item> AIR_SPEAR = ITEMS.registerItem(
+        "air_spear",
+        AirSpearItem::new,
+        props -> props.spear(ElemancyToolMaterials.AIR_ELEMETAL,
+            0.75F, 0.95F, 0.50F, 3.0F, 10.0F, 6.5F, 5.1F, 10.0F, 4.6F)
     );
 
     public static final DeferredItem<Item> DARK_BUCKET = ITEMS.registerItem(

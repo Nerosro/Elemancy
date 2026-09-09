@@ -142,7 +142,7 @@ public class ElemancyRecipeProvider extends RecipeProvider {
             .unlockedBy("has_infused_ingot", has(ElemancyItems.INFUSED_INGOT.get()))
             .save(this.output);
 
-        // === Earth Tools ===
+        // === Earth Pickaxe ===
         shaped(RecipeCategory.TOOLS, ElemancyItems.EARTH_PICKAXE.get())
             .pattern("EEE")
             .pattern(" S ")
@@ -152,6 +152,7 @@ public class ElemancyRecipeProvider extends RecipeProvider {
             .unlockedBy("has_earth_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.EARTH.get()).get()))
             .save(this.output);
 
+        // === Earth Shovel ===
         shaped(RecipeCategory.TOOLS, ElemancyItems.EARTH_SHOVEL.get())
             .pattern("E")
             .pattern("S")
@@ -166,6 +167,16 @@ public class ElemancyRecipeProvider extends RecipeProvider {
             .pattern("EE")
             .pattern("ES")
             .pattern(" S")
+            .define('E', ElemancyItems.getElemetalIngot(SoulmarkElements.AIR.get()).get())
+            .define('S', ElemancyItems.ASHEN_STICK.get())
+            .unlockedBy("has_air_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.AIR.get()).get()))
+            .save(this.output);
+
+        // === Air Spear ===
+        shaped(RecipeCategory.COMBAT, ElemancyItems.AIR_SPEAR.get())
+            .pattern("  E")
+            .pattern(" S ")
+            .pattern("S  ")
             .define('E', ElemancyItems.getElemetalIngot(SoulmarkElements.AIR.get()).get())
             .define('S', ElemancyItems.ASHEN_STICK.get())
             .unlockedBy("has_air_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.AIR.get()).get()))

@@ -1,5 +1,6 @@
 package be.nerosro.elemancy.datagen;
 
+import java.util.List;
 import java.util.Optional;
 
 import be.nerosro.elemancy.Elemancy;
@@ -21,11 +22,13 @@ import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.renderer.item.properties.select.CustomModelDataProperty;
+import net.minecraft.client.renderer.item.properties.select.DisplayContext;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.Fluids;
@@ -140,14 +143,33 @@ public class ElemancyModelProvider extends ModelProvider {
                     ItemModelUtils.constantTint(-1), ItemModelUtils.constantTint(element.argb())));
         }
 
+        // === Robes/armour ===
         generateFlatItem(itemModels, ElemancyItems.ROBE_HELMET.get(), "apparel/robe_helmet");
         generateFlatItem(itemModels, ElemancyItems.ROBE_CHESTPLATE.get(), "apparel/robe_chestplate");
         generateFlatItem(itemModels, ElemancyItems.ROBE_LEGGINGS.get(), "apparel/robe_leggings");
         generateFlatItem(itemModels, ElemancyItems.ROBE_BOOTS.get(), "apparel/robe_boots");
+
+        // === Elemetal tools ===
         generateHandheldItem(itemModels, ElemancyItems.INFUSED_PICKAXE.get(), "tools/infused_pickaxe");
         generateHandheldItem(itemModels, ElemancyItems.EARTH_PICKAXE.get(), "tools/earth_pickaxe");
         generateHandheldItem(itemModels, ElemancyItems.EARTH_SHOVEL.get(), "tools/earth_shovel");
         generateHandheldItem(itemModels, ElemancyItems.AIR_AXE.get(), "tools/air_axe");
+        // Air Spear
+        Identifier airSpearModel = ModelTemplates.FLAT_ITEM.create(
+            ElemancyItems.AIR_SPEAR.get(), TextureMapping.layer0(material("tools/air_spear")), itemModels.modelOutput);
+        Identifier airSpearInHandModel = ModelTemplates.SPEAR_IN_HAND.create(
+            Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "item/air_spear_in_hand"),
+            TextureMapping.layer0(material("tools/air_spear_in_hand")), itemModels.modelOutput);
+        itemModels.itemModelOutput.accept(ElemancyItems.AIR_SPEAR.get(), ItemModelUtils.select(
+            new DisplayContext(),
+            ItemModelUtils.plainModel(airSpearInHandModel),
+            ItemModelUtils.when(List.of(
+                ItemDisplayContext.GUI,
+                ItemDisplayContext.GROUND,
+                ItemDisplayContext.FIXED,
+                ItemDisplayContext.ON_SHELF
+            ), ItemModelUtils.plainModel(airSpearModel))
+        ));
         generateFlatItem(itemModels, ElemancyItems.LIGHT_SHEARS.get(), "tools/light_shears");
         generateFlatItem(itemModels, ElemancyItems.FIRE_STRIKER.get(), "tools/fire_striker");
 
