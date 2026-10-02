@@ -6,6 +6,7 @@ import java.util.Optional;
 import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.block.ElemancyBlocks;
 import be.nerosro.elemancy.client.AffinityPaperTintSource;
+import be.nerosro.elemancy.client.LightShieldSpecialRenderer;
 import be.nerosro.elemancy.items.ElemancyItems;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketContents;
 import be.nerosro.soulmark.element.Element;
@@ -23,6 +24,7 @@ import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.renderer.item.properties.select.CustomModelDataProperty;
 import net.minecraft.client.renderer.item.properties.select.DisplayContext;
+import net.minecraft.client.renderer.special.ShieldSpecialRenderer;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
@@ -70,8 +72,7 @@ public class ElemancyModelProvider extends ModelProvider {
         // === Infused Metal ===
         blockModels.createTrivialCube(ElemancyBlocks.INFUSED_METAL_BLOCK.get());
 
-        // === Elemetal Blocks (placeholder self-named texture, like other not-yet-textured
-        // content in this file - one per base element) ===
+        // === Elemetal Blocks (self-named texture - one per base element) ===
         for (Element element : SoulmarkElements.baseElements()) {
             blockModels.createTrivialCube(ElemancyBlocks.getElemetalBlock(element).get());
         }
@@ -112,7 +113,7 @@ public class ElemancyModelProvider extends ModelProvider {
         generateFlatItem(itemModels, ElemancyItems.ASHEN_WAND.get(), "wands/ashen_wand");
         generateFlatItem(itemModels, ElemancyItems.ENERGIZED_STICK.get(), "wands/energized_stick");
         generateFlatItem(itemModels, ElemancyItems.INFUSED_INGOT.get(), "materials/infused_ingot");
-        // === Elemetal Ingots (placeholder self-named texture, one per base element) ===
+        // === Elemetal Ingots (self-named texture, one per base element) ===
         for (Element element : SoulmarkElements.baseElements()) {
             Identifier elementId = ElementRegistry.ELEMENT_REGISTRY.getKey(element);
             if (elementId != null) {
@@ -151,10 +152,26 @@ public class ElemancyModelProvider extends ModelProvider {
 
         // === Elemetal tools ===
         generateHandheldItem(itemModels, ElemancyItems.INFUSED_PICKAXE.get(), "tools/infused_pickaxe");
+
+        // Fire
+        generateFlatItem(itemModels, ElemancyItems.FIRE_STRIKER.get(), "tools/fire_striker");
+
+        Identifier fireSwordUnlit = fireSwordModel(itemModels, 0);
+        Identifier fireSwordOneHeat = fireSwordModel(itemModels, 1);
+        Identifier fireSwordTwoHeat = fireSwordModel(itemModels, 2);
+        Identifier fireSwordThreeHeat = fireSwordModel(itemModels, 3);
+        itemModels.itemModelOutput.accept(ElemancyItems.FIRE_SWORD.get(),
+            ItemModelUtils.select(new CustomModelDataProperty(0), ItemModelUtils.plainModel(fireSwordUnlit),
+                ItemModelUtils.when("1", ItemModelUtils.plainModel(fireSwordOneHeat)),
+                ItemModelUtils.when("2", ItemModelUtils.plainModel(fireSwordTwoHeat)),
+                ItemModelUtils.when("3", ItemModelUtils.plainModel(fireSwordThreeHeat))));
+
+        // Earth
         generateHandheldItem(itemModels, ElemancyItems.EARTH_PICKAXE.get(), "tools/earth_pickaxe");
         generateHandheldItem(itemModels, ElemancyItems.EARTH_SHOVEL.get(), "tools/earth_shovel");
+
+        // Air
         generateHandheldItem(itemModels, ElemancyItems.AIR_AXE.get(), "tools/air_axe");
-        // Air Spear
         Identifier airSpearModel = ModelTemplates.FLAT_ITEM.create(
             ElemancyItems.AIR_SPEAR.get(), TextureMapping.layer0(material("tools/air_spear")), itemModels.modelOutput);
         Identifier airSpearInHandModel = ModelTemplates.SPEAR_IN_HAND.create(
@@ -170,19 +187,21 @@ public class ElemancyModelProvider extends ModelProvider {
                 ItemDisplayContext.ON_SHELF
             ), ItemModelUtils.plainModel(airSpearModel))
         ));
+
+        // Light
+        var lightShieldModel = ItemModelUtils.specialModel(
+            Identifier.withDefaultNamespace("item/shield"), LightShieldSpecialRenderer.Unbaked.INSTANCE);
+        var lightShieldBlockingModel = ItemModelUtils.specialModel(
+            Identifier.withDefaultNamespace("item/shield_blocking"), LightShieldSpecialRenderer.Unbaked.INSTANCE);
+        itemModels.itemModelOutput.accept(ElemancyItems.LIGHT_SHIELD.get(), ItemModelUtils.conditional(
+            ShieldSpecialRenderer.DEFAULT_TRANSFORMATION,
+            ItemModelUtils.isUsingItem(),
+            lightShieldBlockingModel,
+            lightShieldModel
+        ));
         generateFlatItem(itemModels, ElemancyItems.LIGHT_SHEARS.get(), "tools/light_shears");
-        generateFlatItem(itemModels, ElemancyItems.FIRE_STRIKER.get(), "tools/fire_striker");
 
-        Identifier fireSwordUnlit = fireSwordModel(itemModels, 0);
-        Identifier fireSwordOneHeat = fireSwordModel(itemModels, 1);
-        Identifier fireSwordTwoHeat = fireSwordModel(itemModels, 2);
-        Identifier fireSwordThreeHeat = fireSwordModel(itemModels, 3);
-        itemModels.itemModelOutput.accept(ElemancyItems.FIRE_SWORD.get(),
-            ItemModelUtils.select(new CustomModelDataProperty(0), ItemModelUtils.plainModel(fireSwordUnlit),
-                ItemModelUtils.when("1", ItemModelUtils.plainModel(fireSwordOneHeat)),
-                ItemModelUtils.when("2", ItemModelUtils.plainModel(fireSwordTwoHeat)),
-                ItemModelUtils.when("3", ItemModelUtils.plainModel(fireSwordThreeHeat))));
-
+        // Dark
         // Dark Bucket uses authored variants for familiar vanilla contents and NeoForge's
         // fluid-container renderer for compatible modded fluids.
         Identifier darkBucketEmpty = darkBucketModel(itemModels, "empty");
@@ -216,6 +235,7 @@ public class ElemancyModelProvider extends ModelProvider {
         generateFlatItem(itemModels, ElemancyItems.GAUNTLET_OF_SUBTLE_WEAVE.get(), "trinkets/gauntlet_of_subtle_weave");
     }
 
+    // === Helper methods ===
     private static void generateFlatItem(ItemModelGenerators itemModels, Item item, String texturePath) {
         Identifier modelId = ModelTemplates.FLAT_ITEM.create(item, TextureMapping.layer0(material(texturePath)), itemModels.modelOutput);
         itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelId));

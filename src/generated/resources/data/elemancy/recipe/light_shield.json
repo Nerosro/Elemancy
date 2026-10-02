@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "E": "elemancy:elemetal_ingot_light",
+    "P": "elemancy:ashen_planks"
+  },
+  "pattern": [
+    "PPP",
+    "PEP",
+    " P "
+  ],
+  "result": {
+    "id": "elemancy:light_shield"
+  }
+}

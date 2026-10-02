@@ -5,7 +5,12 @@
   "mixins": [
     "AbstractFurnaceBlockEntityMixin",
     "CampfireBlockEntityMixin",
+    "LightShieldActionMixin",
+    "LightShieldConcealmentMixin",
     "VitalCurrentsFoodDataMixin"
+  ],
+  "client": [
+    "client.LightShieldDecoyClientAvatarMixin"
   ],
   "injectors": {
     "defaultRequire": 1

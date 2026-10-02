@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.items.tools.firestriker.FireStrikerState;
+import be.nerosro.elemancy.items.tools.lightshield.LightShieldState;
 import be.nerosro.elemancy.jobpoint.JobPointData;
 import be.nerosro.elemancy.passives.VitalCurrentsState;
 import net.neoforged.bus.api.IEventBus;
@@ -44,6 +45,10 @@ public class Attachments {
     public static final Supplier<AttachmentType<VitalCurrentsState>> VITAL_CURRENTS_STATE =
         ATTACHMENTS.register("vital_currents_state", () ->
             AttachmentType.serializable(VitalCurrentsState::new).build());
+
+    public static final Supplier<AttachmentType<LightShieldState>> LIGHT_SHIELD_STATE =
+        ATTACHMENTS.register("light_shield_state", () ->
+            AttachmentType.builder(LightShieldState::new).build());
 
     public static void register(IEventBus modEventBus) {
         ATTACHMENTS.register(modEventBus);

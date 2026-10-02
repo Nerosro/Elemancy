@@ -3,6 +3,7 @@ package be.nerosro.elemancy.items;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.element.ElemancyElementKeys;
@@ -18,6 +19,7 @@ import be.nerosro.elemancy.items.tools.firestriker.FireStrikerItem;
 import be.nerosro.elemancy.items.tools.firesword.FireSwordHeat;
 import be.nerosro.elemancy.items.tools.firesword.FireSwordItem;
 import be.nerosro.elemancy.items.tools.lightshears.LightShearsItem;
+import be.nerosro.elemancy.items.tools.lightshield.LightShieldItem;
 import be.nerosro.elemancy.items.trinket.ManaStatTrinketItem;
 import be.nerosro.elemancy.items.wands.WandAspect;
 import be.nerosro.elemancy.items.wands.WandItem;
@@ -27,13 +29,17 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
+import net.minecraft.world.item.component.BlocksAttacks;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.item.component.TooltipDisplay;
@@ -223,6 +229,24 @@ public class ElemancyItems {
         props -> props.durability(ElemancyToolMaterials.LIGHT_ELEMETAL.durability())
             .repairable(ElemancyToolMaterials.LIGHT_ELEMETAL.repairItems())
             .component(DataComponents.TOOL, net.minecraft.world.item.ShearsItem.createToolProperties())
+    );
+
+    public static final DeferredItem<Item> LIGHT_SHIELD = ITEMS.registerItem(
+        "light_shield",
+        LightShieldItem::new,
+        props -> props.durability(ElemancyToolMaterials.LIGHT_ELEMETAL.durability())
+            .repairable(ElemancyToolMaterials.LIGHT_ELEMETAL.repairItems())
+            .equippableUnswappable(EquipmentSlot.OFFHAND)
+            .delayedComponent(DataComponents.BLOCKS_ATTACKS, context -> new BlocksAttacks(
+                0.25F,
+                1.0F,
+                List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+                Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
+                Optional.of(SoundEvents.SHIELD_BLOCK),
+                Optional.of(SoundEvents.SHIELD_BREAK)
+            ))
+            .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
     );
 
     public static final DeferredItem<Item> FIRE_SWORD = ITEMS.registerItem(

@@ -6,7 +6,9 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -44,6 +46,19 @@ public class EntityTypes {
                 .updateInterval(1)
                 .build(ResourceKey.create(Registries.ENTITY_TYPE,
                     Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "ritual_sigil"))));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<LightShieldDecoyEntity>> LIGHT_SHIELD_DECOY =
+        ENTITY_TYPES.register("light_shield_decoy", () ->
+            EntityType.Builder.of(LightShieldDecoyEntity::new, MobCategory.MISC)
+                .sized(0.6f, 1.8f)
+                .clientTrackingRange(32)
+                .updateInterval(1)
+                .build(ResourceKey.create(Registries.ENTITY_TYPE,
+                    Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "light_shield_decoy"))));
+
+    public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(LIGHT_SHIELD_DECOY.get(), Player.createAttributes().build());
+    }
 
     public static void register(IEventBus modEventBus) {
         ENTITY_TYPES.register(modEventBus);

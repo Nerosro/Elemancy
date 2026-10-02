@@ -25,6 +25,11 @@ public class ElemancyEffects {
         () -> new MobEffect(MobEffectCategory.BENEFICIAL, ElemancyColors.MANA.argb()) {
         });
 
+    public static final Holder<MobEffect> LIGHT_SHIELD_CONCEALMENT = MOB_EFFECTS.register("light_shield_concealment",
+        // This effect does not show particles or icon, the colour passed is required but not visible in game.
+        () -> new MobEffect(MobEffectCategory.BENEFICIAL, ElemancyColors.MANA.argb()) {
+        });
+
     public static void register(IEventBus modEventBus) {
         MOB_EFFECTS.register(modEventBus);
     }

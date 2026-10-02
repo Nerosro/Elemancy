@@ -2,12 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "F": "elemancy:elemetal_ingot_fire",
+    "E": "elemancy:elemetal_ingot_fire",
     "S": "elemancy:ashen_stick"
   },
   "pattern": [
-    "F",
-    "F",
+    "E",
+    "E",
     "S"
   ],
   "result": {

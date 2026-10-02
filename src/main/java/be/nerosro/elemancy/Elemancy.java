@@ -50,6 +50,7 @@ public class Elemancy {
         SkillTreeEntries.register(modEventBus);
         Attachments.register(modEventBus);
         EntityTypes.register(modEventBus);
+        modEventBus.addListener(EntityTypes::registerAttributes);
         ElemancyEffects.register(modEventBus);
         ElemancyParticles.register(modEventBus);
         ElemancyLootModifiers.register(modEventBus);

@@ -7,6 +7,9 @@ import org.lwjgl.glfw.GLFW;
 import be.nerosro.elemancy.block.ElemancyBlocks;
 import be.nerosro.elemancy.client.AffinityPaperTintSource;
 import be.nerosro.elemancy.client.ElemancyTooltipEvents;
+import be.nerosro.elemancy.client.LightShieldConcealmentRenderer;
+import be.nerosro.elemancy.client.LightShieldDecoyRenderer;
+import be.nerosro.elemancy.client.LightShieldSpecialRenderer;
 import be.nerosro.elemancy.client.ManaBlastRenderer;
 import be.nerosro.elemancy.client.ManaHudOverlay;
 import be.nerosro.elemancy.client.RitualLightningRenderer;
@@ -34,6 +37,7 @@ import net.neoforged.neoforge.client.event.InputEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.client.network.ClientPacketDistributor;
@@ -48,8 +52,11 @@ public class ElemancyClient {
         modEventBus.addListener(ElemancyClient::onRegisterGuiLayers);
         modEventBus.addListener(ElemancyClient::onRegisterEntityRenderers);
         modEventBus.addListener(ElemancyClient::onRegisterParticleProviders);
+        modEventBus.addListener(ElemancyClient::onRegisterSpecialModelRenderers);
 
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(ElemancyClient::onPlayerLogout);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(LightShieldConcealmentRenderer::onRenderPlayer);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(LightShieldConcealmentRenderer::onRenderHand);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(StructureProjectionPreview::onClientTick);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(StructureProjectionPreview::onExtractLevelRenderState);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(StructureProjectionPreview::onSubmitCustomGeometry);
@@ -121,10 +128,18 @@ public class ElemancyClient {
         event.registerEntityRenderer(EntityTypes.MANA_BLAST.get(), ManaBlastRenderer::new);
         event.registerEntityRenderer(EntityTypes.RITUAL_LIGHTNING.get(), RitualLightningRenderer::new);
         event.registerEntityRenderer(EntityTypes.RITUAL_SIGIL.get(), RitualSigilRenderer::new);
+        event.registerEntityRenderer(EntityTypes.LIGHT_SHIELD_DECOY.get(), LightShieldDecoyRenderer::new);
     }
 
     private static void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(ElemancyParticles.MANA_SPIRAL.get(), ManaSpiralParticle.Provider::new);
         event.registerSpriteSet(ElemancyParticles.FIRE_SPIRAL.get(), FireSpiralParticle.Provider::new);
+    }
+
+    private static void onRegisterSpecialModelRenderers(RegisterSpecialModelRendererEvent event) {
+        event.register(
+            Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "light_shield"),
+            LightShieldSpecialRenderer.Unbaked.MAP_CODEC
+        );
     }
 }

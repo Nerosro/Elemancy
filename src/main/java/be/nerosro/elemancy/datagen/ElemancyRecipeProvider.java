@@ -184,26 +184,36 @@ public class ElemancyRecipeProvider extends RecipeProvider {
 
         // === Dark Bucket ===
         shaped(RecipeCategory.TOOLS, ElemancyItems.DARK_BUCKET.get())
-            .pattern("D D")
-            .pattern(" D ")
-            .define('D', ElemancyItems.getElemetalIngot(SoulmarkElements.DARK.get()).get())
+            .pattern("E E")
+            .pattern(" E ")
+            .define('E', ElemancyItems.getElemetalIngot(SoulmarkElements.DARK.get()).get())
             .unlockedBy("has_dark_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.DARK.get()).get()))
             .save(this.output);
 
         // === Light Shears ===
         shaped(RecipeCategory.TOOLS, ElemancyItems.LIGHT_SHEARS.get())
-            .pattern(" L")
-            .pattern("L ")
-            .define('L', ElemancyItems.getElemetalIngot(SoulmarkElements.LIGHT.get()).get())
+            .pattern(" E")
+            .pattern("E ")
+            .define('E', ElemancyItems.getElemetalIngot(SoulmarkElements.LIGHT.get()).get())
+            .unlockedBy("has_light_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.LIGHT.get()).get()))
+            .save(this.output);
+
+        // === Light Shield ===
+        shaped(RecipeCategory.COMBAT, ElemancyItems.LIGHT_SHIELD.get())
+            .pattern("PPP")
+            .pattern("PEP")
+            .pattern(" P ")
+            .define('P', ElemancyBlocks.ASHEN_PLANKS_ITEM.get())
+            .define('E', ElemancyItems.getElemetalIngot(SoulmarkElements.LIGHT.get()).get())
             .unlockedBy("has_light_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.LIGHT.get()).get()))
             .save(this.output);
 
         // === Fire Sword ===
         shaped(RecipeCategory.COMBAT, ElemancyItems.FIRE_SWORD.get())
-            .pattern("F")
-            .pattern("F")
+            .pattern("E")
+            .pattern("E")
             .pattern("S")
-            .define('F', ElemancyItems.getElemetalIngot(SoulmarkElements.FIRE.get()).get())
+            .define('E', ElemancyItems.getElemetalIngot(SoulmarkElements.FIRE.get()).get())
             .define('S', ElemancyItems.ASHEN_STICK.get())
             .unlockedBy("has_fire_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.FIRE.get()).get()))
             .save(this.output);
