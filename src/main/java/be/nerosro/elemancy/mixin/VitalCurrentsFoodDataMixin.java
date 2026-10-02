@@ -1,4 +1,11 @@
-package com.nerosro.elemancy.mixin;
+package be.nerosro.elemancy.mixin;
+
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import be.nerosro.elemancy.passives.VitalCurrentsState;
 import be.nerosro.elemancy.skilltree.Attachments;
@@ -8,12 +15,6 @@ import be.nerosro.soulmark.element.SoulmarkElements;
 import be.nerosro.soulmark.skilltree.SkillTreeUtil;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.food.FoodData;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /** Suppresses exhaustion for an occasional Water-attuned hunger-regeneration pulse. */
 @Mixin(FoodData.class)

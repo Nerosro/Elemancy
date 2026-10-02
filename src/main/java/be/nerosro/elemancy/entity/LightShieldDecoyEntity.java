@@ -152,6 +152,11 @@ public final class LightShieldDecoyEntity extends Avatar {
     }
 
     @Override
+    public boolean isPickable() {
+        return false;
+    }
+
+    @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(OWNER_ID, "");

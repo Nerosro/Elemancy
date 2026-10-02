@@ -1,10 +1,16 @@
 package be.nerosro.elemancy.items.tools.lightshield;
 
+import java.util.Optional;
+
 import be.nerosro.elemancy.effects.ElemancyEffects;
 import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
 public final class LightShieldConcealment {
 
@@ -15,6 +21,17 @@ public final class LightShieldConcealment {
     public static void start(ServerPlayer player) {
         MobEffectInstance effect = new MobEffectInstance(ElemancyEffects.LIGHT_SHIELD_CONCEALMENT, 60, 0, true, false, false);
         player.addEffect(effect);
+        for (Entity entity : player.level().getAllEntities()) {
+            if (entity instanceof Mob mob) {
+                if (mob.getTargetUnchecked() == player) {
+                    mob.setTarget(null);
+                }
+                Optional<LivingEntity> attackTarget = mob.getBrain().getMemoryInternal(MemoryModuleType.ATTACK_TARGET);
+                if (attackTarget != null && attackTarget.orElse(null) == player) {
+                    mob.getBrain().eraseMemory(MemoryModuleType.ATTACK_TARGET);
+                }
+            }
+        }
         player.level().getChunkSource().chunkMap.sendToTrackingPlayers(player,
             new ClientboundUpdateMobEffectPacket(player.getId(), effect, false));
     }

@@ -15,10 +15,12 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.item.ItemTossEvent;
+import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.living.LivingShieldBlockEvent;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
@@ -72,6 +74,15 @@ public final class LightShieldBlockEvents {
     public static void onItemToss(ItemTossEvent event) {
         if (event.getPlayer() instanceof ServerPlayer player) {
             LightShieldConcealment.endOnAction(player);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onChangeTarget(LivingChangeTargetEvent event) {
+        if (event.getEntity() instanceof Mob
+            && event.getNewAboutToBeSetTarget() instanceof ServerPlayer player
+            && player.hasEffect(ElemancyEffects.LIGHT_SHIELD_CONCEALMENT)) {
+            event.setNewAboutToBeSetTarget(null);
         }
     }
 

@@ -1,7 +1,15 @@
-package com.nerosro.elemancy.mixin;
+package be.nerosro.elemancy.mixin;
 
-import be.nerosro.elemancy.items.tools.firestriker.FireStrikerState;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import be.nerosro.elemancy.items.tools.firestriker.FireStrikerEffects;
+import be.nerosro.elemancy.items.tools.firestriker.FireStrikerState;
 import be.nerosro.elemancy.items.tools.firestriker.StokableHeatSource;
 import be.nerosro.elemancy.skilltree.Attachments;
 import net.minecraft.core.BlockPos;
@@ -17,13 +25,6 @@ import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.CampfireBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(CampfireBlockEntity.class)
 public abstract class CampfireBlockEntityMixin implements StokableHeatSource {

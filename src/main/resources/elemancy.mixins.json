@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.nerosro.elemancy.mixin",
+  "package": "be.nerosro.elemancy.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "AbstractFurnaceBlockEntityMixin",

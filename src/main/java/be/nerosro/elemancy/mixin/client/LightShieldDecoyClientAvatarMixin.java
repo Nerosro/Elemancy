@@ -1,4 +1,8 @@
-package com.nerosro.elemancy.mixin.client;
+package be.nerosro.elemancy.mixin.client;
+
+import org.jspecify.annotations.Nullable;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 import be.nerosro.elemancy.entity.LightShieldDecoyEntity;
 import net.minecraft.client.Minecraft;
@@ -8,11 +12,10 @@ import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.world.entity.animal.parrot.Parrot;
 import net.minecraft.world.entity.player.PlayerSkin;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
-import org.jspecify.annotations.Nullable;
 
-/** Supplies client-only avatar data for the common Light Shield decoy entity. */
+/**
+ * Supplies client-only avatar data for the common Light Shield decoy entity.
+ */
 @Mixin(LightShieldDecoyEntity.class)
 public abstract class LightShieldDecoyClientAvatarMixin implements ClientAvatarEntity {
 
