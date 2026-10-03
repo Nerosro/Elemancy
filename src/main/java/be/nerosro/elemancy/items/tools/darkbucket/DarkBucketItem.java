@@ -1,5 +1,6 @@
 package be.nerosro.elemancy.items.tools.darkbucket;
 
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.SolidBucketItem;
 import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.transfer.fluid.FluidUtil;
@@ -22,6 +24,11 @@ import net.neoforged.neoforge.transfer.fluid.FluidUtil;
 public class DarkBucketItem extends Item {
     public DarkBucketItem(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
+        return false;
     }
 
     @Override

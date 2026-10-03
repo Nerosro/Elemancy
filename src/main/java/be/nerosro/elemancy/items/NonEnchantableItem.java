@@ -7,7 +7,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 
 /**
  * An Item that cannot be enchanted or repaired.
- * Used for temporary Stage 0 gear that players shouldn't invest resources into.
+ * Used for Stage 0 gear that players shouldn't invest resources into.
  */
 public class NonEnchantableItem extends Item {
 

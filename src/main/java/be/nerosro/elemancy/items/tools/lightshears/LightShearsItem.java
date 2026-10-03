@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
@@ -16,10 +17,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShearsItem;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.neoforged.neoforge.common.IShearable;
 
-/** Shears that refract each white-sheep wool drop into an independent random color. */
+/**
+ * Shears that refract each white-sheep wool drop into an independent random color.
+ */
 public class LightShearsItem extends ShearsItem {
     private static final Item[] WOOL_BY_COLOR = {
         Items.WHITE_WOOL, Items.ORANGE_WOOL, Items.MAGENTA_WOOL, Items.LIGHT_BLUE_WOOL,
@@ -33,25 +36,26 @@ public class LightShearsItem extends ShearsItem {
     }
 
     @Override
+    public boolean supportsEnchantment(ItemStack stack, Holder<Enchantment> enchantment) {
+        return false;
+    }
+
+    @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity,
-                                                   InteractionHand hand) {
+                                                  InteractionHand hand) {
         if (!(entity instanceof Sheep sheep) || sheep.getColor() != DyeColor.WHITE) {
             return super.interactLivingEntity(stack, player, entity, hand);
         }
 
-        if (!(entity instanceof IShearable shearable)) {
-            return InteractionResult.PASS;
-        }
-
         BlockPos position = entity.blockPosition();
-        if (!shearable.isShearable(player, stack, entity.level(), position)) {
+        if (!sheep.isShearable(player, stack, entity.level(), position)) {
             return InteractionResult.PASS;
         }
 
-        List<ItemStack> drops = recolorWoolDrops(shearable.onSheared(player, stack, entity.level(), position), player);
+        List<ItemStack> drops = recolorWoolDrops(sheep.onSheared(player, stack, entity.level(), position), player);
         if (entity.level() instanceof ServerLevel serverLevel) {
             for (ItemStack drop : drops) {
-                shearable.spawnShearedDrop(serverLevel, position, drop);
+                sheep.spawnShearedDrop(serverLevel, position, drop);
             }
             stack.hurtAndBreak(1, player, hand.asEquipmentSlot());
         }

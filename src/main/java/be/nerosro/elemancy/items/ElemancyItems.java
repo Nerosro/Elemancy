@@ -10,6 +10,7 @@ import be.nerosro.elemancy.element.ElemancyElementKeys;
 import be.nerosro.elemancy.items.robes.ElemancyArmorMaterials;
 import be.nerosro.elemancy.items.tome.TomeItem;
 import be.nerosro.elemancy.items.tome.TomeTooltip;
+import be.nerosro.elemancy.items.tools.airaxe.AirAxeItem;
 import be.nerosro.elemancy.items.tools.airspear.AirSpearItem;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketContents;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketItem;
@@ -202,7 +203,7 @@ public class ElemancyItems {
 
     public static final DeferredItem<Item> AIR_AXE = ITEMS.registerItem(
         "air_axe",
-        props -> new Item(props.axe(ElemancyToolMaterials.AIR_ELEMETAL, 6.0F, -2.7F)
+        props -> new AirAxeItem(props.axe(ElemancyToolMaterials.AIR_ELEMETAL, 6.0F, -2.7F)
             .repairable(ElemancyToolMaterials.AIR_ELEMETAL.repairItems()))
     );
 
