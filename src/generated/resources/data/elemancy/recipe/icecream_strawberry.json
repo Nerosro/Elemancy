@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:bowl",
+    "F": "elemancy:strawberry",
+    "S": "minecraft:snowball"
+  },
+  "pattern": [
+    " F ",
+    " S ",
+    " B "
+  ],
+  "result": {
+    "id": "elemancy:icecream_strawberry"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "elemancy:strawberry"
+  ],
+  "result": {
+    "id": "elemancy:strawberry_seeds"
+  }
+}

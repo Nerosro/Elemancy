@@ -26,6 +26,8 @@ public class ElemancyItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.PICKAXES)
             .add(ElemancyItems.INFUSED_PICKAXE.get());
 
+        tag(ItemTags.HOES).add(ElemancyItems.WATER_HOE.get());
+
         // Flowers - needed for bee interactions (block placement etc.)
         tag(ItemTags.SMALL_FLOWERS).add(ElemancyBlocks.PARADOX_FLOWER_ITEM.get());
         tag(ItemTags.FLOWERS).add(ElemancyBlocks.PARADOX_FLOWER_ITEM.get());
@@ -37,6 +39,10 @@ public class ElemancyItemTagsProvider extends ItemTagsProvider {
 
         var elemetalIngotsTag = tag(ElemancyTags.ELEMETAL_INGOTS);
         ElemancyItems.getElemetalIngotsByKey().values().forEach(ingot -> elemetalIngotsTag.add(ingot.get()));
+
+        tag(ElemancyTags.INFUSED_OR_ELEMETAL_INGOTS)
+            .add(ElemancyItems.INFUSED_INGOT.get())
+            .addTag(ElemancyTags.ELEMETAL_INGOTS);
 
         var elemetalIngots = ElemancyItems.getElemetalIngotsByKey();
         tag(ElemancyTags.FIRE_ELEMETAL_INGOTS).add(elemetalIngots.get("fire").get());

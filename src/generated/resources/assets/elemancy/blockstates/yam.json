@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "elemancy:block/yam_stage_0"
+    },
+    "age=1": {
+      "model": "elemancy:block/yam_stage_0"
+    },
+    "age=2": {
+      "model": "elemancy:block/yam_stage_1"
+    },
+    "age=3": {
+      "model": "elemancy:block/yam_stage_1"
+    },
+    "age=4": {
+      "model": "elemancy:block/yam_stage_2"
+    },
+    "age=5": {
+      "model": "elemancy:block/yam_stage_2"
+    },
+    "age=6": {
+      "model": "elemancy:block/yam_stage_2"
+    },
+    "age=7": {
+      "model": "elemancy:block/yam_stage_3"
+    }
+  }
+}

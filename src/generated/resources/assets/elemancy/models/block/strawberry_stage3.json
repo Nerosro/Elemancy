@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "elemancy:block/strawberry_stage3"
+  }
+}

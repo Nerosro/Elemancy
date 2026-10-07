@@ -58,10 +58,23 @@ public class ElemancyModelProvider extends ModelProvider {
             .slab(ElemancyBlocks.ASHEN_SLAB.get())
             .fence(ElemancyBlocks.ASHEN_FENCE.get())
             .fenceGate(ElemancyBlocks.ASHEN_FENCE_GATE.get())
-            .door(ElemancyBlocks.ASHEN_DOOR.get())
             .pressurePlate(ElemancyBlocks.ASHEN_PRESSURE_PLATE.get())
             .button(ElemancyBlocks.ASHEN_BUTTON.get())
             .trapdoor(ElemancyBlocks.ASHEN_TRAPDOOR.get());
+
+        // Door separately because of texture location, .door() assumes texture is item/ashen_door, cannot use wood/ subfolder
+        Block ashenDoor = ElemancyBlocks.ASHEN_DOOR.get();
+        TextureMapping doorTextures = TextureMapping.door(ashenDoor);
+        blockModels.blockStateOutput.accept(BlockModelGenerators.createDoor(ashenDoor,
+            doorVariant(blockModels, ashenDoor, ModelTemplates.DOOR_BOTTOM_LEFT, doorTextures),
+            doorVariant(blockModels, ashenDoor, ModelTemplates.DOOR_BOTTOM_LEFT_OPEN, doorTextures),
+            doorVariant(blockModels, ashenDoor, ModelTemplates.DOOR_BOTTOM_RIGHT, doorTextures),
+            doorVariant(blockModels, ashenDoor, ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN, doorTextures),
+            doorVariant(blockModels, ashenDoor, ModelTemplates.DOOR_TOP_LEFT, doorTextures),
+            doorVariant(blockModels, ashenDoor, ModelTemplates.DOOR_TOP_LEFT_OPEN, doorTextures),
+            doorVariant(blockModels, ashenDoor, ModelTemplates.DOOR_TOP_RIGHT, doorTextures),
+            doorVariant(blockModels, ashenDoor, ModelTemplates.DOOR_TOP_RIGHT_OPEN, doorTextures)));
+        generateFlatItem(itemModels, ElemancyBlocks.ASHEN_DOOR_ITEM.get(), "wood/ashen_door");
 
         // === Leaves ===
         blockModels.createTintedLeaves(ElemancyBlocks.ASHEN_LEAVES.get(), TexturedModel.LEAVES, 0x55FFFF);
@@ -105,10 +118,33 @@ public class ElemancyModelProvider extends ModelProvider {
         // === Paradox Flower ===
         blockModels.createCrossBlockWithDefaultItem(ElemancyBlocks.PARADOX_FLOWER.get(), BlockModelGenerators.PlantType.NOT_TINTED);
 
+        // === Enriched farmland ===
+        TextureMapping farmlandDry = new TextureMapping()
+            .put(TextureSlot.DIRT, TextureMapping.getBlockTexture(Blocks.DIRT))
+            .put(TextureSlot.TOP, new Material(Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "block/enriched_farmland")));
+        TextureMapping farmlandWet = new TextureMapping()
+            .put(TextureSlot.DIRT, TextureMapping.getBlockTexture(Blocks.DIRT))
+            .put(TextureSlot.TOP, new Material(Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "block/enriched_farmland_moist")));
+        MultiVariant dryFarmland = BlockModelGenerators.plainVariant(ModelTemplates.FARMLAND.create(
+            ElemancyBlocks.ENRICHED_FARMLAND.get(), farmlandDry, blockModels.modelOutput));
+        MultiVariant wetFarmland = BlockModelGenerators.plainVariant(ModelTemplates.FARMLAND.createWithSuffix(
+            ElemancyBlocks.ENRICHED_FARMLAND.get(), "_moist", farmlandWet, blockModels.modelOutput));
+        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(ElemancyBlocks.ENRICHED_FARMLAND.get())
+            .with(BlockModelGenerators.createEmptyOrFullDispatch(FarmlandBlock.MOISTURE, 7, wetFarmland, dryFarmland)));
+
+        generateCrop(blockModels, ElemancyBlocks.STRAWBERRY.get(), "strawberry_stage",
+            new int[]{0, 1, 2, 3, 3, 4, 4, 5});
+        generateCrop(blockModels, ElemancyBlocks.YAM.get(), "yam");
+        generateCrop(blockModels, ElemancyBlocks.MANA_CARROT.get(), "mana_carrot");
+
         // === Soft Glow (invisible light block - just use simple cube) ===
         blockModels.createTrivialCube(ElemancyBlocks.SOFT_GLOW.get());
 
         // === Items ===
+        generateFlatItem(itemModels, ElemancyItems.STRAWBERRY.get(), "food/strawberry");
+        generateFlatItem(itemModels, ElemancyItems.STRAWBERRY_SEEDS.get(), "food/strawberry_seeds");
+        generateFlatItem(itemModels, ElemancyItems.YAM.get(), "food/yam");
+        generateFlatItem(itemModels, ElemancyItems.MANA_CARROT.get(), "food/mana_carrot");
         generateFlatItem(itemModels, ElemancyItems.ASHEN_STICK.get(), "wood/ashen_stick");
         generateFlatItem(itemModels, ElemancyItems.ASHEN_WAND.get(), "wands/ashen_wand");
         generateFlatItem(itemModels, ElemancyItems.ENERGIZED_STICK.get(), "wands/energized_stick");
@@ -170,6 +206,9 @@ public class ElemancyModelProvider extends ModelProvider {
         generateHandheldItem(itemModels, ElemancyItems.EARTH_PICKAXE.get(), "tools/earth_pickaxe");
         generateHandheldItem(itemModels, ElemancyItems.EARTH_SHOVEL.get(), "tools/earth_shovel");
 
+        // Water
+        generateHandheldItem(itemModels, ElemancyItems.WATER_HOE.get(), "tools/water_hoe");
+
         // Air
         generateHandheldItem(itemModels, ElemancyItems.AIR_AXE.get(), "tools/air_axe");
         Identifier airSpearModel = ModelTemplates.FLAT_ITEM.create(
@@ -225,6 +264,7 @@ public class ElemancyModelProvider extends ModelProvider {
 
         // === Consumables ===
         generateFlatItem(itemModels, ElemancyItems.ICECREAM_COCOA.get(), "utility/icecream_cocoa");
+        generateFlatItem(itemModels, ElemancyItems.ICECREAM_STRAWBERRY.get(), "utility/icecream_strawberry");
 
         // === Trinkets ===
         generateFlatItem(itemModels, ElemancyItems.AMULET_OF_DEEP_FOCUS.get(), "trinkets/amulet_of_deep_focus");
@@ -236,6 +276,27 @@ public class ElemancyModelProvider extends ModelProvider {
     }
 
     // === Helper methods ===
+    //TODO helper method might become redundant, check to remove later
+    private static void generateCrop(BlockModelGenerators blockModels, Block crop, String name) {
+        generateCrop(blockModels, crop, name + "_stage_", new int[]{0, 0, 1, 1, 2, 2, 2, 3});
+    }
+
+    private static void generateCrop(BlockModelGenerators blockModels, Block crop, String texturePrefix, int[] ageToStage) {
+        MultiVariant[] stages = new MultiVariant[ageToStage[CropBlock.MAX_AGE] + 1];
+        for (int stage = 0; stage < stages.length; stage++) {
+            Identifier texture = Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "block/" + texturePrefix + stage);
+            stages[stage] = BlockModelGenerators.plainVariant(ModelTemplates.CROP.create(texture,
+                new TextureMapping().put(TextureSlot.CROP, new Material(texture)), blockModels.modelOutput));
+        }
+
+        blockModels.blockStateOutput.accept(MultiVariantGenerator.dispatch(crop)
+            .with(PropertyDispatch.initial(CropBlock.AGE).generate(age -> stages[ageToStage[age]])));
+    }
+
+    private static MultiVariant doorVariant(BlockModelGenerators blockModels, Block door, ModelTemplate template, TextureMapping textures) {
+        return BlockModelGenerators.plainVariant(template.create(door, textures, blockModels.modelOutput));
+    }
+
     private static void generateFlatItem(ItemModelGenerators itemModels, Item item, String texturePath) {
         Identifier modelId = ModelTemplates.FLAT_ITEM.create(item, TextureMapping.layer0(material(texturePath)), itemModels.modelOutput);
         itemModels.itemModelOutput.accept(item, ItemModelUtils.plainModel(modelId));

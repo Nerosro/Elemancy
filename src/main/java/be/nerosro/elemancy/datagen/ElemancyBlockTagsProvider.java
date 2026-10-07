@@ -17,6 +17,15 @@ public class ElemancyBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        tag(BlockTags.SUPPORTS_CROPS).add(ElemancyBlocks.ENRICHED_FARMLAND.get());
+        tag(BlockTags.SUPPORTS_STEM_CROPS).add(ElemancyBlocks.ENRICHED_FARMLAND.get());
+        tag(BlockTags.SUPPORTS_STEM_FRUIT).add(ElemancyBlocks.ENRICHED_FARMLAND.get());
+        tag(BlockTags.GROWS_CROPS).add(ElemancyBlocks.ENRICHED_FARMLAND.get());
+        tag(BlockTags.CROPS)
+            .add(ElemancyBlocks.STRAWBERRY.get())
+            .add(ElemancyBlocks.YAM.get())
+            .add(ElemancyBlocks.MANA_CARROT.get());
+
         // Logs
         tag(BlockTags.LOGS_THAT_BURN)
             .add(ElemancyBlocks.ASHEN_LOG.get())

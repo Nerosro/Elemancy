@@ -5,8 +5,10 @@
   "mixins": [
     "AbstractFurnaceBlockEntityMixin",
     "CampfireBlockEntityMixin",
+    "LevelCropRemovalMixin",
     "LightShieldActionMixin",
     "LightShieldConcealmentMixin",
+    "PitcherGrowthMixin",
     "VitalCurrentsFoodDataMixin"
   ],
   "client": [

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import be.nerosro.elemancy.Elemancy;
+import be.nerosro.elemancy.block.ElemancyBlocks;
 import be.nerosro.elemancy.element.ElemancyElementKeys;
 import be.nerosro.elemancy.items.robes.ElemancyArmorMaterials;
 import be.nerosro.elemancy.items.tome.TomeItem;
@@ -21,6 +22,7 @@ import be.nerosro.elemancy.items.tools.firesword.FireSwordHeat;
 import be.nerosro.elemancy.items.tools.firesword.FireSwordItem;
 import be.nerosro.elemancy.items.tools.lightshears.LightShearsItem;
 import be.nerosro.elemancy.items.tools.lightshield.LightShieldItem;
+import be.nerosro.elemancy.items.tools.waterhoe.WaterHoeItem;
 import be.nerosro.elemancy.items.trinket.ManaStatTrinketItem;
 import be.nerosro.elemancy.items.wands.WandAspect;
 import be.nerosro.elemancy.items.wands.WandItem;
@@ -38,6 +40,7 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.BlocksAttacks;
@@ -58,34 +61,21 @@ public class ElemancyItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Elemancy.MOD_ID);
 
     // Use registerSimpleItem/registerItem so NeoForge can attach the resource key to Item.Properties.
+// ==================== WANDS ====================
+
     public static final DeferredItem<Item> ENERGIZED_STICK = ITEMS.registerItem(
         "energized_stick",
         props -> new WandItem(props.durability(10), WandAspect.NONE)
     );
 
-    public static final DeferredItem<Item> INFUSED_INGOT = ITEMS.registerSimpleItem("infused_ingot");
-
-    public static final DeferredItem<Item> PROPOLIS = ITEMS.registerSimpleItem("propolis");
-
-    public static final DeferredItem<Item> TOME = ITEMS.registerItem(
-        "tome",
-        TomeItem::new,
-        props -> props.stacksTo(1)
-            .component(ElemancyDataComponents.TOME_TOOLTIP.get(), TomeTooltip.INSTANCE)
-    );
-
-    public static final DeferredItem<Item> AFFINITY_PAPER = ITEMS.registerItem(
-        "affinity_paper",
-        AffinityPaperItem::new,
-        props -> props.stacksTo(1)
-    );
-
-    public static final DeferredItem<Item> ASHEN_STICK = ITEMS.registerSimpleItem("ashen_stick");
-
     public static final DeferredItem<Item> ASHEN_WAND = ITEMS.registerItem(
         "ashen_wand",
         props -> new WandItem(props.durability(256), WandAspect.ALL)
     );
+
+// ==================== SOULVIALS ====================
+    // Attuned Soulvials are separate items so recipes can require a specific element. The base
+    // Soulvial remains the unattuned ritual catalyst and preserves its existing registry ID.
 
     public static final DeferredItem<Item> ARCANE_VESSEL = ITEMS.registerSimpleItem(
         "arcane_vessel",
@@ -97,10 +87,6 @@ public class ElemancyItems {
         Item::new,
         props -> props.stacksTo(1)
     );
-
-    // ==================== SOULVIALS ====================
-    // Attuned Soulvials are separate items so recipes can require a specific element. The base
-    // Soulvial remains the unattuned ritual catalyst and preserves its existing registry ID.
 
     private static final Map<String, DeferredItem<Item>> ATTUNED_SOULVIALS_BY_KEY = new LinkedHashMap<>();
 
@@ -136,10 +122,12 @@ public class ElemancyItems {
         return ATTUNED_SOULVIALS_BY_KEY.values().stream().anyMatch(soulvial -> soulvial.get() == item);
     }
 
-    // ==================== ELEMETAL INGOTS ====================
+// ==================== ELEMETAL INGOTS ====================
     // One item per base element (Fire/Water/Earth/Air/Light/Dark), not a single item with
     // hidden state - see Attunement.md's "Elemetal Items" section. All 6 share the exact same
     // displayed name ("Elemetal Ingot").
+
+    public static final DeferredItem<Item> INFUSED_INGOT = ITEMS.registerSimpleItem("infused_ingot");
 
     private static final Map<String, DeferredItem<Item>> ELEMETAL_INGOTS_BY_KEY = new LinkedHashMap<>();
 
@@ -165,162 +153,12 @@ public class ElemancyItems {
         return ELEMETAL_INGOTS_BY_KEY;
     }
 
-    // ==================== INFUSED ROBES ====================
 
-    public static final DeferredItem<Item> ROBE_HELMET = ITEMS.registerItem(
-        "robe_helmet", props -> new Item(robeProperties(props, ArmorType.HELMET))
-    );
-
-    public static final DeferredItem<Item> ROBE_CHESTPLATE = ITEMS.registerItem(
-        "robe_chestplate", props -> new Item(robeProperties(props, ArmorType.CHESTPLATE))
-    );
-
-    public static final DeferredItem<Item> ROBE_LEGGINGS = ITEMS.registerItem(
-        "robe_leggings", props -> new Item(robeProperties(props, ArmorType.LEGGINGS))
-    );
-
-    public static final DeferredItem<Item> ROBE_BOOTS = ITEMS.registerItem(
-        "robe_boots", props -> new Item(robeProperties(props, ArmorType.BOOTS))
-    );
-
-    // ==================== INFUSED TOOLS ====================
+// ==================== TOOLS ====================
 
     public static final DeferredItem<Item> INFUSED_PICKAXE = ITEMS.registerItem(
         "infused_pickaxe", props -> new NonEnchantableItem(infusedPickaxeProperties(props))
     );
-
-    public static final DeferredItem<Item> EARTH_PICKAXE = ITEMS.registerItem(
-        "earth_pickaxe",
-        props -> new EarthToolItem(props.pickaxe(ElemancyToolMaterials.EARTH_ELEMETAL, 1.0F, -2.8F)
-            .repairable(ElemancyToolMaterials.EARTH_ELEMETAL.repairItems()))
-    );
-
-    public static final DeferredItem<Item> EARTH_SHOVEL = ITEMS.registerItem(
-        "earth_shovel",
-        props -> new EarthToolItem(props.shovel(ElemancyToolMaterials.EARTH_ELEMETAL, 1.5F, -3.0F)
-            .repairable(ElemancyToolMaterials.EARTH_ELEMETAL.repairItems()))
-    );
-
-    public static final DeferredItem<Item> AIR_AXE = ITEMS.registerItem(
-        "air_axe",
-        props -> new AirAxeItem(props.axe(ElemancyToolMaterials.AIR_ELEMETAL, 6.0F, -2.7F)
-            .repairable(ElemancyToolMaterials.AIR_ELEMETAL.repairItems()))
-    );
-
-    public static final DeferredItem<Item> AIR_SPEAR = ITEMS.registerItem(
-        "air_spear",
-        AirSpearItem::new,
-        props -> props.spear(ElemancyToolMaterials.AIR_ELEMETAL,
-            0.75F, 0.95F, 0.50F, 3.0F, 10.0F, 6.5F, 5.1F, 10.0F, 4.6F)
-    );
-
-    public static final DeferredItem<Item> DARK_BUCKET = ITEMS.registerItem(
-        "dark_bucket",
-        DarkBucketItem::new,
-        props -> props.stacksTo(1)
-            .component(DataComponents.CUSTOM_MODEL_DATA, DarkBucketContents.DEFAULT_MODEL_DATA)
-            .component(ElemancyDataComponents.DARK_BUCKET_TOOLTIP.get(), DarkBucketTooltip.INSTANCE)
-            .component(DataComponents.TOOLTIP_DISPLAY,
-                TooltipDisplay.DEFAULT.withHidden(DataComponents.CONTAINER, true))
-    );
-
-    public static final DeferredItem<Item> LIGHT_SHEARS = ITEMS.registerItem(
-        "light_shears",
-        LightShearsItem::new,
-        props -> props.durability(ElemancyToolMaterials.LIGHT_ELEMETAL.durability())
-            .repairable(ElemancyToolMaterials.LIGHT_ELEMETAL.repairItems())
-            .component(DataComponents.TOOL, net.minecraft.world.item.ShearsItem.createToolProperties())
-    );
-
-    public static final DeferredItem<Item> LIGHT_SHIELD = ITEMS.registerItem(
-        "light_shield",
-        LightShieldItem::new,
-        props -> props.durability(ElemancyToolMaterials.LIGHT_ELEMETAL.durability())
-            .repairable(ElemancyToolMaterials.LIGHT_ELEMETAL.repairItems())
-            .equippableUnswappable(EquipmentSlot.OFFHAND)
-            .delayedComponent(DataComponents.BLOCKS_ATTACKS, context -> new BlocksAttacks(
-                0.25F,
-                1.0F,
-                List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
-                new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
-                Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
-                Optional.of(SoundEvents.SHIELD_BLOCK),
-                Optional.of(SoundEvents.SHIELD_BREAK)
-            ))
-            .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
-    );
-
-    public static final DeferredItem<Item> FIRE_SWORD = ITEMS.registerItem(
-        "fire_sword",
-        FireSwordItem::new,
-        props -> props.sword(ElemancyToolMaterials.FIRE_ELEMETAL, 3.0F, -2.4F)
-            .repairable(ElemancyToolMaterials.FIRE_ELEMETAL.repairItems())
-            .component(DataComponents.CUSTOM_MODEL_DATA, FireSwordHeat.DEFAULT_MODEL_DATA)
-    );
-
-    public static final DeferredItem<Item> FIRE_STRIKER = ITEMS.registerItem(
-        "fire_striker",
-        FireStrikerItem::new,
-        props -> props.durability(32)
-    );
-
-    // ==================== CONSUMABLES ====================
-
-    public static final DeferredItem<Item> ICECREAM_COCOA = ITEMS.registerItem(
-        "icecream_cocoa",
-        IceCreamItem::new,
-        props -> props.food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.3f).alwaysEdible().build())
-    );
-
-    // ==================== TIER 0 TRINKETS ====================
-
-    public static final DeferredItem<Item> AMULET_OF_DEEP_FOCUS = ITEMS.registerItem(
-        "amulet_of_deep_focus",
-        props -> new ManaStatTrinketItem(props, ManaStatTrinketItem.ManaModifierType.COST_REDUCTION, 0.05f)
-    );
-
-    public static final DeferredItem<Item> CHARM_OF_STEADY_FLOW = ITEMS.registerItem(
-        "charm_of_steady_flow",
-        props -> new ManaStatTrinketItem(props, ManaStatTrinketItem.ManaModifierType.REGEN_BOOST, 0.05f)
-    );
-
-    public static final DeferredItem<Item> BRACELET_OF_ENDURING_MANA = ITEMS.registerItem(
-        "bracelet_of_enduring_mana",
-        props -> new ManaStatTrinketItem(props, ManaStatTrinketItem.ManaModifierType.POOL_BOOST, 0.05f)
-    );
-
-    public static final DeferredItem<Item> BELT_OF_ROLLING_TIDES = ITEMS.registerItem(
-        "belt_of_rolling_tides",
-        props -> new ManaStatTrinketItem(props, ManaStatTrinketItem.ManaModifierType.REGEN_BOOST, 0.03f)
-    );
-
-    public static final DeferredItem<Item> NECKLACE_OF_SUNKEN_RESERVES = ITEMS.registerItem(
-        "necklace_of_sunken_reserves",
-        props -> new ManaStatTrinketItem(props, ManaStatTrinketItem.ManaModifierType.POOL_BOOST, 0.03f)
-    );
-
-    public static final DeferredItem<Item> GAUNTLET_OF_SUBTLE_WEAVE = ITEMS.registerItem(
-        "gauntlet_of_subtle_weave",
-        props -> new ManaStatTrinketItem(props, ManaStatTrinketItem.ManaModifierType.COST_REDUCTION, 0.03f)
-    );
-
-    /**
-     * Builds properties for an Infused Robe piece.
-     * Mirrors {@code humanoidArmor()} but omits enchantable and repairable —
-     * robes are temporary Stage 0 support gear, not worth enchanting or repairing.
-     */
-    private static Item.Properties robeProperties(Item.Properties props, ArmorType type) {
-        ArmorMaterial material = ElemancyArmorMaterials.INFUSED_WOOL;
-        return props
-            .durability(type.getDurability(material.durability()))
-            .attributes(material.createAttributes(type))
-            .component(DataComponents.EQUIPPABLE,
-                Equippable.builder(type.getSlot())
-                    .setEquipSound(material.equipSound())
-                    .setAsset(material.assetId())
-                    .build()
-            );
-    }
 
     /**
      * Builds properties for the Infused Pickaxe.
@@ -355,7 +193,196 @@ public class ElemancyItems {
             .component(DataComponents.WEAPON, new Weapon(2, 0.0F));
     }
 
+    public static final DeferredItem<Item> FIRE_SWORD = ITEMS.registerItem(
+        "fire_sword",
+        FireSwordItem::new,
+        props -> props.sword(ElemancyToolMaterials.FIRE_ELEMETAL, 3.0F, -2.4F)
+            .repairable(ElemancyToolMaterials.FIRE_ELEMETAL.repairItems())
+            .component(DataComponents.CUSTOM_MODEL_DATA, FireSwordHeat.DEFAULT_MODEL_DATA)
+    );
+
+    public static final DeferredItem<Item> FIRE_STRIKER = ITEMS.registerItem(
+        "fire_striker",
+        FireStrikerItem::new,
+        props -> props.durability(32)
+    );
+
+    public static final DeferredItem<Item> WATER_HOE = ITEMS.registerItem(
+        "water_hoe",
+        props -> new WaterHoeItem(ElemancyToolMaterials.WATER_ELEMETAL,
+            props.repairable(ElemancyToolMaterials.WATER_ELEMETAL.repairItems()))
+    );
+
+    public static final DeferredItem<Item> EARTH_PICKAXE = ITEMS.registerItem(
+        "earth_pickaxe",
+        props -> new EarthToolItem(props.pickaxe(ElemancyToolMaterials.EARTH_ELEMETAL, 1.0F, -2.8F)
+            .repairable(ElemancyToolMaterials.EARTH_ELEMETAL.repairItems()))
+    );
+
+    public static final DeferredItem<Item> EARTH_SHOVEL = ITEMS.registerItem(
+        "earth_shovel",
+        props -> new EarthToolItem(props.shovel(ElemancyToolMaterials.EARTH_ELEMETAL, 1.5F, -3.0F)
+            .repairable(ElemancyToolMaterials.EARTH_ELEMETAL.repairItems()))
+    );
+
+    public static final DeferredItem<Item> AIR_AXE = ITEMS.registerItem(
+        "air_axe",
+        props -> new AirAxeItem(props.axe(ElemancyToolMaterials.AIR_ELEMETAL, 6.0F, -2.7F)
+            .repairable(ElemancyToolMaterials.AIR_ELEMETAL.repairItems()))
+    );
+
+    public static final DeferredItem<Item> AIR_SPEAR = ITEMS.registerItem(
+        "air_spear",
+        AirSpearItem::new,
+        props -> props.spear(ElemancyToolMaterials.AIR_ELEMETAL,
+            0.75F, 0.95F, 0.50F, 3.0F, 10.0F, 6.5F, 5.1F, 10.0F, 4.6F)
+    );
+
+    public static final DeferredItem<Item> LIGHT_SHEARS = ITEMS.registerItem(
+        "light_shears",
+        LightShearsItem::new,
+        props -> props.durability(ElemancyToolMaterials.LIGHT_ELEMETAL.durability())
+            .repairable(ElemancyToolMaterials.LIGHT_ELEMETAL.repairItems())
+            .component(DataComponents.TOOL, net.minecraft.world.item.ShearsItem.createToolProperties())
+    );
+
+    public static final DeferredItem<Item> LIGHT_SHIELD = ITEMS.registerItem(
+        "light_shield",
+        LightShieldItem::new,
+        props -> props.durability(ElemancyToolMaterials.LIGHT_ELEMETAL.durability())
+            .repairable(ElemancyToolMaterials.LIGHT_ELEMETAL.repairItems())
+            .equippableUnswappable(EquipmentSlot.OFFHAND)
+            .delayedComponent(DataComponents.BLOCKS_ATTACKS, context -> new BlocksAttacks(
+                0.25F,
+                1.0F,
+                List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+                Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
+                Optional.of(SoundEvents.SHIELD_BLOCK),
+                Optional.of(SoundEvents.SHIELD_BREAK)
+            ))
+            .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
+    );
+
+    public static final DeferredItem<Item> DARK_BUCKET = ITEMS.registerItem(
+        "dark_bucket",
+        DarkBucketItem::new,
+        props -> props.stacksTo(1)
+            .component(DataComponents.CUSTOM_MODEL_DATA, DarkBucketContents.DEFAULT_MODEL_DATA)
+            .component(ElemancyDataComponents.DARK_BUCKET_TOOLTIP.get(), DarkBucketTooltip.INSTANCE)
+            .component(DataComponents.TOOLTIP_DISPLAY,
+                TooltipDisplay.DEFAULT.withHidden(DataComponents.CONTAINER, true))
+    );
+
+// ==================== ROBES ====================
+
+    public static final DeferredItem<Item> ROBE_HELMET = ITEMS.registerItem(
+        "robe_helmet", props -> new Item(robeProperties(props, ArmorType.HELMET))
+    );
+
+    public static final DeferredItem<Item> ROBE_CHESTPLATE = ITEMS.registerItem(
+        "robe_chestplate", props -> new Item(robeProperties(props, ArmorType.CHESTPLATE))
+    );
+
+    public static final DeferredItem<Item> ROBE_LEGGINGS = ITEMS.registerItem(
+        "robe_leggings", props -> new Item(robeProperties(props, ArmorType.LEGGINGS))
+    );
+
+    public static final DeferredItem<Item> ROBE_BOOTS = ITEMS.registerItem(
+        "robe_boots", props -> new Item(robeProperties(props, ArmorType.BOOTS))
+    );
+
+    /**
+     * Builds properties for an Infused Robe piece.
+     * Mirrors {@code humanoidArmor()} but omits enchantable and repairable —
+     * robes are temporary Stage 0 support gear, not worth enchanting or repairing.
+     */
+    private static Item.Properties robeProperties(Item.Properties props, ArmorType type) {
+        ArmorMaterial material = ElemancyArmorMaterials.INFUSED_WOOL;
+        return props
+            .durability(type.getDurability(material.durability()))
+            .attributes(material.createAttributes(type))
+            .component(DataComponents.EQUIPPABLE,
+                Equippable.builder(type.getSlot())
+                    .setEquipSound(material.equipSound())
+                    .setAsset(material.assetId())
+                    .build()
+            );
+    }
+
+// ==================== CONSUMABLES AND SEEDS ====================
+
+    public static final DeferredItem<BlockItem> STRAWBERRY_SEEDS = ITEMS.registerItem("strawberry_seeds",
+        props -> new BlockItem(ElemancyBlocks.STRAWBERRY.get(), props));
+    public static final DeferredItem<Item> STRAWBERRY = ITEMS.registerSimpleItem("strawberry",
+        props -> props.food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.1F).build()));
+    public static final DeferredItem<BlockItem> YAM = ITEMS.registerItem("yam",
+        props -> new BlockItem(ElemancyBlocks.YAM.get(), props.food(new FoodProperties.Builder().nutrition(1).saturationModifier(0.3F).build())));
+    public static final DeferredItem<BlockItem> MANA_CARROT = ITEMS.registerItem("mana_carrot",
+        props -> new BlockItem(ElemancyBlocks.MANA_CARROT.get(), props.food(new FoodProperties.Builder().nutrition(3).saturationModifier(0.6F).build())));
+
+    public static final DeferredItem<Item> ICECREAM_COCOA = ITEMS.registerItem(
+        "icecream_cocoa",
+        IceCreamItem::new,
+        props -> props.food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.3f).alwaysEdible().build())
+    );
+    public static final DeferredItem<Item> ICECREAM_STRAWBERRY = ITEMS.registerItem(
+        "icecream_strawberry",
+        IceCreamItem::new,
+        props -> props.food(new FoodProperties.Builder().nutrition(2).saturationModifier(0.3f).alwaysEdible().build())
+    );
+
+// ==================== TRINKETS ====================
+
+    public static final DeferredItem<Item> AMULET_OF_DEEP_FOCUS = ITEMS.registerItem(
+        "amulet_of_deep_focus",
+        props -> new ManaStatTrinketItem(props, ManaStatTrinketItem.ManaModifierType.COST_REDUCTION, 0.05f)
+    );
+
+    public static final DeferredItem<Item> CHARM_OF_STEADY_FLOW = ITEMS.registerItem(
+        "charm_of_steady_flow",
+        props -> new ManaStatTrinketItem(props, ManaStatTrinketItem.ManaModifierType.REGEN_BOOST, 0.05f)
+    );
+
+    public static final DeferredItem<Item> BRACELET_OF_ENDURING_MANA = ITEMS.registerItem(
+        "bracelet_of_enduring_mana",
+        props -> new ManaStatTrinketItem(props, ManaStatTrinketItem.ManaModifierType.POOL_BOOST, 0.05f)
+    );
+
+    public static final DeferredItem<Item> BELT_OF_ROLLING_TIDES = ITEMS.registerItem(
+        "belt_of_rolling_tides",
+        props -> new ManaStatTrinketItem(props, ManaStatTrinketItem.ManaModifierType.REGEN_BOOST, 0.03f)
+    );
+
+    public static final DeferredItem<Item> NECKLACE_OF_SUNKEN_RESERVES = ITEMS.registerItem(
+        "necklace_of_sunken_reserves",
+        props -> new ManaStatTrinketItem(props, ManaStatTrinketItem.ManaModifierType.POOL_BOOST, 0.03f)
+    );
+
+    public static final DeferredItem<Item> GAUNTLET_OF_SUBTLE_WEAVE = ITEMS.registerItem(
+        "gauntlet_of_subtle_weave",
+        props -> new ManaStatTrinketItem(props, ManaStatTrinketItem.ManaModifierType.COST_REDUCTION, 0.03f)
+    );
+
     public static void register(IEventBus modEventBus) {
         ITEMS.register(modEventBus);
     }
+// ==================== MISC ====================
+
+    public static final DeferredItem<Item> PROPOLIS = ITEMS.registerSimpleItem("propolis");
+
+    public static final DeferredItem<Item> TOME = ITEMS.registerItem(
+        "tome",
+        TomeItem::new,
+        props -> props.stacksTo(1)
+            .component(ElemancyDataComponents.TOME_TOOLTIP.get(), TomeTooltip.INSTANCE)
+    );
+
+    public static final DeferredItem<Item> AFFINITY_PAPER = ITEMS.registerItem(
+        "affinity_paper",
+        AffinityPaperItem::new,
+        props -> props.stacksTo(1)
+    );
+
+    public static final DeferredItem<Item> ASHEN_STICK = ITEMS.registerSimpleItem("ashen_stick");
 }

@@ -5,12 +5,15 @@
   "elemancy.configuration.section.elemancy.common.toml.title": "Elemancy Configs",
   "elemancy.configuration.items": "Item List",
 
-
   "item.elemancy.energized_stick": "Energized Stick",
   "item.elemancy.ashen_stick": "Ashen Stick",
   "item.elemancy.ashen_wand": "Ashen Wand",
   "item.elemancy.infused_ingot": "Infused Ingot",
   "item.elemancy.propolis": "Propolis",
+  "item.elemancy.strawberry": "Strawberry",
+  "item.elemancy.strawberry_seeds": "Strawberry Seeds",
+  "item.elemancy.yam": "Yam",
+  "item.elemancy.mana_carrot": "Mana Carrot",
   "item.elemancy.arcane_vessel": "Arcane Vessel",
   "item.elemancy.soulvial": "Soulvial",
   "item.elemancy.soulvial_fire": "Soulvial",
@@ -44,6 +47,7 @@
   "item.elemancy.infused_pickaxe": "Infused Pickaxe",
   "item.elemancy.earth_pickaxe": "Earth Elemetal Pickaxe",
   "item.elemancy.earth_shovel": "Earth Elemetal Shovel",
+  "item.elemancy.water_hoe": "Water Elemetal Hoe",
   "item.elemancy.air_axe": "Air Elemetal Axe",
   "item.elemancy.air_spear": "Air Elemetal Spear",
   "item.elemancy.fire_sword": "Fire Elemetal Sword",
@@ -55,6 +59,7 @@
   "tooltip.elemancy.dark_bucket.milk": "Milk",
 
   "item.elemancy.icecream_cocoa": "Ice Cream",
+  "item.elemancy.icecream_strawberry": "Strawberry Ice Cream",
   "item.elemancy.amulet_of_deep_focus": "Amulet of Deep Focus",
   "item.elemancy.charm_of_steady_flow": "Charm of Steady Flow",
   "item.elemancy.bracelet_of_enduring_mana": "Bracelet of Enduring Mana",
@@ -78,6 +83,11 @@
   "entity.elemancy.mana_blast": "Mana Blast",
 
   "block.elemancy.paradox_flower": "Paradox Flower",
+  "block.elemancy.enriched_farmland": "Enriched Farmland",
+  "block.elemancy.strawberry": "Strawberry Crop",
+  "block.elemancy.yam": "Yam Crop",
+  "block.elemancy.mana_carrot": "Mana Carrot Crop",
+
   "block.elemancy.ashen_sapling": "Ashen Sapling",
   "block.elemancy.ashen_log": "Ashen Log",
   "block.elemancy.ashen_wood": "Ashen Wood",

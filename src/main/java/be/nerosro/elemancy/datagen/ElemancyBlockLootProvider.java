@@ -7,6 +7,7 @@ import java.util.concurrent.CompletableFuture;
 
 import be.nerosro.elemancy.block.ElemancyBlocks;
 import be.nerosro.elemancy.items.ElemancyItems;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -16,11 +17,14 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.BonusLevelTableCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -61,6 +65,20 @@ public class ElemancyBlockLootProvider extends LootTableProvider {
 
             // Paradox Flower never drops as an item
             add(ElemancyBlocks.PARADOX_FLOWER.get(), noDrop());
+            add(ElemancyBlocks.ENRICHED_FARMLAND.get(), createSingleItemTable(Blocks.DIRT));
+
+            add(ElemancyBlocks.STRAWBERRY.get(), createCropDrops(ElemancyBlocks.STRAWBERRY.get(),
+                ElemancyItems.STRAWBERRY.get(), ElemancyItems.STRAWBERRY.get(),
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(ElemancyBlocks.STRAWBERRY.get())
+                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7))));
+            add(ElemancyBlocks.YAM.get(), createCropDrops(ElemancyBlocks.YAM.get(),
+                ElemancyItems.YAM.get(), ElemancyItems.YAM.get(),
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(ElemancyBlocks.YAM.get())
+                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7))));
+            add(ElemancyBlocks.MANA_CARROT.get(), createCropDrops(ElemancyBlocks.MANA_CARROT.get(),
+                ElemancyItems.MANA_CARROT.get(), ElemancyItems.MANA_CARROT.get(),
+                LootItemBlockStatePropertyCondition.hasBlockStateProperties(ElemancyBlocks.MANA_CARROT.get())
+                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CropBlock.AGE, 7))));
 
             // Infused metal
             dropSelf(ElemancyBlocks.INFUSED_METAL_BLOCK.get());
@@ -71,7 +89,7 @@ public class ElemancyBlockLootProvider extends LootTableProvider {
             // Infused wool
             dropSelf(ElemancyBlocks.INFUSED_WOOL.get());
 
-            // Mirror (drops from lower half only, like a door)
+            // Mirror
             add(ElemancyBlocks.MIRROR.get(), createDoorTable(ElemancyBlocks.MIRROR.get()));
 
             // Sapling drops itself
@@ -117,6 +135,10 @@ public class ElemancyBlockLootProvider extends LootTableProvider {
                 ElemancyBlocks.ASHEN_PRESSURE_PLATE.get(),
                 ElemancyBlocks.ASHEN_BUTTON.get(),
                 ElemancyBlocks.PARADOX_FLOWER.get(),
+                ElemancyBlocks.ENRICHED_FARMLAND.get(),
+                ElemancyBlocks.STRAWBERRY.get(),
+                ElemancyBlocks.YAM.get(),
+                ElemancyBlocks.MANA_CARROT.get(),
                 ElemancyBlocks.ASHEN_SAPLING.get(),
                 ElemancyBlocks.ASHEN_LEAVES.get(),
                 ElemancyBlocks.INFUSED_METAL_BLOCK.get(),

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "elemancy:item/wood/ashen_door"
+    "layer0": "elemancy:item/food/strawberry_seeds"
   }
 }

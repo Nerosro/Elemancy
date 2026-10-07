@@ -32,6 +32,8 @@ public class ElemancyTags {
         Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "elemetal_ingots")
     );
 
+    public static final TagKey<Item> INFUSED_OR_ELEMETAL_INGOTS = itemTag("infused_or_elemetal_ingots");
+
     public static final TagKey<Item> FIRE_ELEMETAL_INGOTS = itemTag("fire_elemetal_ingots");
     public static final TagKey<Item> WATER_ELEMETAL_INGOTS = itemTag("water_elemetal_ingots");
     public static final TagKey<Item> EARTH_ELEMETAL_INGOTS = itemTag("earth_elemetal_ingots");

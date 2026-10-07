@@ -55,6 +55,11 @@ public class ElemancyRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes() {
+        shapeless(RecipeCategory.FOOD, ElemancyItems.STRAWBERRY_SEEDS.get())
+            .requires(ElemancyItems.STRAWBERRY.get())
+            .unlockedBy("has_strawberry", has(ElemancyItems.STRAWBERRY.get()))
+            .save(this.output);
+
         // Ashen Log -> 4 Ashen Planks (shapeless, like vanilla)
         shapeless(RecipeCategory.BUILDING_BLOCKS, ElemancyBlocks.ASHEN_PLANKS_ITEM.get(), 4)
             .requires(ElemancyBlocks.ASHEN_LOG_ITEM.get())
@@ -160,6 +165,15 @@ public class ElemancyRecipeProvider extends RecipeProvider {
             .define('E', ElemancyItems.getElemetalIngot(SoulmarkElements.EARTH.get()).get())
             .define('S', ElemancyItems.ASHEN_STICK.get())
             .unlockedBy("has_earth_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.EARTH.get()).get()))
+            .save(this.output);
+
+        shaped(RecipeCategory.TOOLS, ElemancyItems.WATER_HOE.get())
+            .pattern("EE")
+            .pattern(" S")
+            .pattern(" S")
+            .define('E', ElemancyItems.getElemetalIngot(SoulmarkElements.WATER.get()).get())
+            .define('S', ElemancyItems.ASHEN_STICK.get())
+            .unlockedBy("has_water_elemetal", has(ElemancyItems.getElemetalIngot(SoulmarkElements.WATER.get()).get()))
             .save(this.output);
 
         // === Air Axe ===
@@ -285,6 +299,16 @@ public class ElemancyRecipeProvider extends RecipeProvider {
             .define('S', Items.SNOWBALL)
             .define('B', Items.BOWL)
             .unlockedBy("has_cocoa_beans", has(Items.COCOA_BEANS))
+            .save(this.output);
+
+        shaped(RecipeCategory.FOOD, ElemancyItems.ICECREAM_STRAWBERRY.get())
+            .pattern(" F ")
+            .pattern(" S ")
+            .pattern(" B ")
+            .define('F', ElemancyItems.STRAWBERRY.get())
+            .define('S', Items.SNOWBALL)
+            .define('B', Items.BOWL)
+            .unlockedBy("has_strawberry", has(ElemancyItems.STRAWBERRY.get()))
             .save(this.output);
     }
 
