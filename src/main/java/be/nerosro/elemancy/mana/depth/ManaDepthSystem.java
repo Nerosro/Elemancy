@@ -1,6 +1,7 @@
 package be.nerosro.elemancy.mana.depth;
 
 import be.nerosro.elemancy.mana.CastCostPipeline;
+import be.nerosro.elemancy.network.ScarSyncPayload;
 import be.nerosro.elemancy.spell.SpellContext;
 import be.nerosro.soulmark.mana.ManaUtil;
 import net.minecraft.nbt.CompoundTag;
@@ -83,12 +84,16 @@ public final class ManaDepthSystem {
         return ScarFacade.buildScarBitfield(player);
     }
 
-    public static be.nerosro.elemancy.network.ScarSyncPayload buildScarPayload(Player player) {
+    public static ScarSyncPayload buildScarPayload(Player player) {
         return ScarFacade.buildScarPayload(player);
     }
 
-    public static boolean hasExperiencedManaCollapse(Player player) {
-        return ScarFacade.hasExperiencedManaCollapse(player);
+    public static ManaCollapseKnowledge getManaCollapseKnowledge(Player player) {
+        return ScarFacade.getManaCollapseKnowledge(player);
+    }
+
+    public static boolean diagnoseManaCollapse(Player player) {
+        return ScarFacade.diagnoseManaCollapse(player);
     }
 
     private static void collapsePlayer(Player player) {

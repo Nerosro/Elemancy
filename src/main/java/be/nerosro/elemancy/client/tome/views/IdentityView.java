@@ -65,7 +65,7 @@ public class IdentityView implements TomeTabView {
     public boolean handleClick(double mouseX, double mouseY, int x, int y, int w) {
         if (showingTraitsDetail) {
             // Back button
-            if (TomeLayout.isInside((int) mouseX, (int) mouseY, layout.backButtonX(), layout.backButtonY(), 124, 20)) {
+            if (TomeLayout.isInside((int) mouseX, (int) mouseY, layout.prevButtonX(), layout.footerY, 90, 20)) {
                 showingTraitsDetail = false;
                 traitsScrollOffset = 0;
                 onFlipAnimation.run();

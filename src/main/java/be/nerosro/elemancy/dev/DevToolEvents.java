@@ -65,7 +65,7 @@ public class DevToolEvents {
             resetAffinityDiscovery(player);
             TraitUtil.resetTraitsReveal(player);
             if (player instanceof ServerPlayer sp) {
-                SoulmarkNetwork.syncMana(sp, ManaDepthSystem.hasExperiencedManaCollapse(sp));
+                SoulmarkNetwork.syncMana(sp);
             }
             player.sendSystemMessage(Component.literal("[Dev] Affinity and traits discovery reset.").withStyle(ChatFormatting.YELLOW));
         } else if (item.is(Items.NETHER_STAR)) {

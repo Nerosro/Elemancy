@@ -17,14 +17,16 @@ public final class ScarFacade {
     }
 
     private static final String SCAR_ROOT = "elemancy_scars";
-    private static final String EXPERIENCED_COLLAPSE_KEY = "elemancy_experienced_mana_collapse";
+    private static final String COLLAPSE_KNOWLEDGE_KEY = "elemancy_mana_collapse_knowledge";
 
-    /**
-     * Returns true if the player has experienced Mana Collapse at least once.
-     * Used to unlock the Mana Collapse entry in the Tome scars section.
-     */
-    public static boolean hasExperiencedManaCollapse(Player player) {
-        return player.getPersistentData().getBoolean(EXPERIENCED_COLLAPSE_KEY).orElse(false);
+    public static ManaCollapseKnowledge getManaCollapseKnowledge(Player player) {
+        return ManaCollapseKnowledge.byId(player.getPersistentData().getInt(COLLAPSE_KNOWLEDGE_KEY).orElse(0));
+    }
+
+    public static boolean diagnoseManaCollapse(Player player) {
+        if (getManaCollapseKnowledge(player) != ManaCollapseKnowledge.EXPERIENCED_UNDOCUMENTED) return false;
+        player.getPersistentData().putInt(COLLAPSE_KNOWLEDGE_KEY, ManaCollapseKnowledge.MIRROR_DIAGNOSED.id());
+        return true;
     }
 
     /**
@@ -32,7 +34,9 @@ public final class ScarFacade {
      * Called automatically by applyManaCollapse().
      */
     private static void markManaCollapseExperienced(Player player) {
-        player.getPersistentData().putBoolean(EXPERIENCED_COLLAPSE_KEY, true);
+        if (getManaCollapseKnowledge(player) == ManaCollapseKnowledge.NEVER_EXPERIENCED) {
+            player.getPersistentData().putInt(COLLAPSE_KNOWLEDGE_KEY, ManaCollapseKnowledge.EXPERIENCED_UNDOCUMENTED.id());
+        }
     }
 
     public static float applyCastCostModifiers(Player player, float baseCost) {

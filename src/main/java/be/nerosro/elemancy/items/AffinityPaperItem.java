@@ -2,7 +2,6 @@ package be.nerosro.elemancy.items;
 
 import org.jspecify.annotations.Nullable;
 
-import be.nerosro.elemancy.mana.depth.ManaDepthSystem;
 import be.nerosro.soulmark.affinity.AffinityUtil;
 import be.nerosro.soulmark.element.Element;
 import be.nerosro.soulmark.element.ElementRegistry;
@@ -73,7 +72,7 @@ public class AffinityPaperItem extends Item {
         if (firstReveal) {
             AffinityUtil.revealAffinity(player);
             if (player instanceof ServerPlayer sp) {
-                SoulmarkNetwork.syncMana(sp, ManaDepthSystem.hasExperiencedManaCollapse(sp));
+                SoulmarkNetwork.syncMana(sp);
             }
         }
 

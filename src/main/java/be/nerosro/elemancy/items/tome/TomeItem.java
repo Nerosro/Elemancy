@@ -47,6 +47,7 @@ public class TomeItem extends Item {
         tag.putString(TAG_OWNER_NAME, ownerName);
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
         stack.set(DataComponents.CUSTOM_NAME, Component.literal(ownerName + "'s Tome"));
+        TomeTraitSnapshot.writeIfRevealed(stack, player);
     }
 
     /**
