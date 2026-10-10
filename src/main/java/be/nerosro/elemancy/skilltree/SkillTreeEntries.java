@@ -183,6 +183,17 @@ public class SkillTreeEntries {
             .position(-2, 0)
             .build());
 
+    /**
+     * Hidden node unlocked when player uses the Water hoe to create enriched farmland for the first time.
+     * Gates access to the Enriched Farmland entry.
+     * NodeType.DISCOVERY ensures it never renders in UI.
+     */
+    public static final Supplier<SkillNode> DISCOVERY_ENRICHED_FARMLAND = NODES.register("discovery/enriched_farmland",
+        () -> new SkillNode.Builder("Enriched Farmland Discovery", "Hidden discovery node", TREE_ID, NodeType.DISCOVERY, SoulmarkElements.NONE)
+            .cost(0)
+            .position(-2, 0)
+            .build());
+
     public static void register(IEventBus modEventBus) {
         TREES.register(modEventBus);
         NODES.register(modEventBus);

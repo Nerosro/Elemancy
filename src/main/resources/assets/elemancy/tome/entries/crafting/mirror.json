@@ -1,0 +1,50 @@
+{
+  "id": "mirror",
+  "title": "Mirror",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "The Mirror is a simple tool that allows you to reflect on yourself (Get it?).",
+            "Using an empty hand on this Mirror will allow you to see your Traits and Scars.",
+            "Using your Tome instead lets you record the Trait information and unlocks entries about the Scars' effects.",
+            "The recipe comes in 2 flavours, one with Infused ingots, and another with Elemetal, you can mix and match these however you like."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "Recipe:"
+          ],
+          "recipe": {
+            "type": "shaped_3x3",
+            "grid": [
+              "minecraft:gold_ingot", "elemancy:infused_ingot", "minecraft:gold_ingot",
+              "minecraft:gold_ingot", "elemancy:infused_ingot", "minecraft:gold_ingot",
+              "minecraft:gold_ingot", "elemancy:infused_ingot", "minecraft:gold_ingot"
+            ],
+            "result": "elemancy:mirror"
+          }
+        },
+        {
+          "content": [
+            "Recipe:"
+          ],
+          "recipe": {
+            "type": "shaped_3x3",
+            "grid": [
+              "minecraft:gold_ingot", "#elemancy:infused_or_elemetal_ingots", "minecraft:gold_ingot",
+              "minecraft:gold_ingot", "#elemancy:infused_or_elemetal_ingots", "minecraft:gold_ingot",
+              "minecraft:gold_ingot", "#elemancy:infused_or_elemetal_ingots", "minecraft:gold_ingot"
+            ],
+            "result": "elemancy:mirror"
+          }
+        }
+      ]
+    }
+  ]
+}

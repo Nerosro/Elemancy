@@ -7,7 +7,24 @@
       "sections": [
         {
           "content": [
-            "To be written"
+            "The revelations of the Light Shears has made your brain work overtime for the past couple days and you finally came up with most likely your masterpiece.",
+            "Behold: The Light Shield! A shield that reflects light around it and creates illusionary decoys to confuse you enemies.",
+            "Every time you raise your shield, you can create 1 decoy of yourself upon blocking damage that will aggro the nearby enemies so you can reposition yourself.",
+            "Up to 2 decoys can exist at the same time. These decoys last 5 seconds before disappearing. ",
+            "If you create a third decoy while there are already 2 existing, the oldest one will be removed and a new one will be placed at your current location."
+          ]
+        }
+      ]
+    },
+    {
+      "sections": [
+        {
+          "content": [
+            "But that alone doesn't turn it into a masterpiece, you also managed to repurpose the refractures of the shield to turn you invisible for a few seconds. You decide to call this a 'perfect block'",
+            "The requirements for this to happen are more strict than the decoys.",
+            "Practically, if you block damage within 1 second of raising your shield, additionally to placing a decoy, you also turn completely invisible for up to 3 seconds.",
+            "This invisibility is broken if you attack, switch what's in your hands, drop or place items, interact with blocks, and so on.",
+            "When triggering the effect, you will enter a 10 second cooldown before you can become invisible again, the decoy placement is not affected by this cooldown."
           ]
         },
         {

@@ -27,4 +27,11 @@ public final class DiscoveryNodes {
      */
     public static final Identifier INFUSED_BEEHIVE =
         Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "discovery/infused_beehive");
+
+    /**
+     * Unlocked when player uses the Water hoe to create enriched farmland for the first time.
+     * Gates access to the Enriched Farmland entry.
+     */
+    public static final Identifier ENRICHED_FARMLAND =
+        Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "discovery/enriched_farmland");
 }

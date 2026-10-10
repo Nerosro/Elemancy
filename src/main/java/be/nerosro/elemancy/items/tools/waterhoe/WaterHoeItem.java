@@ -1,9 +1,12 @@
 package be.nerosro.elemancy.items.tools.waterhoe;
 
 import be.nerosro.elemancy.block.ElemancyBlocks;
+import be.nerosro.elemancy.tome.DiscoveryNodes;
+import be.nerosro.elemancy.tome.TomeDiscoveryEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -58,6 +61,9 @@ public final class WaterHoeItem extends HoeItem {
         if (converted == 0) return InteractionResult.PASS;
         level.playSound(null, center, SoundEvents.HOE_TILL, SoundSource.BLOCKS, 1.0F, 1.0F);
         if (player != null) {
+            if (TomeDiscoveryEvents.unlockDiscovery(player, DiscoveryNodes.ENRICHED_FARMLAND)) {
+                player.sendSystemMessage(Component.translatable("message.elemancy.discovery.enriched_farmland"));
+            }
             tool.hurtAndBreak(1, player, context.getHand().asEquipmentSlot());
         } else {
             tool.hurtAndBreak(1, (ServerLevel) level, (LivingEntity) null, ignored -> {

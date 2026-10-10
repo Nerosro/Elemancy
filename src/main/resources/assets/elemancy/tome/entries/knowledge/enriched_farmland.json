@@ -1,0 +1,22 @@
+{
+  "id": "enriched_farmland",
+  "title": "Enriched Farmland",
+  "pages": [
+    {
+      "sections": [
+        {
+          "content": [
+            "Further study of this soil shows that it's already enriched with nutrients, so additional fertilizer like bonemeal won't be needed anymore.",
+            "The soil is also fickle and not hydrated, unlike first expected from the wet ingots that make up the hoe. What's more, the soil will turn back to dirt if it doesn't get hydrated even with crops growing on it.",
+            "But if you do keep a water source nearby, the crops planted on it will grow faster and the harvest won't let you down either. ",
+            "Although a couple of these harvested crops look different from what you planted. I bet it's that Paradox flower being weird again.",
+            "Speaking of fickle soil, you haven't figured out how to keep the soil from reverting back to dirt after every harvest."
+          ],
+          "requirements": {
+            "node": "elemancy:discovery/enriched_farmland"
+          }
+        }
+      ]
+    }
+  ]
+}

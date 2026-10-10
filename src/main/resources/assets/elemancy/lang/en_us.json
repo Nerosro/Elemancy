@@ -76,6 +76,7 @@
 
   "message.elemancy.discovery.paradox_flower": "You've discovered new knowledge about the Paradox Flower",
   "message.elemancy.discovery.infused_beehive": "You've discovered new knowledge about Mana-Reactive Beehives",
+  "message.elemancy.discovery.enriched_farmland": "You've discovered new knowledge about Enriched Farmland",
 
   "death.attack.elemancy.mana_backlash": "%1$s's mana reacted violently",
   "death.attack.elemancy.mana_collapse": "%1$s's mana screamed out in despair",

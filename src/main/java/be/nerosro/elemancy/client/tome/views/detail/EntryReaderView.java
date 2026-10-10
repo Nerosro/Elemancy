@@ -1,5 +1,7 @@
 package be.nerosro.elemancy.client.tome.views.detail;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,8 +20,10 @@ import be.nerosro.soulmark.skilltree.SkillNode;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -51,7 +55,7 @@ public class EntryReaderView {
         SPELL, PASSIVE, RITUAL, KNOWLEDGE, SCAR, CRAFTING
     }
 
-    private record ItemSlot(String itemId, int x, int y, int size) {
+    private record ItemSlot(ItemStack stack, int x, int y, int size) {
     }
 
     public EntryReaderView(Font font, TomeLayout layout) {
@@ -270,29 +274,44 @@ public class EntryReaderView {
             String itemId = grid.get(i);
             if (itemId.isEmpty()) continue;
 
+            ItemStack stack = resolveRecipeItem(itemId, i);
+            if (stack.isEmpty()) continue;
+
             int row = i / 3;
             int col = i % 3;
             int slotX = startX + col * slotSize + 1;
             int slotY = y + row * slotSize + 1;
 
-            renderItemIcon(graphics, itemId, slotX, slotY);
-            recipeSlots.add(new ItemSlot(itemId, slotX, slotY, 16));
+            graphics.item(stack, slotX, slotY);
+            recipeSlots.add(new ItemSlot(stack, slotX, slotY, 16));
         }
 
         return y + gridSize + 10;
     }
 
-    private void renderItemIcon(GuiGraphicsExtractor graphics, String itemId, int x, int y) {
+    private ItemStack resolveRecipeItem(String itemId, int slotIndex) {
         try {
-            Identifier id = Identifier.parse(itemId);
-            Item item = BuiltInRegistries.ITEM.getValue(id);
-            if (item != Items.AIR) {
-                ItemStack stack = new ItemStack(item);
-                graphics.item(stack, x, y);
+            if (itemId.startsWith("#")) {
+                String tagId = itemId.substring(1);
+                TagKey<Item> tag = TagKey.create(Registries.ITEM, Identifier.parse(tagId));
+                List<Item> items = new ArrayList<>();
+                for (var holder : BuiltInRegistries.ITEM.getTagOrEmpty(tag)) {
+                    items.add(holder.value());
+                }
+                if (items.isEmpty()) return ItemStack.EMPTY;
+                items.sort(Comparator.comparing(item -> BuiltInRegistries.ITEM.getKey(item).toString()));
+                return new ItemStack(items.get(Math.floorMod(System.currentTimeMillis() / 1000L + slotIndex, items.size())));
             }
+            Item item = BuiltInRegistries.ITEM.getValue(Identifier.parse(itemId));
+            return item == Items.AIR ? ItemStack.EMPTY : new ItemStack(item);
         } catch (Exception e) {
-            // Invalid item ID, skip rendering
+            return ItemStack.EMPTY;
         }
+    }
+
+    private void renderItemIcon(GuiGraphicsExtractor graphics, String itemId, int x, int y) {
+        ItemStack stack = resolveRecipeItem(itemId, 0);
+        if (!stack.isEmpty()) graphics.item(stack, x, y);
     }
 
     private void drawStatLine(GuiGraphicsExtractor graphics, int x, int y, String label, String value) {
@@ -395,22 +414,8 @@ public class EntryReaderView {
     public @Nullable String getHoveredRecipeItem(int mouseX, int mouseY) {
         for (ItemSlot slot : recipeSlots) {
             if (TomeLayout.isInside(mouseX, mouseY, slot.x, slot.y, slot.size, slot.size)) {
-                return getItemDisplayName(slot.itemId);
+                return slot.stack.getHoverName().getString();
             }
-        }
-        return null;
-    }
-
-    private @Nullable String getItemDisplayName(String itemId) {
-        try {
-            Identifier id = Identifier.parse(itemId);
-            Item item = BuiltInRegistries.ITEM.getValue(id);
-            if (item != Items.AIR) {
-                ItemStack stack = new ItemStack(item);
-                return stack.getHoverName().getString();
-            }
-        } catch (Exception e) {
-            // Invalid item ID
         }
         return null;
     }

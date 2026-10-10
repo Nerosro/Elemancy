@@ -117,7 +117,7 @@ public class TomeDiscoveryEvents {
      * Attempts to unlock a discovery node for the player.
      * Returns true only on first unlock (prevents duplicate messages).
      */
-    private static boolean unlockDiscovery(Player player, Identifier nodeId) {
+    public static boolean unlockDiscovery(Player player, Identifier nodeId) {
         boolean unlocked = SkillTreeUtil.getTreeData(player).unlock(nodeId);
         if (unlocked && player instanceof ServerPlayer serverPlayer) {
             SoulmarkNetwork.syncSkillTree(serverPlayer);

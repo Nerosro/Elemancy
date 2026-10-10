@@ -8,10 +8,9 @@
     { "id": "earth_pickaxe",     "path": "elemetal_tools/earth_pickaxe" },
     { "id": "earth_shovel",      "path": "elemetal_tools/earth_shovel" },
     { "id": "water_hoe",         "path": "elemetal_tools/water_hoe" },
-    { "id": "water_fishing_rod", "path": "elemetal_tools/water_fishing_rod" },
-    { "id": "light_shield",      "path": "elemetal_tools/light_shield" },
     { "id": "light_shears",      "path": "elemetal_tools/light_shears" },
+    { "id": "light_shield",      "path": "elemetal_tools/light_shield" },
     { "id": "dark_bucket",       "path": "elemetal_tools/dark_bucket" },
-    { "id": "dark_brush",        "path": "elemetal_tools/dark_brush" }
+    "mirror"
   ]
 }
