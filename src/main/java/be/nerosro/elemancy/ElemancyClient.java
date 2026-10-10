@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.lwjgl.glfw.GLFW;
 
+import be.nerosro.elemancy.block.ElemancyBlockEntities;
 import be.nerosro.elemancy.block.ElemancyBlocks;
 import be.nerosro.elemancy.client.AffinityPaperTintSource;
 import be.nerosro.elemancy.client.ElemancyTooltipEvents;
@@ -12,6 +13,7 @@ import be.nerosro.elemancy.client.LightShieldDecoyRenderer;
 import be.nerosro.elemancy.client.LightShieldSpecialRenderer;
 import be.nerosro.elemancy.client.ManaBlastRenderer;
 import be.nerosro.elemancy.client.ManaHudOverlay;
+import be.nerosro.elemancy.client.mirror.MirrorReflectionRenderer;
 import be.nerosro.elemancy.client.RitualLightningRenderer;
 import be.nerosro.elemancy.client.RitualSigilRenderer;
 import be.nerosro.elemancy.client.structureprojection.StructureProjectionPreview;
@@ -129,6 +131,7 @@ public class ElemancyClient {
         event.registerEntityRenderer(EntityTypes.RITUAL_LIGHTNING.get(), RitualLightningRenderer::new);
         event.registerEntityRenderer(EntityTypes.RITUAL_SIGIL.get(), RitualSigilRenderer::new);
         event.registerEntityRenderer(EntityTypes.LIGHT_SHIELD_DECOY.get(), LightShieldDecoyRenderer::new);
+        event.registerBlockEntityRenderer(ElemancyBlockEntities.MIRROR.get(), MirrorReflectionRenderer::new);
     }
 
     private static void onRegisterParticleProviders(RegisterParticleProvidersEvent event) {

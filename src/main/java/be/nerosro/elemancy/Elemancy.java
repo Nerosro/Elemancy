@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
+import be.nerosro.elemancy.block.ElemancyBlockEntities;
 import be.nerosro.elemancy.block.ElemancyBlocks;
 import be.nerosro.elemancy.client.SpellRadialHandler;
 import be.nerosro.elemancy.datagen.DataGenerators;
@@ -17,6 +18,7 @@ import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketFluidCapabilities;
 import be.nerosro.elemancy.items.tools.earth.EarthExcavationKeyAction;
 import be.nerosro.elemancy.items.trinket.TrinketBonuses;
 import be.nerosro.elemancy.loot.ElemancyLootModifiers;
+import be.nerosro.elemancy.mana.depth.ManaDepthSystem;
 import be.nerosro.elemancy.network.ElemancyNetwork;
 import be.nerosro.elemancy.particle.ElemancyParticles;
 import be.nerosro.elemancy.skilltree.Attachments;
@@ -41,6 +43,7 @@ public class Elemancy {
         modEventBus.addListener(this::commonSetup);
 
         ElemancyBlocks.register(modEventBus);
+        ElemancyBlockEntities.register(modEventBus);
         ElemancyDataComponents.register(modEventBus);
         ElemancyItems.register(modEventBus);
         ElemancyCreativeTabs.register(modEventBus);
@@ -72,6 +75,7 @@ public class Elemancy {
             TrinketBonuses.poolBoost(player),
             TrinketBonuses.regenBoost(player)
         ));
+        SoulmarkNetwork.setManaCollapseKnowledgeProvider(player -> ManaDepthSystem.getManaCollapseKnowledge(player).id());
 
         // Register the Tome as the opener for the Elemancy skill tree
         // Register the Energized Stick as a radial menu opener

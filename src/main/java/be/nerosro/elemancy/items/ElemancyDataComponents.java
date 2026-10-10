@@ -1,6 +1,7 @@
 package be.nerosro.elemancy.items;
 
 import be.nerosro.elemancy.Elemancy;
+import be.nerosro.elemancy.items.mirror.MirrorTooltip;
 import be.nerosro.elemancy.items.tome.TomeTooltip;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketTooltip;
 import net.minecraft.core.component.DataComponentType;
@@ -27,6 +28,12 @@ public final class ElemancyDataComponents {
         COMPONENTS.register("tome_tooltip", () -> DataComponentType.<TomeTooltip>builder()
             .persistent(TomeTooltip.CODEC)
             .networkSynchronized(TomeTooltip.STREAM_CODEC)
+            .build());
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<MirrorTooltip>> MIRROR_TOOLTIP =
+        COMPONENTS.register("mirror_tooltip", () -> DataComponentType.<MirrorTooltip>builder()
+            .persistent(MirrorTooltip.CODEC)
+            .networkSynchronized(MirrorTooltip.STREAM_CODEC)
             .build());
 
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Boolean>> EARTH_EXCAVATION_ENABLED =

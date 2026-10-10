@@ -19,8 +19,10 @@ import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.ItemModelUtils;
+import net.minecraft.client.data.models.model.ModelTemplate;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.renderer.item.properties.select.CustomModelDataProperty;
 import net.minecraft.client.renderer.item.properties.select.DisplayContext;
@@ -31,6 +33,10 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.FarmlandBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.material.Fluids;
@@ -93,25 +99,22 @@ public class ElemancyModelProvider extends ModelProvider {
         // === Infused Wool ===
         blockModels.createTrivialCube(ElemancyBlocks.INFUSED_WOOL.get());
 
-        // === Mirror (double-block with facing, placeholder cube model) ===
-        TextureMapping mirrorTexture = TextureMapping.cube(ElemancyBlocks.INFUSED_METAL_BLOCK.get());
-        Identifier mirrorBottomModel = ModelTemplates.CUBE_ALL.createWithSuffix(
-            ElemancyBlocks.MIRROR.get(), "_bottom", mirrorTexture, blockModels.modelOutput);
-        Identifier mirrorTopModel = ModelTemplates.CUBE_ALL.createWithSuffix(
-            ElemancyBlocks.MIRROR.get(), "_top", mirrorTexture, blockModels.modelOutput);
-        MultiVariant mirrorBottom = BlockModelGenerators.plainVariant(mirrorBottomModel);
-        MultiVariant mirrorTop = BlockModelGenerators.plainVariant(mirrorTopModel);
+        // === Mirror ===
+        MultiVariant mirror = BlockModelGenerators.plainVariant(
+            Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "block/mirror"));
+        MultiVariant mirrorUpper = BlockModelGenerators.plainVariant(
+            Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "block/mirror_upper"));
         blockModels.blockStateOutput.accept(
             MultiVariantGenerator.dispatch(ElemancyBlocks.MIRROR.get())
                 .with(PropertyDispatch.initial(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.DOUBLE_BLOCK_HALF)
-                    .select(Direction.NORTH, DoubleBlockHalf.LOWER, mirrorBottom)
-                    .select(Direction.SOUTH, DoubleBlockHalf.LOWER, mirrorBottom.with(BlockModelGenerators.Y_ROT_180))
-                    .select(Direction.EAST, DoubleBlockHalf.LOWER, mirrorBottom.with(BlockModelGenerators.Y_ROT_90))
-                    .select(Direction.WEST, DoubleBlockHalf.LOWER, mirrorBottom.with(BlockModelGenerators.Y_ROT_270))
-                    .select(Direction.NORTH, DoubleBlockHalf.UPPER, mirrorTop)
-                    .select(Direction.SOUTH, DoubleBlockHalf.UPPER, mirrorTop.with(BlockModelGenerators.Y_ROT_180))
-                    .select(Direction.EAST, DoubleBlockHalf.UPPER, mirrorTop.with(BlockModelGenerators.Y_ROT_90))
-                    .select(Direction.WEST, DoubleBlockHalf.UPPER, mirrorTop.with(BlockModelGenerators.Y_ROT_270))
+                    .select(Direction.NORTH, DoubleBlockHalf.LOWER, mirror)
+                    .select(Direction.SOUTH, DoubleBlockHalf.LOWER, mirror.with(BlockModelGenerators.Y_ROT_180))
+                    .select(Direction.EAST, DoubleBlockHalf.LOWER, mirror.with(BlockModelGenerators.Y_ROT_90))
+                    .select(Direction.WEST, DoubleBlockHalf.LOWER, mirror.with(BlockModelGenerators.Y_ROT_270))
+                    .select(Direction.NORTH, DoubleBlockHalf.UPPER, mirrorUpper)
+                    .select(Direction.SOUTH, DoubleBlockHalf.UPPER, mirrorUpper.with(BlockModelGenerators.Y_ROT_180))
+                    .select(Direction.EAST, DoubleBlockHalf.UPPER, mirrorUpper.with(BlockModelGenerators.Y_ROT_90))
+                    .select(Direction.WEST, DoubleBlockHalf.UPPER, mirrorUpper.with(BlockModelGenerators.Y_ROT_270))
                 )
         );
 

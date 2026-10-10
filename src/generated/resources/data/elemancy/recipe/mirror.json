@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "decorations",
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "I": "#elemancy:infused_or_elemetal_ingots"
+  },
+  "pattern": [
+    "GIG",
+    "GIG",
+    "GIG"
+  ],
+  "result": {
+    "id": "elemancy:mirror"
+  }
+}

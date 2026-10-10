@@ -1,33 +1,33 @@
 {
   "variants": {
     "facing=east,half=lower": {
-      "model": "elemancy:block/mirror_bottom",
+      "model": "elemancy:block/mirror",
       "y": 90
     },
     "facing=east,half=upper": {
-      "model": "elemancy:block/mirror_top",
+      "model": "elemancy:block/mirror_upper",
       "y": 90
     },
     "facing=north,half=lower": {
-      "model": "elemancy:block/mirror_bottom"
+      "model": "elemancy:block/mirror"
     },
     "facing=north,half=upper": {
-      "model": "elemancy:block/mirror_top"
+      "model": "elemancy:block/mirror_upper"
     },
     "facing=south,half=lower": {
-      "model": "elemancy:block/mirror_bottom",
+      "model": "elemancy:block/mirror",
       "y": 180
     },
     "facing=south,half=upper": {
-      "model": "elemancy:block/mirror_top",
+      "model": "elemancy:block/mirror_upper",
       "y": 180
     },
     "facing=west,half=lower": {
-      "model": "elemancy:block/mirror_bottom",
+      "model": "elemancy:block/mirror",
       "y": 270
     },
     "facing=west,half=upper": {
-      "model": "elemancy:block/mirror_top",
+      "model": "elemancy:block/mirror_upper",
       "y": 270
     }
   }

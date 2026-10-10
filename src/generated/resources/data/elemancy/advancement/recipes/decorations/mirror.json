@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_infused_or_elemetal_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#elemancy:infused_or_elemetal_ingots"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "elemancy:mirror"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_infused_or_elemetal_ingot"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "elemancy:mirror"
+    ]
+  }
+}

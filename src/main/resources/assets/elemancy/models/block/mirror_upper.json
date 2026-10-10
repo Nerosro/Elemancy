@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "elemancy:block/mirror/mirror_texture"
+  },
+  "elements": []
+}

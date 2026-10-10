@@ -3,6 +3,7 @@ package be.nerosro.elemancy.datagen;
 import java.util.concurrent.CompletableFuture;
 
 import be.nerosro.elemancy.Elemancy;
+import be.nerosro.elemancy.ElemancyTags;
 import be.nerosro.elemancy.block.ElemancyBlocks;
 import be.nerosro.elemancy.items.ElemancyItems;
 import be.nerosro.soulmark.element.SoulmarkElements;
@@ -105,6 +106,15 @@ public class ElemancyRecipeProvider extends RecipeProvider {
             nineBlockStorageRecipes(RecipeCategory.BUILDING_BLOCKS, ElemancyItems.getElemetalIngot(element).get(),
                 RecipeCategory.MISC, ElemancyBlocks.getElemetalBlockItem(element).get());
         }
+
+        shaped(RecipeCategory.DECORATIONS, ElemancyBlocks.MIRROR_ITEM.get())
+            .pattern("GIG")
+            .pattern("GIG")
+            .pattern("GIG")
+            .define('G', Items.GOLD_INGOT)
+            .define('I', ElemancyTags.INFUSED_OR_ELEMETAL_INGOTS)
+            .unlockedBy("has_infused_or_elemetal_ingot", has(ElemancyTags.INFUSED_OR_ELEMETAL_INGOTS))
+            .save(this.output);
 
         // === Infused Robes (leather armor shapes, Infused Wool instead of leather) ===
         shaped(RecipeCategory.COMBAT, ElemancyItems.ROBE_HELMET.get())

@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.jspecify.annotations.Nullable;
 
+import com.mojang.serialization.MapCodec;
+
 import be.nerosro.elemancy.items.tome.TomeItem;
+import be.nerosro.elemancy.items.tome.TomeTraitSnapshot;
 import be.nerosro.elemancy.mana.depth.ManaDepthSystem;
 import be.nerosro.elemancy.mana.depth.ScarType;
 import be.nerosro.soulmark.network.SoulmarkNetwork;
@@ -14,7 +17,6 @@ import be.nerosro.soulmark.traits.TraitUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,14 +26,16 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -42,27 +46,43 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 /**
- * A two-block-tall standing mirror that reveals the player's traits and mana scars.
- * Both halves are interactable. Right-click bare-handed shows traits + scars.
+ * A standing mirror that reveals the player's traits and mana scars.
+ * Right-click bare-handed shows traits + scars.
  * Right-click with Tome writes traits into it.
  */
-public class MirrorBlock extends Block {
+public class MirrorBlock extends BaseEntityBlock {
+
+    private static final MapCodec<MirrorBlock> CODEC = simpleCodec(MirrorBlock::new);
 
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<DoubleBlockHalf> HALF = BlockStateProperties.DOUBLE_BLOCK_HALF;
 
-    private static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 16, 14);
+    private static final VoxelShape LOWER_SHAPE = Block.box(0, 0, 0, 16, 32, 16);
+    private static final VoxelShape UPPER_SHAPE = Block.box(0, -16, 0, 16, 16, 16);
 
     public MirrorBlock(Properties properties) {
         super(properties);
-        registerDefaultState(stateDefinition.any()
-            .setValue(FACING, Direction.NORTH)
-            .setValue(HALF, DoubleBlockHalf.LOWER));
+        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(HALF, DoubleBlockHalf.LOWER));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, HALF);
+    }
+
+    @Override
+    protected MapCodec<MirrorBlock> codec() {
+        return CODEC;
+    }
+
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return state.getValue(HALF) == DoubleBlockHalf.LOWER ? new MirrorBlockEntity(pos, state) : null;
+    }
+
+    @Override
+    protected RenderShape getRenderShape(BlockState state) {
+        return RenderShape.MODEL;
     }
 
     // ── Placement ───────────────────────────────────────────────────────────
@@ -82,33 +102,27 @@ public class MirrorBlock extends Block {
         level.setBlock(pos.above(), state.setValue(HALF, DoubleBlockHalf.UPPER), Block.UPDATE_ALL);
     }
 
-    // ── Breaking (remove both halves) ───────────────────────────────────────
-
     @Override
     protected BlockState updateShape(BlockState state, LevelReader level, ScheduledTickAccess ticks,
                                      BlockPos pos, Direction direction, BlockPos neighborPos,
                                      BlockState neighborState, RandomSource random) {
         DoubleBlockHalf half = state.getValue(HALF);
-        if (direction.getAxis() == Direction.Axis.Y) {
-            boolean isLowerCheckingAbove = half == DoubleBlockHalf.LOWER && direction == Direction.UP;
-            boolean isUpperCheckingBelow = half == DoubleBlockHalf.UPPER && direction == Direction.DOWN;
-            if (isLowerCheckingAbove || isUpperCheckingBelow) {
-                if (!neighborState.is(this)) {
-                    return Blocks.AIR.defaultBlockState();
-                }
-            }
+        if (direction.getAxis() == Direction.Axis.Y
+            && (half == DoubleBlockHalf.LOWER) == (direction == Direction.UP)
+            && (!neighborState.is(this) || neighborState.getValue(HALF) == half)) {
+            return Blocks.AIR.defaultBlockState();
         }
         return super.updateShape(state, level, ticks, pos, direction, neighborPos, neighborState, random);
     }
 
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        if (!level.isClientSide()) {
-            DoubleBlockHalf half = state.getValue(HALF);
-            BlockPos otherPos = half == DoubleBlockHalf.LOWER ? pos.above() : pos.below();
-            BlockState otherState = level.getBlockState(otherPos);
-            if (otherState.is(this) && otherState.getValue(HALF) != half) {
-                level.setBlock(otherPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
+        if (!level.isClientSide() && state.getValue(HALF) == DoubleBlockHalf.UPPER
+            && (player.preventsBlockDrops() || !player.hasCorrectToolForDrops(state, level, pos))) {
+            BlockPos below = pos.below();
+            BlockState lower = level.getBlockState(below);
+            if (lower.is(this) && lower.getValue(HALF) == DoubleBlockHalf.LOWER) {
+                level.setBlock(below, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL | Block.UPDATE_SUPPRESS_DROPS);
             }
         }
         return super.playerWillDestroy(level, pos, state, player);
@@ -118,7 +132,17 @@ public class MirrorBlock extends Block {
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return state.getValue(HALF) == DoubleBlockHalf.UPPER ? UPPER_SHAPE : LOWER_SHAPE;
+    }
+
+    @Override
+    protected boolean propagatesSkylightDown(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected float getShadeBrightness(BlockState state, BlockGetter level, BlockPos pos) {
+        return 1.0F;
     }
 
     // ── Interaction ─────────────────────────────────────────────────────────
@@ -127,6 +151,13 @@ public class MirrorBlock extends Block {
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
                                           Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (level.isClientSide()) return InteractionResult.SUCCESS;
+
+        if (stack.isEmpty()) {
+            displayTraits(player);
+            displayScars(player);
+            diagnoseManaCollapse(player);
+            return InteractionResult.SUCCESS;
+        }
 
         if (stack.getItem() instanceof TomeItem) {
             syncTraitsToTome(player, stack);
@@ -142,6 +173,7 @@ public class MirrorBlock extends Block {
 
         displayTraits(player);
         displayScars(player);
+        diagnoseManaCollapse(player);
         return InteractionResult.SUCCESS;
     }
 
@@ -222,32 +254,32 @@ public class MirrorBlock extends Block {
             return;
         }
 
-        CompoundTag tag = tome.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        CompoundTag traitTag = new CompoundTag();
-
-        List<Trait> allTraits = data.getAllTraits();
-        for (int i = 0; i < allTraits.size(); i++) {
-            Trait trait = allTraits.get(i);
-            CompoundTag entry = new CompoundTag();
-            entry.putString("name", trait.name());
-            entry.putString("description", trait.description());
-            entry.putString("type", trait.type().name());
-            entry.putString("weight", trait.weight().name());
-            entry.putFloat("value", trait.value());
-            traitTag.put("trait_" + i, entry);
+        boolean traitsWereRevealed = TraitUtil.isTraitsRevealed(player);
+        revealMirrorDiscovery(player);
+        diagnoseManaCollapse(player);
+        if (TomeTraitSnapshot.write(tome, player) || !traitsWereRevealed) {
+            player.sendSystemMessage(Component.translatable("message.elemancy.mirror.traits_inscribed")
+                .withStyle(ChatFormatting.DARK_PURPLE));
         }
-        traitTag.putInt("count", allTraits.size());
+    }
 
-        tag.put("traits", traitTag);
-        tome.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+    private void revealMirrorDiscovery(Player player) {
+        if (TraitUtil.isTraitsRevealed(player)) return;
 
         TraitUtil.revealTraits(player);
         TraitUtil.revealScars(player);
         if (player instanceof ServerPlayer sp) {
-            SoulmarkNetwork.syncMana(sp, ManaDepthSystem.hasExperiencedManaCollapse(sp));
+            SoulmarkNetwork.syncMana(sp);
         }
+    }
 
-        player.sendSystemMessage(Component.literal("Your traits have been inscribed into the Tome.")
-            .withStyle(ChatFormatting.DARK_PURPLE));
+    private void diagnoseManaCollapse(Player player) {
+        if (!TraitUtil.isScarsRevealed(player) || !ManaDepthSystem.diagnoseManaCollapse(player)) return;
+
+        player.sendSystemMessage(Component.translatable("message.elemancy.mirror.mana_collapse_diagnosed")
+            .withStyle(ChatFormatting.DARK_RED, ChatFormatting.ITALIC));
+        if (player instanceof ServerPlayer sp) {
+            SoulmarkNetwork.syncMana(sp);
+        }
     }
 }

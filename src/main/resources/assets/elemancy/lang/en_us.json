@@ -24,6 +24,7 @@
   "item.elemancy.soulvial_dark": "Soulvial",
   "item.elemancy.tome": "Tome",
   "item.elemancy.affinity_paper": "Affinity Paper",
+  "item.elemancy.mirror": "Mirror",
 
   "item.elemancy.elemetal_ingot_fire": "Elemetal Ingot",
   "item.elemancy.elemetal_ingot_water": "Elemetal Ingot",
@@ -55,8 +56,10 @@
   "item.elemancy.light_shears": "Light Elemetal Shears",
   "item.elemancy.light_shield": "Light Elemetal Shield",
   "item.elemancy.dark_bucket": "Dark Elemetal Bucket",
+  
   "tooltip.elemancy.dark_bucket.empty": "Empty",
   "tooltip.elemancy.dark_bucket.milk": "Milk",
+  "tooltip.elemancy.mirror": "For self-reflection",
 
   "item.elemancy.icecream_cocoa": "Ice Cream",
   "item.elemancy.icecream_strawberry": "Strawberry Ice Cream",
@@ -77,6 +80,9 @@
   "message.elemancy.discovery.paradox_flower": "You've discovered new knowledge about the Paradox Flower",
   "message.elemancy.discovery.infused_beehive": "You've discovered new knowledge about Mana-Reactive Beehives",
   "message.elemancy.discovery.enriched_farmland": "You've discovered new knowledge about Enriched Farmland",
+
+  "message.elemancy.mirror.traits_inscribed": "Your traits have been inscribed into the Tome.",
+  "message.elemancy.mirror.mana_collapse_diagnosed": "Your vessel is scarred by mana collapse",
 
   "death.attack.elemancy.mana_backlash": "%1$s's mana reacted violently",
   "death.attack.elemancy.mana_collapse": "%1$s's mana screamed out in despair",
@@ -107,6 +113,7 @@
 
   "block.elemancy.infused_wool": "Infused Wool",
   "block.elemancy.infused_metal_block": "Infused Metal Block",
+  "block.elemancy.mirror": "Mirror",
 
   "effect.elemancy.mana_regen_boost": "Mana Regen boost",
 

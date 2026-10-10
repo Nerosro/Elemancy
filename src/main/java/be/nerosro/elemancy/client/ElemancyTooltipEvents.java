@@ -7,7 +7,9 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.component.TooltipProvider;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
-/** Renders Elemancy-owned custom tooltip components without deprecated item callbacks. */
+/**
+ * Renders Elemancy-owned custom tooltip components without deprecated item callbacks.
+ */
 public final class ElemancyTooltipEvents {
     private ElemancyTooltipEvents() {
     }
@@ -15,6 +17,7 @@ public final class ElemancyTooltipEvents {
     public static void onTooltip(ItemTooltipEvent event) {
         appendTooltip(event, ElemancyDataComponents.TOME_TOOLTIP.get());
         appendTooltip(event, ElemancyDataComponents.DARK_BUCKET_TOOLTIP.get());
+        appendTooltip(event, ElemancyDataComponents.MIRROR_TOOLTIP.get());
     }
 
     private static <T extends TooltipProvider> void appendTooltip(ItemTooltipEvent event, DataComponentType<T> type) {
