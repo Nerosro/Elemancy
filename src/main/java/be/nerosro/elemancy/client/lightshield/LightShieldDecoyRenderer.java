@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.client;
+package be.nerosro.elemancy.client.lightshield;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 

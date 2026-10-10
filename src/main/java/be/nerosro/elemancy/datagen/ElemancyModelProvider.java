@@ -6,7 +6,7 @@ import java.util.Optional;
 import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.block.ElemancyBlocks;
 import be.nerosro.elemancy.client.AffinityPaperTintSource;
-import be.nerosro.elemancy.client.LightShieldSpecialRenderer;
+import be.nerosro.elemancy.client.lightshield.LightShieldSpecialRenderer;
 import be.nerosro.elemancy.items.ElemancyItems;
 import be.nerosro.elemancy.items.tools.darkbucket.DarkBucketContents;
 import be.nerosro.soulmark.element.Element;

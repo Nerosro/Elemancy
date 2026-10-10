@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.client;
+package be.nerosro.elemancy.client.lightshield;
 
 import net.minecraft.client.renderer.entity.player.AvatarRenderer;
 import net.minecraft.client.renderer.entity.state.AvatarRenderState;

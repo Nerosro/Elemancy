@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.client;
+package be.nerosro.elemancy.client.mana;
 
 import be.nerosro.elemancy.spell.data.SpellVisual;
 import net.minecraft.client.renderer.entity.state.EntityRenderState;

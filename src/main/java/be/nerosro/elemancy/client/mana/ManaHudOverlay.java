@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.client;
+package be.nerosro.elemancy.client.mana;
 
 import be.nerosro.elemancy.ElemancyColors;
 import be.nerosro.elemancy.ElemancyTags;

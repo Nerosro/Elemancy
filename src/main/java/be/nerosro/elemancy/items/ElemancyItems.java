@@ -8,6 +8,8 @@ import java.util.Optional;
 import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.block.ElemancyBlocks;
 import be.nerosro.elemancy.element.ElemancyElementKeys;
+import be.nerosro.elemancy.items.others.AffinityPaperItem;
+import be.nerosro.elemancy.items.others.IceCreamItem;
 import be.nerosro.elemancy.items.robes.ElemancyArmorMaterials;
 import be.nerosro.elemancy.items.tome.TomeItem;
 import be.nerosro.elemancy.items.tome.TomeTooltip;

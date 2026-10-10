@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.items;
+package be.nerosro.elemancy.items.others;
 
 import be.nerosro.soulmark.mana.ManaData;
 import be.nerosro.soulmark.mana.ManaUtil;

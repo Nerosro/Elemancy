@@ -1,7 +1,8 @@
-package be.nerosro.elemancy.items;
+package be.nerosro.elemancy.items.others;
 
 import org.jspecify.annotations.Nullable;
 
+import be.nerosro.elemancy.items.ItemDataUtil;
 import be.nerosro.soulmark.affinity.AffinityUtil;
 import be.nerosro.soulmark.element.Element;
 import be.nerosro.soulmark.element.ElementRegistry;

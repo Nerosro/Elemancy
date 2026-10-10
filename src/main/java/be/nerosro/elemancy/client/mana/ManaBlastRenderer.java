@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.client;
+package be.nerosro.elemancy.client.mana;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

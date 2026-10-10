@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.client;
+package be.nerosro.elemancy.client.ritual;
 
 import org.joml.Matrix4fc;
 

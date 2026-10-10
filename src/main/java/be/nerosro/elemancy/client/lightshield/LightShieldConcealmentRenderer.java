@@ -1,4 +1,4 @@
-package be.nerosro.elemancy.client;
+package be.nerosro.elemancy.client.lightshield;
 
 import be.nerosro.elemancy.effects.ElemancyEffects;
 import net.minecraft.client.Minecraft;

@@ -4,7 +4,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.mojang.serialization.MapCodec;
 
-import be.nerosro.elemancy.items.AffinityPaperItem;
+import be.nerosro.elemancy.items.others.AffinityPaperItem;
 import net.minecraft.client.color.item.ItemTintSource;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.entity.LivingEntity;
