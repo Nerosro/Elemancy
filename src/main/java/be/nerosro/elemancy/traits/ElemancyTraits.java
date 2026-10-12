@@ -226,8 +226,14 @@ public class ElemancyTraits {
     public static final Supplier<Trait> MANACOAT = TRAITS.register("manacoat",
         () -> new Trait(TraitNames.MANACOAT, "Spells occasionally refund a small amount of mana.", TraitType.NEUTRAL, TraitWeight.EXOTIC, 0f));
 
-    public static final Supplier<Trait> SPELLWARP = TRAITS.register("spellwarp",
-        () -> new Trait(TraitNames.SPELLWARP, "Your attack spells take on a random shape each time you cast them.", TraitType.NEUTRAL, TraitWeight.EXOTIC, 0f));
+    public static final Supplier<Trait> MANA_MOLT = TRAITS.register("mana_molt",
+        () -> new Trait(TraitNames.MANA_MOLT, "Emptying your mana refills it at the cost of temporarily reduced maximum mana.", TraitType.NEUTRAL, TraitWeight.EXOTIC, 0f));
+
+    public static final Supplier<Trait> FALSE_BOTTOM = TRAITS.register("false_bottom",
+        () -> new Trait(TraitNames.FALSE_BOTTOM, "Mana spent on spells returns in delayed batches.", TraitType.NEUTRAL, TraitWeight.EXOTIC, 0f));
+
+    public static final Supplier<Trait> RESTLESS_AFFINITY = TRAITS.register("restless_affinity",
+        () -> new Trait(TraitNames.RESTLESS_AFFINITY, "Casting elemental spells temporarily shifts your affinity toward their element.", TraitType.NEUTRAL, TraitWeight.EXOTIC, 0f));
 
     public static void register(IEventBus modEventBus) {
         TRAITS.register(modEventBus);

@@ -7,9 +7,7 @@ import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.ElemancyTags;
 import be.nerosro.elemancy.skilltree.EquippedSpellUtil;
 import be.nerosro.elemancy.spell.SpellCastHandler;
-import be.nerosro.elemancy.spell.SpellEntry;
 import be.nerosro.elemancy.spell.SpellRegistry;
-import be.nerosro.elemancy.spell.SpellShape;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
@@ -118,43 +116,20 @@ public class SpellDispatcher {
 
         // Mechanical interaction blocks
         return switch (block) {
-            case DoorBlock doorBlock -> true;
-            case TrapDoorBlock trapDoorBlock -> true;
-            case FenceGateBlock fenceGateBlock -> true;
-            case ButtonBlock buttonBlock -> true;
-            case LeverBlock leverBlock -> true;
-            case BedBlock bedBlock -> true;
+            case DoorBlock _, TrapDoorBlock _, FenceGateBlock _, ButtonBlock _, LeverBlock _, BedBlock _ -> true;
             default -> false;
         };
-
     }
 
     /**
      * Routes attack spells through the handler map.
      * If the equipped spell is tagged "attack" and has a registered handler, it is invoked.
-     * If the player has Spellwarp, the delivery shape is randomized.
      */
     private static boolean dispatchAttackSpell(Player player) {
         Identifier equipped = EquippedSpellUtil.getEquippedSpell(player);
         if (equipped == null) return false;
         if (!SpellRegistry.isAttack(equipped)) return false;
 
-        // Spellwarp: randomize the delivery shape
-        if (SpellwarpResolver.hasSpellwarp(player)) {
-            SpellShape rolledShape = SpellwarpResolver.rollShape(player);
-
-            // Continuous shape is handled by WandItem.use() — let it through
-            if (rolledShape == SpellShape.CONTINUOUS) return false;
-
-            SpellEntry entry = SpellRegistry.get(equipped);
-            if (entry == null) return false;
-
-            SpellCastHandler handler = SpellwarpResolver.getHandlerForShape(rolledShape, entry.element());
-            if (handler == null) return false;
-            return handler.tryCast(player);
-        }
-
-        // Normal dispatch: look up registered handler
         SpellCastHandler handler = HANDLERS.get(equipped);
         if (handler == null) return false;
 

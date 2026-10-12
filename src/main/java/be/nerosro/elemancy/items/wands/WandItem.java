@@ -5,11 +5,8 @@ import be.nerosro.elemancy.mana.depth.CastResolution;
 import be.nerosro.elemancy.mana.depth.ManaDepthSystem;
 import be.nerosro.elemancy.skilltree.EquippedSpellUtil;
 import be.nerosro.elemancy.spell.SpellContext;
-import be.nerosro.elemancy.spell.SpellEntry;
 import be.nerosro.elemancy.spell.SpellRegistry;
-import be.nerosro.elemancy.spell.SpellShape;
 import be.nerosro.elemancy.spell.casting.ContinuousCaster;
-import be.nerosro.elemancy.spell.casting.SpellwarpResolver;
 import be.nerosro.elemancy.spell.data.ContinuousSpellData;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
@@ -74,8 +71,8 @@ public class WandItem extends Item {
         Identifier equipped = EquippedSpellUtil.getEquippedSpell(player);
         if (equipped == null) return InteractionResult.PASS;
 
-        // Determine if this cast should channel continuously
-        ContinuousSpellData data = resolveContinuousData(player, equipped);
+        if (!SpellRegistry.isContinuous(equipped)) return InteractionResult.PASS;
+        ContinuousSpellData data = ContinuousSpellData.get(equipped);
         if (data == null) return InteractionResult.PASS;
 
         // Validate wand can channel this element
@@ -83,7 +80,7 @@ public class WandItem extends Item {
 
         // Initial cast attempt — subject to fizzle/depth resolution
         if (!level.isClientSide()) {
-            CastResolution resolution = ManaDepthSystem.attemptCast(
+            CastResolution resolution = ManaDepthSystem.attemptChannelingStart(
                 player, data.initialManaCost(), data.toContext());
 
             if (!resolution.castConsumed()) return InteractionResult.PASS;
@@ -98,41 +95,11 @@ public class WandItem extends Item {
 
             // Channel starts successfully
             ContinuousCaster.applySlowdown(player);
-            ContinuousCaster.setActiveChannel(player, data);
+            ContinuousCaster.setActiveChanneling(player, data);
         }
 
         player.startUsingItem(hand);
         return InteractionResult.CONSUME;
-    }
-
-    /**
-     * Resolves ContinuousSpellData for the equipped spell, accounting for Spellwarp.
-     * Returns null if this cast should NOT be handled as continuous (let SpellDispatcher handle it).
-     */
-    private ContinuousSpellData resolveContinuousData(Player player, Identifier equipped) {
-        boolean isNaturallyContinuous = SpellRegistry.isContinuous(equipped);
-
-        if (SpellwarpResolver.hasSpellwarp(player)) {
-            SpellShape rolledShape = SpellwarpResolver.rollShape(player);
-
-            if (rolledShape == SpellShape.CONTINUOUS) {
-                // Spell warped into continuous — use element defaults
-                if (isNaturallyContinuous) {
-                    return ContinuousSpellData.get(equipped);
-                }
-                SpellEntry entry = SpellRegistry.get(equipped);
-                if (entry == null) return null;
-                return SpellwarpResolver.getContinuousData(entry.element());
-            }
-
-            // Spellwarp rolled non-continuous — even if spell is naturally continuous,
-            // let SpellDispatcher handle it as a one-shot
-            return null;
-        }
-
-        // No Spellwarp: normal behavior
-        if (!isNaturallyContinuous) return null;
-        return ContinuousSpellData.get(equipped);
     }
 
     @Override
@@ -144,12 +111,6 @@ public class WandItem extends Item {
 
         // If the spell is naturally continuous, always allow channeling
         if (SpellRegistry.isContinuous(equipped)) return MAX_CHANNEL_TICKS;
-
-        // If Spellwarp is active, any attack spell might roll continuous
-        if (SpellRegistry.isAttack(equipped) && SpellwarpResolver.hasSpellwarp(player)) {
-            return MAX_CHANNEL_TICKS;
-        }
-
         return 0;
     }
 
@@ -165,18 +126,26 @@ public class WandItem extends Item {
 
         Identifier equipped = EquippedSpellUtil.getEquippedSpell(player);
         if (equipped == null) {
-            player.stopUsingItem();
+            stopChanneling(player);
             return;
         }
 
-        ContinuousSpellData data = ContinuousCaster.getActiveChannel(player, equipped);
+        ContinuousSpellData data = ContinuousCaster.getActiveChanneling(player, equipped);
         if (data == null) {
-            player.stopUsingItem();
+            stopChanneling(player);
             return;
         }
 
         int elapsedTicks = MAX_CHANNEL_TICKS - ticksRemaining;
-        ContinuousCaster.tick(player, data, elapsedTicks);
+        if (!ContinuousCaster.tick(player, data, elapsedTicks)) {
+            stopChanneling(player);
+        }
+    }
+
+    private static void stopChanneling(Player player) {
+        ContinuousCaster.removeSlowdown(player);
+        ContinuousCaster.clearActiveChanneling(player);
+        player.stopUsingItem();
     }
 
     @Override
@@ -185,7 +154,7 @@ public class WandItem extends Item {
         if (!(entity instanceof Player player)) return false;
 
         ContinuousCaster.removeSlowdown(player);
-        ContinuousCaster.clearActiveChannel(player);
+        ContinuousCaster.clearActiveChanneling(player);
 
         // Apply cooldown and durability loss
         player.getCooldowns().addCooldown(itemStack, COOLDOWN_TICKS);

@@ -13,6 +13,8 @@ import net.minecraft.world.entity.player.Player;
  * Handles cast attempts (cost → spend → depth resolution), scar lifecycle, and collapse.
  */
 public final class ManaDepthSystem {
+    private static final int CHANNEL_DEPTH_PULSE_TICKS = 30;
+
     private ManaDepthSystem() {
     }
 
@@ -21,12 +23,41 @@ public final class ManaDepthSystem {
      * Applies cost modifiers (scars + affinity), spends mana, and resolves depth/failure consequences.
      */
     public static CastResolution attemptCast(Player player, float baseCost, SpellContext context) {
+        return attemptCast(player, baseCost, context, false);
+    }
+
+    public static CastResolution attemptChannelingStart(Player player, float baseCost, SpellContext context) {
+        return attemptCast(player, baseCost, context, true);
+    }
+
+    private static CastResolution attemptCast(Player player, float baseCost, SpellContext context, boolean channelStart) {
         float adjustedCost = CastCostPipeline.resolve(player, baseCost, context);
         DepthTier depthBeforeCast = DepthTier.fromMana(ManaUtil.getMana(player).getCurrentMana());
         if (!ManaUtil.trySpend(player, adjustedCost)) {
             return new CastResolution(false, false, DepthTier.NONE);
         }
-        return resolveAfterSpend(player, depthBeforeCast);
+        return resolveAfterSpend(player, depthBeforeCast, channelStart);
+    }
+
+    public static CastResolution continueChanneling(Player player, float baseCost, SpellContext context, int ticksInDepth) {
+        DepthTier depthBeforeSpend = DepthTier.fromMana(ManaUtil.getMana(player).getCurrentMana());
+        float adjustedCost = CastCostPipeline.resolve(player, baseCost, context);
+        if (!ManaUtil.trySpend(player, adjustedCost)) {
+            return new CastResolution(false, false, DepthTier.NONE);
+        }
+
+        DepthTier depthAfterSpend = DepthTier.fromMana(ManaUtil.getMana(player).getCurrentMana());
+        boolean pulseDue = depthAfterSpend.isOvercast() && (ticksInDepth + 1) % CHANNEL_DEPTH_PULSE_TICKS == 0;
+        if (depthAfterSpend == DepthTier.DEPTH_4
+            && (depthBeforeSpend != DepthTier.DEPTH_4 || pulseDue)
+            && !survivesCollapse(player)) {
+            return new CastResolution(false, true, depthAfterSpend);
+        }
+
+        if (pulseDue) {
+            ManaDepthRules.applyDepthConsequences(player, depthAfterSpend);
+        }
+        return new CastResolution(player.isAlive(), true, depthAfterSpend);
     }
 
     /**
@@ -37,27 +68,30 @@ public final class ManaDepthSystem {
      * checks and scar consequences still use the resulting (post-spend) depth, since those are
      * meant to reflect the player's new state.
      */
-    private static CastResolution resolveAfterSpend(Player player, DepthTier depthBeforeCast) {
+    private static CastResolution resolveAfterSpend(Player player, DepthTier depthBeforeCast, boolean channelStart) {
         DepthTier depthAfterCast = DepthTier.fromMana(ManaUtil.getMana(player).getCurrentMana());
 
-        if (depthAfterCast == DepthTier.DEPTH_4) {
-            boolean survives = SpellFailureRules.hasOverwrought(player)
-                && player.getRandom().nextFloat() >= 0.50f;
-            if (!survives) {
-                ScarFacade.applyManaCollapse(player);
-                collapsePlayer(player);
-                return new CastResolution(false, true, depthAfterCast);
-            }
+        if (depthAfterCast == DepthTier.DEPTH_4 && !survivesCollapse(player)) {
+            return new CastResolution(false, true, depthAfterCast);
         }
 
         float failChance = SpellFailureRules.finalFailChance(player, depthBeforeCast);
         boolean failed = failChance > 0f && player.getRandom().nextFloat() < failChance;
 
-        if (depthAfterCast.isOvercast()) {
+        if (depthAfterCast.isOvercast() && (!channelStart || depthBeforeCast.isOvercast())) {
             ManaDepthRules.applyDepthConsequences(player, depthAfterCast);
         }
 
-        return new CastResolution(!failed, true, depthAfterCast);
+        return new CastResolution(!failed && player.isAlive(), true, depthAfterCast);
+    }
+
+    private static boolean survivesCollapse(Player player) {
+        if (SpellFailureRules.hasOverwrought(player) && player.getRandom().nextFloat() >= 0.50f) {
+            return true;
+        }
+        ScarFacade.applyManaCollapse(player);
+        collapsePlayer(player);
+        return false;
     }
 
     public static void tickScars(Player player) {

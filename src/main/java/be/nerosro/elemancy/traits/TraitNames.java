@@ -75,5 +75,7 @@ public final class TraitNames {
     public static final String ROOTED = "Rooted";
     public static final String COUNTERFLUX = "Counterflux";
     public static final String MANACOAT = "Manacoat";
-    public static final String SPELLWARP = "Spellwarp";
+    public static final String MANA_MOLT = "Mana Molt";
+    public static final String FALSE_BOTTOM = "False Bottom";
+    public static final String RESTLESS_AFFINITY = "Restless Affinity";
 }

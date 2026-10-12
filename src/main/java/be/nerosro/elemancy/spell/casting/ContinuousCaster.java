@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import be.nerosro.elemancy.Elemancy;
-import be.nerosro.elemancy.mana.CastCostPipeline;
+import be.nerosro.elemancy.mana.depth.CastResolution;
+import be.nerosro.elemancy.mana.depth.ManaDepthSystem;
 import be.nerosro.elemancy.spell.SpellDamagePipeline;
 import be.nerosro.elemancy.spell.data.ContinuousSpellData;
 import be.nerosro.soulmark.mana.ManaUtil;
@@ -37,31 +38,39 @@ public final class ContinuousCaster {
     private static final double SPEED_REDUCTION = -0.30; // 30% slower
 
     /**
-     * Active channel data per player — used when Spellwarp overrides the spell shape.
+     * Active channel data per player.
      */
-    private static final java.util.WeakHashMap<Player, ContinuousSpellData> ACTIVE_CHANNELS = new java.util.WeakHashMap<>();
+    private static final java.util.WeakHashMap<Player, ChannelingState> ACTIVE_CHANNELS = new java.util.WeakHashMap<>();
+
+    private static final class ChannelingState {
+        private final ContinuousSpellData data;
+        private int ticksInDepth;
+
+        private ChannelingState(ContinuousSpellData data) {
+            this.data = data;
+        }
+    }
 
     /**
      * Stores the active ContinuousSpellData for a player starting a channel.
-     * Called from WandItem.use() when a Spellwarp-resolved continuous cast begins.
      */
-    public static void setActiveChannel(Player player, ContinuousSpellData data) {
-        ACTIVE_CHANNELS.put(player, data);
+    public static void setActiveChanneling(Player player, ContinuousSpellData data) {
+        ACTIVE_CHANNELS.put(player, new ChannelingState(data));
     }
 
     /**
      * Returns the active channel data for a player, falling back to the registry lookup.
      */
-    public static ContinuousSpellData getActiveChannel(Player player, Identifier equipped) {
-        ContinuousSpellData cached = ACTIVE_CHANNELS.get(player);
-        if (cached != null) return cached;
+    public static ContinuousSpellData getActiveChanneling(Player player, Identifier equipped) {
+        ChannelingState cached = ACTIVE_CHANNELS.get(player);
+        if (cached != null) return cached.data;
         return ContinuousSpellData.get(equipped);
     }
 
     /**
      * Clears the active channel data when channeling ends.
      */
-    public static void clearActiveChannel(Player player) {
+    public static void clearActiveChanneling(Player player) {
         ACTIVE_CHANNELS.remove(player);
     }
 
@@ -71,14 +80,18 @@ public final class ContinuousCaster {
      * @param player       the channeling player
      * @param data         the spell configuration
      * @param elapsedTicks how many ticks have elapsed since channel start
+     * @return true if the channel can continue, false if it must stop
      */
-    public static void tick(Player player, ContinuousSpellData data, int elapsedTicks) {
-        if (player.level().isClientSide()) return;
-        if (!(player.level() instanceof ServerLevel serverLevel)) return;
+    public static boolean tick(Player player, ContinuousSpellData data, int elapsedTicks) {
+        if (!player.isAlive() || !(player.level() instanceof ServerLevel serverLevel)) return false;
 
-        // Drain mana (always succeeds — depth system handles overspend)
-        float adjustedCost = CastCostPipeline.resolve(player, data.manaPerTick(), data.toContext());
-        ManaUtil.trySpend(player, adjustedCost);
+        ChannelingState channel = ACTIVE_CHANNELS.get(player);
+        if (channel == null) return false;
+        if (!ManaUtil.isInDepth(player)) channel.ticksInDepth = 0;
+        CastResolution resolution = ManaDepthSystem.continueChanneling(
+            player, data.manaPerTick(), data.toContext(), channel.ticksInDepth);
+        if (!resolution.castConsumed() || !resolution.spellResolved()) return false;
+        channel.ticksInDepth = resolution.depthTier().isOvercast() ? channel.ticksInDepth + 1 : 0;
 
         // Prevent sprinting
         if (player.isSprinting()) {
@@ -98,6 +111,7 @@ public final class ContinuousCaster {
 
         // Spawn particles every tick
         spawnChannelParticles(serverLevel, player, data);
+        return true;
     }
 
     /**
