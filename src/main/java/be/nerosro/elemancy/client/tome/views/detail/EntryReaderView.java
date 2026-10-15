@@ -49,7 +49,7 @@ public class EntryReaderView {
     private SpellEntry spellEntry;
     @Nullable
     private String resultItemId;
-    private final java.util.ArrayList<ItemSlot> recipeSlots = new java.util.ArrayList<>();
+    private final ArrayList<ItemSlot> recipeSlots = new ArrayList<>();
 
     public enum EntryType {
         SPELL, PASSIVE, RITUAL, KNOWLEDGE, SCAR, CRAFTING
@@ -63,7 +63,8 @@ public class EntryReaderView {
         this.layout = layout;
     }
 
-    public void setEntry(String id, EntryType type, String title, List<TomeEntryLoader.Page> pages, @Nullable SkillNode node, @Nullable SpellEntry spell, @Nullable String resultItemId) {
+    public void setEntry(String id, EntryType type, String title, List<TomeEntryLoader.Page> pages,
+                         @Nullable SkillNode node, @Nullable SpellEntry spell, @Nullable String resultItemId) {
         this.entryId = id;
         this.type = type;
         this.title = title;

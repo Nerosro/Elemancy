@@ -24,6 +24,7 @@ import be.nerosro.soulmark.network.SoulmarkNetwork;
 import be.nerosro.soulmark.skilltree.SkillTreeUtil;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -191,7 +192,7 @@ public class InfusionEvents {
             TomeItem.bindToPlayer(output, player);
             // Discovering the Elemancy skill tree on first tome creation
             SkillTreeUtil.discoverTree(player, SkillTreeEntries.TREE_ID);
-            if (player instanceof net.minecraft.server.level.ServerPlayer serverPlayer) {
+            if (player instanceof ServerPlayer serverPlayer) {
                 SoulmarkNetwork.syncSkillTree(serverPlayer);
             }
         }

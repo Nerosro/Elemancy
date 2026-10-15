@@ -17,6 +17,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 
@@ -50,7 +51,7 @@ public class ElemancyRecipeProvider extends RecipeProvider {
             .save(output, recipeKey(getItemName(packed)));
     }
 
-    private static ResourceKey<net.minecraft.world.item.crafting.Recipe<?>> recipeKey(String path) {
+    private static ResourceKey<Recipe<?>> recipeKey(String path) {
         return ResourceKey.create(Registries.RECIPE, Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, path));
     }
 

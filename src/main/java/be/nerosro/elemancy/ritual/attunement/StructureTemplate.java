@@ -59,19 +59,19 @@ public final class StructureTemplate {
         return fluidState.isSource() && fluidState.is(Fluids.WATER);
     }
 
-    private static boolean isBottomStoneBrickSlab(Level level, net.minecraft.world.level.block.state.BlockState state, BlockPos position) {
+    private static boolean isBottomStoneBrickSlab(Level level, BlockState state, BlockPos position) {
         return state.is(Blocks.STONE_BRICK_SLAB) && state.getValue(SlabBlock.TYPE) == SlabType.BOTTOM;
     }
 
-    private static boolean isAshenLog(Level level, net.minecraft.world.level.block.state.BlockState state, BlockPos position) {
+    private static boolean isAshenLog(Level level, BlockState state, BlockPos position) {
         return state.is(ElemancyBlocks.ASHEN_LOG.get());
     }
 
-    private static boolean isInfusedMetalBlock(Level level, net.minecraft.world.level.block.state.BlockState state, BlockPos position) {
+    private static boolean isInfusedMetalBlock(Level level, BlockState state, BlockPos position) {
         return state.is(ElemancyBlocks.INFUSED_METAL_BLOCK.get());
     }
 
-    private static boolean isValidCenterBlock(Level level, net.minecraft.world.level.block.state.BlockState state, BlockPos position) {
+    private static boolean isValidCenterBlock(Level level, BlockState state, BlockPos position) {
         return resolveElement(level, position) != null;
     }
 

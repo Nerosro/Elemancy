@@ -208,7 +208,7 @@ public class DarkBucketItem extends Item {
         return DarkBucketContents.getCompartment(stack, DarkBucketContents.getSelectedCompartment(stack));
     }
 
-    static net.minecraft.network.chat.Component contentName(ItemStack content) {
+    static Component contentName(ItemStack content) {
         if (content.isEmpty()) {
             return Component.translatable("tooltip.elemancy.dark_bucket.empty");
         }

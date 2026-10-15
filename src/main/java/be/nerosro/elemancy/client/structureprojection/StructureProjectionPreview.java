@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.block.BlockModelRenderState;
 import net.minecraft.client.renderer.block.model.BlockDisplayContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.context.ContextKey;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -167,7 +168,7 @@ public final class StructureProjectionPreview {
         return x * x + z * z;
     }
 
-    private record Preview(net.minecraft.resources.ResourceKey<Level> dimension, BlockPos anchor,
+    private record Preview(ResourceKey<Level> dimension, BlockPos anchor,
                            StructureProjectionDefinition definition, int rotation, boolean anchored) {
         private Preview rotate(int amount) {
             return new Preview(dimension, anchor, definition, Math.floorMod(rotation + amount, 4), false);

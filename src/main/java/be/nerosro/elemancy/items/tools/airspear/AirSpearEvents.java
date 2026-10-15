@@ -1,6 +1,7 @@
 package be.nerosro.elemancy.items.tools.airspear;
 
 import be.nerosro.elemancy.Elemancy;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -23,7 +24,7 @@ final class AirSpearEvents {
         if (player.isUsingItem() && player.getUseItem().getItem() instanceof AirSpearItem) {
             AirSpearItem.tickUse(player);
         } else if (AirSpearStance.is(player, AirSpearStance.Type.BRACE_RELEASED)) {
-            AirSpearVacuum.burst((net.minecraft.server.level.ServerLevel) player.level(), player);
+            AirSpearVacuum.burst((ServerLevel) player.level(), player);
             AirSpearItem.clearState(player);
         } else {
             AirSpearItem.clearState(player);

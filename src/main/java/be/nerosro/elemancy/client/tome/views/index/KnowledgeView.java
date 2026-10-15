@@ -9,6 +9,7 @@ import be.nerosro.elemancy.client.tome.views.TomeTabView;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 
 /**
  * View for Knowledge tab index - list of available chapters.
@@ -70,7 +71,7 @@ public class KnowledgeView implements TomeTabView {
         return true; // Knowledge always visible
     }
 
-    public net.minecraft.resources.Identifier getIcon() {
+    public Identifier getIcon() {
         return TomeConstants.Icons.TAB_KNOWLEDGE;
     }
 

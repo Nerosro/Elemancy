@@ -52,7 +52,7 @@ public class SpellsView extends GridIndexView<SkillNodeIndexEntry> {
     }
 
     @Override
-    public net.minecraft.resources.Identifier getIcon() {
+    public Identifier getIcon() {
         return TomeConstants.Icons.TAB_SPELLS;
     }
 

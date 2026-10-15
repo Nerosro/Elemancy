@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import be.nerosro.elemancy.client.tome.data.TomeEntryLoader;
 import be.nerosro.elemancy.client.structureprojection.StructureProjectionPreview;
@@ -489,7 +490,7 @@ public class TomeScreen extends Screen {
         return visible;
     }
 
-    private @org.jspecify.annotations.Nullable String extractResultItemId(TomeEntryLoader.TomeEntry entry) {
+    private @Nullable String extractResultItemId(TomeEntryLoader.TomeEntry entry) {
         for (TomeEntryLoader.Page page : entry.pages()) {
             for (TomeEntryLoader.Section section : page.sections()) {
                 if (section.recipe() != null) {
@@ -500,7 +501,9 @@ public class TomeScreen extends Screen {
         return null;
     }
 
-    private void setActiveEntry(String id, String title, List<TomeEntryLoader.Page> pages, EntryReaderView.EntryType type, SkillNode node, SpellEntry spell, @org.jspecify.annotations.Nullable String resultItemId, boolean animate) {
+    private void setActiveEntry(String id, String title, List<TomeEntryLoader.Page> pages,
+                                EntryReaderView.EntryType type, SkillNode node, SpellEntry spell,
+                                @Nullable String resultItemId, boolean animate) {
         activeEntryId = id;
         entryReaderView.setEntry(id, type, title, pages, node, spell, resultItemId);
         readerMode = ReaderMode.ENTRY;

@@ -115,7 +115,7 @@ public class ScarsView extends GridIndexView<ScarsView.ScarIndexEntry> {
     }
 
     @Override
-    public net.minecraft.resources.Identifier getIcon() {
+    public Identifier getIcon() {
         return TomeConstants.Icons.TAB_SCARS;
     }
 

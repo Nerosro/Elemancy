@@ -2,6 +2,7 @@ package be.nerosro.elemancy.spell.casting;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.WeakHashMap;
 
 import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.mana.depth.CastResolution;
@@ -40,7 +41,7 @@ public final class ContinuousCaster {
     /**
      * Active channel data per player.
      */
-    private static final java.util.WeakHashMap<Player, ChannelingState> ACTIVE_CHANNELS = new java.util.WeakHashMap<>();
+    private static final WeakHashMap<Player, ChannelingState> ACTIVE_CHANNELS = new WeakHashMap<>();
 
     private static final class ChannelingState {
         private final ContinuousSpellData data;

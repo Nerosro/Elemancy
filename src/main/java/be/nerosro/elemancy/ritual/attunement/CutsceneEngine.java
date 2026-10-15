@@ -25,6 +25,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -353,9 +354,9 @@ public final class CutsceneEngine {
     }
 
     /**
-     * Fisher-Yates shuffle using Minecraft's {@link net.minecraft.util.RandomSource}.
+     * Fisher-Yates shuffle using Minecraft's {@link RandomSource}.
      */
-    private static void shuffle(List<Integer> list, net.minecraft.util.RandomSource random) {
+    private static void shuffle(List<Integer> list, RandomSource random) {
         for (int i = list.size() - 1; i > 0; i--) {
             int j = random.nextInt(i + 1);
             Collections.swap(list, i, j);
