@@ -32,6 +32,7 @@ public class WandItem extends Item {
 
     public static final int COOLDOWN_TICKS = 10;
     private static final int MAX_CHANNEL_TICKS = 72000;
+    private static final int CHANNEL_WEAR_INTERVAL_TICKS = 20;
 
     private final WandAspect aspect;
 
@@ -139,6 +140,14 @@ public class WandItem extends Item {
         int elapsedTicks = MAX_CHANNEL_TICKS - ticksRemaining;
         if (!ContinuousCaster.tick(player, data, elapsedTicks)) {
             stopChanneling(player);
+            return;
+        }
+
+        if ((elapsedTicks > 0) && (elapsedTicks % CHANNEL_WEAR_INTERVAL_TICKS == 0)) {
+            itemStack.hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
+            if (itemStack.isEmpty()) {
+                stopChanneling(player);
+            }
         }
     }
 
