@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+
 import be.nerosro.elemancy.client.tome.TomeConstants;
 import be.nerosro.elemancy.client.tome.rendering.TextRenderer;
 import be.nerosro.elemancy.client.tome.rendering.TomeLayout;
 import be.nerosro.elemancy.client.tome.rendering.TomeWidgets;
-import be.nerosro.elemancy.network.ClientScarData;
 import be.nerosro.soulmark.element.Element;
 import be.nerosro.soulmark.element.ElementRegistry;
 import be.nerosro.soulmark.element.ElementUtil;
@@ -140,66 +141,11 @@ public class IdentityView implements TomeTabView {
         float manaPool = ClientManaData.getMaxPool();
         if (manaPool <= 0) {
             graphics.text(font, Component.literal("  Syncing..."), textX, textY + dy, TomeConstants.Colors.TEXT_MUTED, false);
-            dy += lineH;
         } else {
-            float manaBase = ClientManaData.getManaBase();
-            float trinketBonus = ClientManaData.getPoolTrinketBonus();
-            float displayTotal = Math.round(manaPool * 10) / 10f;
-            float displayBase = Math.round(manaBase * 10) / 10f;
-            float displayTrinket = Math.round(manaBase * trinketBonus * 10) / 10f;
-
-            String manaLine;
-            if (Math.abs(displayTrinket) >= 0.05f) {
-                char sign = displayTrinket >= 0 ? '+' : '-';
-                manaLine = String.format(Locale.ROOT, "  %.1f (%.1f base %c %.1f trinket)",
-                    displayTotal, displayBase, sign, Math.abs(displayTrinket));
-            } else {
-                manaLine = String.format(Locale.ROOT, "  %.1f (%.1f base)", displayTotal, displayBase);
-            }
+            String manaLine = getManaInformation(manaPool);
             graphics.text(font, Component.literal(manaLine), textX, textY + dy, TomeConstants.Colors.TEXT_MUTED, false);
-            dy += lineH;
-
-            // Show active scars if any
-            if (ClientScarData.hasAnyScars()) {
-                StringBuilder scarsLine = new StringBuilder("  Active: ");
-                boolean first = true;
-                if (ClientScarData.hasArcaneTremor()) {
-                    scarsLine.append("Arcane Tremor");
-                    first = false;
-                }
-                if (ClientScarData.hasSpellDrift()) {
-                    if (!first) scarsLine.append(", ");
-                    scarsLine.append("Spell Drift");
-                    first = false;
-                }
-                if (ClientScarData.hasChannelDisruption()) {
-                    if (!first) scarsLine.append(", ");
-                    scarsLine.append("Channel Disruption");
-                    first = false;
-                }
-                if (ClientScarData.hasManaBurn()) {
-                    if (!first) scarsLine.append(", ");
-                    scarsLine.append("Mana Burn");
-                    first = false;
-                }
-                if (ClientScarData.hasArcaneFatigue()) {
-                    if (!first) scarsLine.append(", ");
-                    scarsLine.append("Arcane Fatigue");
-                    first = false;
-                }
-                if (ClientScarData.hasSpellWeakness()) {
-                    if (!first) scarsLine.append(", ");
-                    scarsLine.append("Spell Weakness");
-                    first = false;
-                }
-                if (ClientScarData.hasManaCollapse()) {
-                    if (!first) scarsLine.append(", ");
-                    scarsLine.append("Mana Collapse");
-                }
-                graphics.text(font, Component.literal(scarsLine.toString()), textX, textY + dy, TomeConstants.Colors.TEXT_MUTED, false);
-                dy += lineH;
-            }
         }
+        dy += lineH;
         dy += sectionGap;
 
         // ── Affinity (always shown; "Not yet revealed" until paper used) ───
@@ -245,6 +191,24 @@ public class IdentityView implements TomeTabView {
         if (ClientManaData.isTraitsRevealed()) {
             TomeWidgets.drawButton(graphics, font, layout.nextButtonX(80), layout.footerY, 80, 20, "Traits →", true);
         }
+    }
+
+    private static @NonNull String getManaInformation(float manaPool) {
+        float manaBase = ClientManaData.getManaBase();
+        float trinketBonus = ClientManaData.getPoolTrinketBonus();
+        float displayTotal = Math.round(manaPool * 10) / 10f;
+        float displayBase = Math.round(manaBase * 10) / 10f;
+        float displayTrinket = Math.round(manaBase * trinketBonus * 10) / 10f;
+
+        String manaLine;
+        if (Math.abs(displayTrinket) >= 0.05f) {
+            char sign = displayTrinket >= 0 ? '+' : '-';
+            manaLine = String.format(Locale.ROOT, "  %.1f (%.1f base %c %.1f trinket)",
+                displayTotal, displayBase, sign, Math.abs(displayTrinket));
+        } else {
+            manaLine = String.format(Locale.ROOT, "  %.1f (%.1f base)", displayTotal, displayBase);
+        }
+        return manaLine;
     }
 
     private void drawTraitsDetail(GuiGraphicsExtractor graphics, int x, int y, int w, int scrollOffset) {
