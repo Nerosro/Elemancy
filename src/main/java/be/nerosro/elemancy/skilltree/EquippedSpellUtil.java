@@ -2,6 +2,7 @@ package be.nerosro.elemancy.skilltree;
 
 import org.jetbrains.annotations.Nullable;
 
+import be.nerosro.elemancy.ElemancyAttachments;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 
@@ -14,15 +15,15 @@ public final class EquippedSpellUtil {
 
     @Nullable
     public static Identifier getEquippedSpell(Player player) {
-        return player.getData(Attachments.EQUIPPED_SPELL).getEquippedSpellId();
+        return player.getData(ElemancyAttachments.EQUIPPED_SPELL).getEquippedSpellId();
     }
 
     public static void setEquippedSpell(Player player, @Nullable Identifier spellId) {
-        player.getData(Attachments.EQUIPPED_SPELL).setEquippedSpellId(spellId);
+        player.getData(ElemancyAttachments.EQUIPPED_SPELL).setEquippedSpellId(spellId);
     }
 
     public static boolean hasEquippedSpell(Player player) {
-        return player.getData(Attachments.EQUIPPED_SPELL).hasEquippedSpell();
+        return player.getData(ElemancyAttachments.EQUIPPED_SPELL).hasEquippedSpell();
     }
 
     /**

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import be.nerosro.elemancy.Elemancy;
+import be.nerosro.elemancy.ElemancyAttachments;
 import be.nerosro.elemancy.jobpoint.JobPointData;
 import be.nerosro.elemancy.jobpoint.JobPointUtil;
 import be.nerosro.elemancy.mana.depth.DepthTier;
@@ -13,7 +14,6 @@ import be.nerosro.elemancy.network.ElemancyNetwork;
 import be.nerosro.elemancy.passives.PassiveEffects;
 import be.nerosro.elemancy.ritual.attunement.StructureTemplate;
 import be.nerosro.elemancy.ritual.shared.RitualStructureDetector;
-import be.nerosro.elemancy.skilltree.Attachments;
 import be.nerosro.elemancy.skilltree.SkillTreeEntries;
 import be.nerosro.soulmark.affinity.AffinityUtil;
 import be.nerosro.soulmark.attunement.AttunementUtil;
@@ -183,7 +183,7 @@ public class DevToolEvents {
         freshTree.discoverTree(SkillTreeEntries.TREE_ID); // Restore tree visibility
         freshTree.unlock(SkillTreeEntries.ELEMENTIZE_ID); // Keep root ability
         player.setData(SoulmarkAttachments.SKILL_TREE.get(), freshTree);
-        player.setData(Attachments.JOB_POINTS.get(), new JobPointData());
+        player.setData(ElemancyAttachments.JOB_POINTS.get(), new JobPointData());
 
         player.sendSystemMessage(Component.literal("[Dev] Skill tree reset. Elementize kept.").withStyle(ChatFormatting.GREEN));
         if (player instanceof ServerPlayer serverPlayer) {

@@ -1,10 +1,10 @@
 package be.nerosro.elemancy.items.tools.lightshield;
 
 import be.nerosro.elemancy.Elemancy;
+import be.nerosro.elemancy.ElemancyAttachments;
 import be.nerosro.elemancy.effects.ElemancyEffects;
 import be.nerosro.elemancy.entity.LightShieldDecoyEntity;
 import be.nerosro.elemancy.items.ElemancyItems;
-import be.nerosro.elemancy.skilltree.Attachments;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.game.ClientboundSoundPacket;
 import net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket;
@@ -41,7 +41,7 @@ public final class LightShieldBlockEvents {
             || !player.getUseItem().is(ElemancyItems.LIGHT_SHIELD.get())
             || event.getBlockedDamage() <= 0.0F
             || !isEligibleDirectAttack(event.getDamageSource())
-            || !player.getData(Attachments.LIGHT_SHIELD_STATE).tryUseRaiseEffects()) {
+            || !player.getData(ElemancyAttachments.LIGHT_SHIELD_STATE).tryUseRaiseEffects()) {
             return;
         }
 
@@ -64,7 +64,7 @@ public final class LightShieldBlockEvents {
     public static void onUseStart(LivingEntityUseItemEvent.Start event) {
         if (event.getEntity() instanceof ServerPlayer player && event.getItem().is(ElemancyItems.LIGHT_SHIELD.get())) {
             LightShieldConcealment.endOnAction(player);
-            player.getData(Attachments.LIGHT_SHIELD_STATE).resetRaise();
+            player.getData(ElemancyAttachments.LIGHT_SHIELD_STATE).resetRaise();
         } else if (event.getEntity() instanceof ServerPlayer player) {
             LightShieldConcealment.endOnAction(player);
         }

@@ -10,6 +10,8 @@ import be.nerosro.elemancy.mana.depth.ScarType;
 public final class ClientScarData {
 
     private static byte activeScars;
+    private static boolean scarsRevealed;
+    private static byte manaCollapseKnowledge;
 
     // Stackable scar data
     private static byte manaBurnStacks;
@@ -30,6 +32,8 @@ public final class ClientScarData {
 
     public static void update(ScarSyncPayload payload) {
         activeScars = payload.activeScars();
+        scarsRevealed = payload.knowledge().scarsRevealed();
+        manaCollapseKnowledge = payload.knowledge().manaCollapseKnowledge();
         manaBurnStacks = payload.manaBurnStacks();
         manaBurnTicks = payload.manaBurnTicks();
         arcaneFatigueStacks = payload.arcaneFatigueStacks();
@@ -44,6 +48,16 @@ public final class ClientScarData {
 
     public static void clear() {
         activeScars = 0;
+        scarsRevealed = false;
+        manaCollapseKnowledge = 0;
+    }
+
+    public static boolean isScarsRevealed() {
+        return scarsRevealed;
+    }
+
+    public static byte getManaCollapseKnowledge() {
+        return manaCollapseKnowledge;
     }
 
     public static boolean hasArcaneTremor() {

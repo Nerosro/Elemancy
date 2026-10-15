@@ -1,12 +1,13 @@
-package be.nerosro.elemancy.skilltree;
+package be.nerosro.elemancy;
 
 import java.util.function.Supplier;
 
-import be.nerosro.elemancy.Elemancy;
 import be.nerosro.elemancy.items.tools.firestriker.FireStrikerState;
 import be.nerosro.elemancy.items.tools.lightshield.LightShieldState;
 import be.nerosro.elemancy.jobpoint.JobPointData;
+import be.nerosro.elemancy.mana.depth.ScarKnowledgeData;
 import be.nerosro.elemancy.passives.VitalCurrentsState;
+import be.nerosro.elemancy.skilltree.EquippedSpellData;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -15,7 +16,7 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 /**
  * Registers Elemancy-owned data attachments.
  */
-public class Attachments {
+public class ElemancyAttachments {
 
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENTS =
         DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, Elemancy.MOD_ID);
@@ -38,6 +39,15 @@ public class Attachments {
                 .copyOnDeath()
                 .build());
 
+    /**
+     * Stores the player's knowledge of the Scar of Mana Depths.
+     */
+    public static final Supplier<AttachmentType<ScarKnowledgeData>> SCAR_KNOWLEDGE =
+        ATTACHMENTS.register("scar_knowledge", () ->
+            AttachmentType.serializable(ScarKnowledgeData::new)
+                .copyOnDeath()
+                .build());
+
     public static final Supplier<AttachmentType<FireStrikerState>> FIRE_STRIKER_STATE =
         ATTACHMENTS.register("fire_striker_state", () ->
             AttachmentType.serializable(FireStrikerState::new).build());
@@ -54,4 +64,3 @@ public class Attachments {
         ATTACHMENTS.register(modEventBus);
     }
 }
-

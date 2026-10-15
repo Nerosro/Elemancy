@@ -22,6 +22,7 @@ import net.minecraft.resources.Identifier;
  */
 public record ScarSyncPayload(
     byte activeScars,
+    Knowledge knowledge,
     byte manaBurnStacks,
     int manaBurnTicks,
     byte arcaneFatigueStacks,
@@ -34,12 +35,21 @@ public record ScarSyncPayload(
     int manaCollapseTicks
 ) implements CustomPacketPayload {
 
+    public record Knowledge(boolean scarsRevealed, byte manaCollapseKnowledge) {
+        public static final StreamCodec<RegistryFriendlyByteBuf, Knowledge> STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.BOOL, Knowledge::scarsRevealed,
+            ByteBufCodecs.BYTE, Knowledge::manaCollapseKnowledge,
+            Knowledge::new
+        );
+    }
+
     public static final CustomPacketPayload.Type<ScarSyncPayload> TYPE =
         new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(Elemancy.MOD_ID, "scar_sync"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, ScarSyncPayload> STREAM_CODEC =
         StreamCodec.composite(
             ByteBufCodecs.BYTE, ScarSyncPayload::activeScars,
+            Knowledge.STREAM_CODEC, ScarSyncPayload::knowledge,
             ByteBufCodecs.BYTE, ScarSyncPayload::manaBurnStacks,
             ByteBufCodecs.VAR_INT, ScarSyncPayload::manaBurnTicks,
             ByteBufCodecs.BYTE, ScarSyncPayload::arcaneFatigueStacks,

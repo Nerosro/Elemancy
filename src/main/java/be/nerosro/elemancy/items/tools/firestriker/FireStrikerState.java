@@ -4,6 +4,11 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.neoforged.neoforge.common.util.ValueIOSerializable;
 
+/**
+ * Persisted on each stoked furnace or campfire block entity.
+ * Tracks whether the heat source is stoked and how many items a campfire has cooked while stoked.
+ * Serialization keeps an active stoke session intact across chunk unloads and world reloads.
+ */
 public final class FireStrikerState implements ValueIOSerializable {
     private static final String TAG_STOKED = "stoked";
     private static final String TAG_COMPLETED_ITEMS = "completed_items";

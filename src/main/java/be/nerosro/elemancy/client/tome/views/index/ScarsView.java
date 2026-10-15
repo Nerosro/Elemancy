@@ -9,7 +9,7 @@ import be.nerosro.elemancy.client.tome.rendering.TomeLayout;
 import be.nerosro.elemancy.client.tome.views.GridIndexView;
 import be.nerosro.elemancy.mana.depth.ManaCollapseKnowledge;
 import be.nerosro.elemancy.mana.depth.ScarType;
-import be.nerosro.soulmark.network.ClientManaData;
+import be.nerosro.elemancy.network.ClientScarData;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
@@ -73,7 +73,7 @@ public class ScarsView extends GridIndexView<ScarsView.ScarIndexEntry> {
         ));
 
         // Mana Collapse only appears after player has experienced it once
-        if (ClientManaData.getManaCollapseKnowledge() == ManaCollapseKnowledge.MIRROR_DIAGNOSED.id()) {
+        if (ClientScarData.getManaCollapseKnowledge() == ManaCollapseKnowledge.MIRROR_DIAGNOSED.id()) {
             list.add(new ScarIndexEntry(
                 ScarType.MANA_COLLAPSE.tickKey().replace("_ticks", ""),
                 Component.translatable(ScarType.MANA_COLLAPSE.translationKey()).getString(),
@@ -111,7 +111,7 @@ public class ScarsView extends GridIndexView<ScarsView.ScarIndexEntry> {
 
     @Override
     public boolean isVisible() {
-        return be.nerosro.soulmark.network.ClientManaData.isScarsRevealed();
+        return ClientScarData.isScarsRevealed();
     }
 
     @Override

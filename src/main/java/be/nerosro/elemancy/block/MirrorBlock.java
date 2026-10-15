@@ -9,7 +9,9 @@ import com.mojang.serialization.MapCodec;
 import be.nerosro.elemancy.items.tome.TomeItem;
 import be.nerosro.elemancy.items.tome.TomeTraitSnapshot;
 import be.nerosro.elemancy.mana.depth.ManaDepthSystem;
+import be.nerosro.elemancy.mana.depth.ScarFacade;
 import be.nerosro.elemancy.mana.depth.ScarType;
+import be.nerosro.elemancy.network.ElemancyNetwork;
 import be.nerosro.soulmark.network.SoulmarkNetwork;
 import be.nerosro.soulmark.traits.Trait;
 import be.nerosro.soulmark.traits.TraitData;
@@ -264,22 +266,27 @@ public class MirrorBlock extends BaseEntityBlock {
     }
 
     private void revealMirrorDiscovery(Player player) {
-        if (TraitUtil.isTraitsRevealed(player)) return;
-
-        TraitUtil.revealTraits(player);
-        TraitUtil.revealScars(player);
-        if (player instanceof ServerPlayer sp) {
-            SoulmarkNetwork.syncMana(sp);
+        if (!TraitUtil.isTraitsRevealed(player)) {
+            TraitUtil.revealTraits(player);
+            if (player instanceof ServerPlayer sp) {
+                SoulmarkNetwork.syncMana(sp);
+            }
+        }
+        if (!ScarFacade.isScarsRevealed(player)) {
+            ScarFacade.revealScars(player);
+            if (player instanceof ServerPlayer sp) {
+                ElemancyNetwork.syncScars(sp);
+            }
         }
     }
 
     private void diagnoseManaCollapse(Player player) {
-        if (!TraitUtil.isScarsRevealed(player) || !ManaDepthSystem.diagnoseManaCollapse(player)) return;
+        if (!ScarFacade.isScarsRevealed(player) || !ManaDepthSystem.diagnoseManaCollapse(player)) return;
 
         player.sendSystemMessage(Component.translatable("message.elemancy.mirror.mana_collapse_diagnosed")
             .withStyle(ChatFormatting.DARK_RED, ChatFormatting.ITALIC));
         if (player instanceof ServerPlayer sp) {
-            SoulmarkNetwork.syncMana(sp);
+            ElemancyNetwork.syncScars(sp);
         }
     }
 }

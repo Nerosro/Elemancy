@@ -1,6 +1,6 @@
 package be.nerosro.elemancy.jobpoint;
 
-import be.nerosro.elemancy.skilltree.Attachments;
+import be.nerosro.elemancy.ElemancyAttachments;
 import net.minecraft.world.entity.player.Player;
 
 /**
@@ -12,20 +12,20 @@ public final class JobPointUtil {
     }
 
     public static JobPointData getData(Player player) {
-        return player.getData(Attachments.JOB_POINTS.get());
+        return player.getData(ElemancyAttachments.JOB_POINTS.get());
     }
 
     public static void award(Player player, int amount) {
         JobPointData data = getData(player);
         data.award(amount);
-        player.setData(Attachments.JOB_POINTS.get(), data);
+        player.setData(ElemancyAttachments.JOB_POINTS.get(), data);
     }
 
     public static boolean awardOnce(Player player, String milestoneId, int amount) {
         JobPointData data = getData(player);
         boolean awarded = data.awardOnce(milestoneId, amount);
         if (awarded) {
-            player.setData(Attachments.JOB_POINTS.get(), data);
+            player.setData(ElemancyAttachments.JOB_POINTS.get(), data);
         }
         return awarded;
     }
@@ -34,7 +34,7 @@ public final class JobPointUtil {
         JobPointData data = getData(player);
         boolean spent = data.trySpend(cost);
         if (spent) {
-            player.setData(Attachments.JOB_POINTS.get(), data);
+            player.setData(ElemancyAttachments.JOB_POINTS.get(), data);
         }
         return spent;
     }

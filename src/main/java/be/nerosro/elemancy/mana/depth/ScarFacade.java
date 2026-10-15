@@ -2,6 +2,8 @@ package be.nerosro.elemancy.mana.depth;
 
 import java.util.Optional;
 
+import be.nerosro.elemancy.ElemancyAttachments;
+import be.nerosro.elemancy.network.ScarSyncPayload;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.effect.MobEffect;
@@ -17,16 +19,21 @@ public final class ScarFacade {
     }
 
     private static final String SCAR_ROOT = "elemancy_scars";
-    private static final String COLLAPSE_KNOWLEDGE_KEY = "elemancy_mana_collapse_knowledge";
+
+    public static boolean isScarsRevealed(Player player) {
+        return player.getData(ElemancyAttachments.SCAR_KNOWLEDGE.get()).isScarsRevealed();
+    }
+
+    public static void revealScars(Player player) {
+        player.getData(ElemancyAttachments.SCAR_KNOWLEDGE.get()).revealScars();
+    }
 
     public static ManaCollapseKnowledge getManaCollapseKnowledge(Player player) {
-        return ManaCollapseKnowledge.byId(player.getPersistentData().getInt(COLLAPSE_KNOWLEDGE_KEY).orElse(0));
+        return player.getData(ElemancyAttachments.SCAR_KNOWLEDGE.get()).getManaCollapseKnowledge();
     }
 
     public static boolean diagnoseManaCollapse(Player player) {
-        if (getManaCollapseKnowledge(player) != ManaCollapseKnowledge.EXPERIENCED_UNDOCUMENTED) return false;
-        player.getPersistentData().putInt(COLLAPSE_KNOWLEDGE_KEY, ManaCollapseKnowledge.MIRROR_DIAGNOSED.id());
-        return true;
+        return player.getData(ElemancyAttachments.SCAR_KNOWLEDGE.get()).diagnoseManaCollapse();
     }
 
     /**
@@ -34,9 +41,7 @@ public final class ScarFacade {
      * Called automatically by applyManaCollapse().
      */
     private static void markManaCollapseExperienced(Player player) {
-        if (getManaCollapseKnowledge(player) == ManaCollapseKnowledge.NEVER_EXPERIENCED) {
-            player.getPersistentData().putInt(COLLAPSE_KNOWLEDGE_KEY, ManaCollapseKnowledge.EXPERIENCED_UNDOCUMENTED.id());
-        }
+        player.getData(ElemancyAttachments.SCAR_KNOWLEDGE.get()).markManaCollapseExperienced();
     }
 
     public static float applyCastCostModifiers(Player player, float baseCost) {
@@ -129,12 +134,14 @@ public final class ScarFacade {
      * Builds full scar payload with bitfield, stacks, and timers for network sync.
      * Used by ElemancyNetwork.syncScars().
      */
-    static be.nerosro.elemancy.network.ScarSyncPayload buildScarPayload(Player player) {
+    static ScarSyncPayload buildScarPayload(Player player) {
         CompoundTag scars = getScarTag(player);
         byte flags = buildScarBitfield(player);
 
-        return new be.nerosro.elemancy.network.ScarSyncPayload(
+        return new ScarSyncPayload(
             flags,
+            new ScarSyncPayload.Knowledge(
+                isScarsRevealed(player), getManaCollapseKnowledge(player).id()),
             (byte) intValue(scars, ScarType.MANA_BURN.requiredStackKey()),
             intValue(scars, ScarType.MANA_BURN.tickKey()),
             (byte) intValue(scars, ScarType.ARCANE_FATIGUE.requiredStackKey()),

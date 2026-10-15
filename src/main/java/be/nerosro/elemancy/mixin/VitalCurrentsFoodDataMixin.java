@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import be.nerosro.elemancy.ElemancyAttachments;
 import be.nerosro.elemancy.passives.VitalCurrentsState;
-import be.nerosro.elemancy.skilltree.Attachments;
 import be.nerosro.elemancy.skilltree.SkillTreeEntries;
 import be.nerosro.soulmark.attunement.AttunementUtil;
 import be.nerosro.soulmark.element.SoulmarkElements;
@@ -16,7 +16,9 @@ import be.nerosro.soulmark.skilltree.SkillTreeUtil;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.food.FoodData;
 
-/** Suppresses exhaustion for an occasional Water-attuned hunger-regeneration pulse. */
+/**
+ * Suppresses exhaustion for an occasional Water-attuned hunger-regeneration pulse.
+ */
 @Mixin(FoodData.class)
 public abstract class VitalCurrentsFoodDataMixin {
     @Unique
@@ -54,7 +56,7 @@ public abstract class VitalCurrentsFoodDataMixin {
             return false;
         }
 
-        VitalCurrentsState state = player.getData(Attachments.VITAL_CURRENTS_STATE);
+        VitalCurrentsState state = player.getData(ElemancyAttachments.VITAL_CURRENTS_STATE);
         long gameTime = player.level().getGameTime();
         if (!state.isReady(gameTime) || player.getRandom().nextFloat() >= TRIGGER_CHANCE) {
             return false;

@@ -13,7 +13,7 @@ import net.minecraft.world.entity.player.Player;
  * Handles cast attempts (cost → spend → depth resolution), scar lifecycle, and collapse.
  */
 public final class ManaDepthSystem {
-    private static final int CHANNEL_DEPTH_PULSE_TICKS = 30;
+    private static final int CHANNEL_DEPTH_PULSE_TICKS = 10;
 
     private ManaDepthSystem() {
     }
@@ -120,10 +120,6 @@ public final class ManaDepthSystem {
 
     public static ScarSyncPayload buildScarPayload(Player player) {
         return ScarFacade.buildScarPayload(player);
-    }
-
-    public static ManaCollapseKnowledge getManaCollapseKnowledge(Player player) {
-        return ScarFacade.getManaCollapseKnowledge(player);
     }
 
     public static boolean diagnoseManaCollapse(Player player) {

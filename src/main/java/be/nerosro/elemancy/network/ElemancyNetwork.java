@@ -19,7 +19,7 @@ public final class ElemancyNetwork {
      * Registers all payload types. Called from the mod bus.
      */
     public static void register(RegisterPayloadHandlersEvent event) {
-        PayloadRegistrar registrar = event.registrar("1");
+        PayloadRegistrar registrar = event.registrar("2");
 
         registrar.playToClient(
             ScarSyncPayload.TYPE,

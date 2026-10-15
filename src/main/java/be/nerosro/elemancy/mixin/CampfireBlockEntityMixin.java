@@ -8,10 +8,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import be.nerosro.elemancy.ElemancyAttachments;
 import be.nerosro.elemancy.items.tools.firestriker.FireStrikerEffects;
 import be.nerosro.elemancy.items.tools.firestriker.FireStrikerState;
 import be.nerosro.elemancy.items.tools.firestriker.StokableHeatSource;
-import be.nerosro.elemancy.skilltree.Attachments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
@@ -49,7 +49,7 @@ public abstract class CampfireBlockEntityMixin implements StokableHeatSource {
     @Override
     public boolean elemancy$tryStoke(ServerLevel level, Player player) {
         BlockEntity blockEntity = (BlockEntity) (Object) this;
-        FireStrikerState strikerState = blockEntity.getData(Attachments.FIRE_STRIKER_STATE);
+        FireStrikerState strikerState = blockEntity.getData(ElemancyAttachments.FIRE_STRIKER_STATE);
         if (strikerState.isStoked()
             || !blockEntity.getBlockState().getValue(CampfireBlock.LIT)
             || elemancy$countCookingItems() == 0) {
@@ -71,7 +71,7 @@ public abstract class CampfireBlockEntityMixin implements StokableHeatSource {
         CallbackInfo callback
     ) {
         CampfireBlockEntityMixin mixin = (CampfireBlockEntityMixin) (Object) entity;
-        FireStrikerState strikerState = entity.getExistingDataOrNull(Attachments.FIRE_STRIKER_STATE);
+        FireStrikerState strikerState = entity.getExistingDataOrNull(ElemancyAttachments.FIRE_STRIKER_STATE);
         if (strikerState == null || !strikerState.isStoked()) {
             return;
         }
@@ -96,7 +96,7 @@ public abstract class CampfireBlockEntityMixin implements StokableHeatSource {
         CallbackInfo callback
     ) {
         CampfireBlockEntityMixin mixin = (CampfireBlockEntityMixin) (Object) entity;
-        FireStrikerState strikerState = entity.getExistingDataOrNull(Attachments.FIRE_STRIKER_STATE);
+        FireStrikerState strikerState = entity.getExistingDataOrNull(ElemancyAttachments.FIRE_STRIKER_STATE);
         if (strikerState == null || !strikerState.isStoked()) {
             return;
         }
@@ -131,7 +131,7 @@ public abstract class CampfireBlockEntityMixin implements StokableHeatSource {
         CampfireBlockEntity entity,
         CallbackInfo callback
     ) {
-        FireStrikerState strikerState = entity.getExistingDataOrNull(Attachments.FIRE_STRIKER_STATE);
+        FireStrikerState strikerState = entity.getExistingDataOrNull(ElemancyAttachments.FIRE_STRIKER_STATE);
         if (strikerState != null && strikerState.isStoked()) {
             strikerState.reset();
             entity.setChanged();

@@ -1,6 +1,6 @@
 package be.nerosro.elemancy.items.tools.lightshield;
 
-import be.nerosro.elemancy.skilltree.Attachments;
+import be.nerosro.elemancy.ElemancyAttachments;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.component.BlocksAttacks;
@@ -25,7 +25,7 @@ final class LightShieldPerfectBlock {
      * Starts the cooldown and returns true only when no cooldown is running.
      */
     static boolean tryStartInvisibilityCooldown(ServerPlayer player) {
-        return player.getData(Attachments.LIGHT_SHIELD_STATE).tryStartInvisibilityCooldown(currentTick(player));
+        return player.getData(ElemancyAttachments.LIGHT_SHIELD_STATE).tryStartInvisibilityCooldown(currentTick(player));
     }
 
     private static int currentTick(ServerPlayer player) {
