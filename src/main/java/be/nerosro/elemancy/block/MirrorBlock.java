@@ -222,18 +222,18 @@ public class MirrorBlock extends BaseEntityBlock {
                 hasAnyScar = true;
             }
 
-            int seconds = ticks / 20;
+            String duration = formatScarDuration(ticks);
 
             Component line;
             String stackKey = scar.stackKey();
             if (stackKey != null) {
                 int stacks = scars.getInt(stackKey).orElse(0);
                 line = Component.literal("  ").append(Component.translatable(scar.translationKey()))
-                    .append(Component.literal(" ×" + stacks + " (" + seconds + "s)"))
+                    .append(Component.literal(" ×" + stacks + " (" + duration + ")"))
                     .withStyle(ChatFormatting.RED);
             } else {
                 line = Component.literal("  ").append(Component.translatable(scar.translationKey()))
-                    .append(Component.literal(" (" + seconds + "s)"))
+                    .append(Component.literal(" (" + duration + ")"))
                     .withStyle(ChatFormatting.RED);
             }
             player.sendSystemMessage(line);
@@ -244,6 +244,25 @@ public class MirrorBlock extends BaseEntityBlock {
             player.sendSystemMessage(Component.literal("No active scars.")
                 .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
         }
+    }
+
+    private static String formatScarDuration(int ticks) {
+        int seconds = (ticks + 19) / 20;
+        int hours = seconds / 3600;
+        int minutes = seconds / 60 % 60;
+        int remainingSeconds = seconds % 60;
+        StringBuilder duration = new StringBuilder();
+
+        if (hours > 0) duration.append(hours).append('h');
+        if (minutes > 0) {
+            if (!duration.isEmpty()) duration.append(' ');
+            duration.append(minutes).append('m');
+        }
+        if (remainingSeconds > 0 || duration.isEmpty()) {
+            if (!duration.isEmpty()) duration.append(' ');
+            duration.append(remainingSeconds).append('s');
+        }
+        return duration.toString();
     }
 
     // ── Tome Sync ───────────────────────────────────────────────────────────

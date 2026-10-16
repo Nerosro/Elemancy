@@ -9,7 +9,9 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FontDescription;
 import net.minecraft.network.chat.Style;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.gui.GuiLayer;
@@ -19,6 +21,8 @@ import net.neoforged.neoforge.client.gui.GuiLayer;
  * Color shifts based on depth tier when mana goes negative.
  */
 public class ManaHudOverlay implements GuiLayer {
+    private static final FontDescription COLLAPSE_FONT =
+        new FontDescription.Resource(Identifier.withDefaultNamespace("alt"));
 
     @Override
     public void render(GuiGraphicsExtractor graphics, DeltaTracker deltaTracker) {
@@ -39,7 +43,7 @@ public class ManaHudOverlay implements GuiLayer {
 
         String manaText = String.format("Mana: %.1f / %.1f", current, max);
         Component manaComponent = manaCollapse
-            ? Component.literal(manaText).withStyle(Style.EMPTY.withObfuscated(true))
+            ? Component.literal(manaText).withStyle(Style.EMPTY.withFont(COLLAPSE_FONT).withObfuscated(true))
             : Component.literal(manaText);
 
         // Position: top-left area, below the hotbar level
