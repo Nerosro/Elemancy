@@ -72,19 +72,19 @@ public final class ManaDepthValues {
         builder.push("scarDurations");
         scarArcaneTremorDurationTicks = builder
             .comment("Arcane Tremor duration in ticks.")
-            .defineInRange("arcaneTremorTicks", 24_000, 20, 240_000);
+            .defineInRange("arcaneTremorTicks", 6_000, 600, 30_000); // 30 seconds minimum, 25 minutes maximum, default 5 minutes
         scarSpellDriftDurationTicks = builder
             .comment("Spell Drift duration in ticks.")
-            .defineInRange("spellDriftTicks", 24_000, 20, 240_000);
+            .defineInRange("spellDriftTicks", 6_000, 600, 30_000); // 30 seconds minimum, 25 minutes maximum, default 5 minutes
         scarChannelDisruptionDurationTicks = builder
             .comment("Channel Disruption duration in ticks.")
-            .defineInRange("channelDisruptionTicks", 12_000, 20, 240_000);
+            .defineInRange("channelDisruptionTicks", 12_000, 1200, 60_000); // 1 minute minimum, 50 minutes maximum, default 10 minutes
         scarEnergeticDurationTicks = builder
             .comment("Energetic scar duration in ticks.")
-            .defineInRange("energeticScarTicks", 72_000, 20, 240_000);
+            .defineInRange("energeticScarTicks", 30_000, 6000, 108_000); // 5 minutes minimum, 1.5 hours maximum, default 25 minutes
         scarManaCollapseDurationTicks = builder
             .comment("Mana Collapse duration in ticks.")
-            .defineInRange("manaCollapseTicks", 120_000, 20, 240_000);
+            .defineInRange("manaCollapseTicks", 54_000, 12_000, 288_000); // 10 minutes minimum, 4 hours maximum, default 45 minutes
         builder.pop();
 
         builder.push("castCost");
